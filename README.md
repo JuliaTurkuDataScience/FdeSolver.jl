@@ -1,5 +1,5 @@
 # FDE_Solver
-This is a solver function for a class of fractional differential equations. 
+This is a solver Pkg in Julia for a class of fractional differential equations. 
 There are some related source codes in [MATLAB](https://www.dm.uniba.it/members/garrappa/software) but not yet in Julia. Hence, the purpose is to develop a Julia package that numerically solves nonlinear fractional ordinary differential equations.
 We implement the predictor-corrector algorithms.
 You can find the details of the methods [here](https://link.springer.com/article/10.1023/A:1016592219341) that the authors have discussed the [convergence and accuracy](https://link.springer.com/article/10.1023/B:NUMA.0000027736.85078.be).
