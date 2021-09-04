@@ -16,7 +16,7 @@ function F(t, n, β, y)
 
 end
 
-    t, Yapp = improveit8(F, tSpan, y0, β)
+t, Yapp = improveit10(F, tSpan, y0, β)
 
 plot(t, Yapp, linewidth = 5, title = "Solution of a system of 2 FDEs", xaxis = "Time (t)", yaxis = "y(t)", label = "Approximation 1")
 plot!(t, t -> (t.^8 - 3 * t .^ (4 + β / 2) + 9/4 * t.^β), lw = 3, ls = :dash, label = "Exact solution 1")
