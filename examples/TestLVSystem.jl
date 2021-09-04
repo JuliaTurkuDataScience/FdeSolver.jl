@@ -5,7 +5,7 @@ using Plots
 
 tSpan = [0, 25]
 y0 = [34, 6]
-β = [0.8, 1]
+β = [0.98, 0.99]
 
 function F(t, n, β, y)
 
@@ -26,7 +26,7 @@ function F(t, n, β, y)
 
 end
 
-t, Yapp = improveit8(F, tSpan, y0, β)
+t, Yapp = improveit10(F, tSpan, y0, β)
 
 plot(t, Yapp, linewidth = 5, title = "Solution to LV model with 2 FDEs",
      xaxis = "Time (t)", yaxis = "y(t)", label = "Approximation")
