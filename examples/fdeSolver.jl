@@ -11,6 +11,6 @@ include("../FDE_solver/alpha_function.jl")
 include("../FDE_solver/phi_function.jl")
 include("../FDE_solver/gamma_function.jl")
 
-export(improveit10)
+export(FDEsolver)
 
 end
