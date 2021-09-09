@@ -1,14 +1,19 @@
+[![Build Status](https://travis-ci.com/RiboRings/sample_package.jl.svg?branch=master)](https://travis-ci.com/RiboRings/sample_package.jl)
+[![Build Status](https://ci.appveyor.com/api/projects/status/github/RiboRings/sample_package.jl?svg=true)](https://ci.appveyor.com/project/RiboRings/sample_package-jl)
+[![Coverage](https://codecov.io/gh/RiboRings/sample_package.jl/branch/master/graph/badge.svg)](https://codecov.io/gh/RiboRings/sample_package.jl)
+[![Coverage](https://coveralls.io/repos/github/RiboRings/sample_package.jl/badge.svg?branch=master)](https://coveralls.io/github/RiboRings/sample_package.jl?branch=master)
+
 # FdeSolver
-This is a solver Pkg in Julia for a class of fractional differential equations. 
+This is a solver Pkg in Julia for a class of fractional differential equations.
 There are some related source codes in [MATLAB](https://www.dm.uniba.it/members/garrappa/software) but not yet in Julia. Hence, the purpose is to develop a Julia package that numerically solves nonlinear fractional ordinary differential equations.
 We implement the predictor-corrector algorithms.
 You can find the details of the methods [here](https://link.springer.com/article/10.1023/A:1016592219341) that the authors have discussed the [convergence and accuracy](https://link.springer.com/article/10.1023/B:NUMA.0000027736.85078.be).
 Interested readers can also find the [stability](https://www.tandfonline.com/doi/full/10.1080/00207160802624331) of the methods and see how to implement the methods for solving [multi-term](https://link.springer.com/article/10.1007/s00607-003-0033-3) fractional differential equations.
 
 ## Method
-Let us suppose the following initial value problem with the Caputo fractional derivative <img src="https://latex.codecogs.com/svg.image?{}_{C}\!D_{t_0}^\beta" title="{}_{C}\!D_{t_0}^\beta" /> when <img src="https://latex.codecogs.com/svg.image?\beta>0" title="\beta>0" /> 
+Let us suppose the following initial value problem with the Caputo fractional derivative <img src="https://latex.codecogs.com/svg.image?{}_{C}\!D_{t_0}^\beta" title="{}_{C}\!D_{t_0}^\beta" /> when <img src="https://latex.codecogs.com/svg.image?\beta>0" title="\beta>0" />
 
-<img src="https://latex.codecogs.com/svg.image?{}_{C}\!D_{t_0}^{\beta}y(t)=f(t,y(t))" title="{}_{C}\!D_{t_0}^{\beta}y(t)=f(t,y(t))" /> 
+<img src="https://latex.codecogs.com/svg.image?{}_{C}\!D_{t_0}^{\beta}y(t)=f(t,y(t))" title="{}_{C}\!D_{t_0}^{\beta}y(t)=f(t,y(t))" />
 
 with the initial condition <img src="https://latex.codecogs.com/svg.image?y(t_0)=y_0,y^{(1)}(t_0)=y^{(1)}_0,...,y^{(m-1)}(t_0)=y^{(m-1)}_0" title="y(t_0)=y0" />, where m the upper integer of the order of derivative.
 

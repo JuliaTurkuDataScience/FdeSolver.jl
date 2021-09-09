@@ -1,13 +1,19 @@
 name = "FdeSolver"
-uuid = "8bc876f4-fe3d-4645-ab4f-574d4c5ada41"
-authors = ["Moein Khalinghi and Giulio Benedetti <giuliobene2000@gmail.com>"]
+uuid = "d53c3a4d-586c-404f-b941-efb0c4526a0e"
+authors = ["Moein Khalinghi", "Giulio Benedetti"]
 version = "0.1.0"
+
+[deps]
+SpecialFunctions = "276daf66-3868-5448-9aa4-cd146d93841b"
 
 [compat]
 julia = "1"
 
 [extras]
 Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+Plots = "91a5bcdd-55d7-5caf-9e0b-520d859cae80"
+MittagLeffler = "9c257583-4f8f-53fd-abd9-c69d5080dd54"
 
 [targets]
 test = ["Test"]
+examples = ["Plots", "MittagLeffler"]
