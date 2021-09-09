@@ -1,6 +1,6 @@
 using Revise
-push!(LOAD_PATH, "./examples")
-using fdeSolver
+push!(LOAD_PATH, "./src")
+using FdeSolver
 
 using Plots
 using SpecialFunctions
@@ -19,7 +19,7 @@ function F(t, n, β, y)
 
 end
 
-t, Yapp = improveit10(F, tSpan, y0, β)
+t, Yapp = FDEsolver(F, tSpan, y0, β)
 
 plot(t, Yapp, linewidth = 5, title = "Solution of system 33",
      xaxis = "Time (t)", yaxis = "y(t)", label = "Approximation")

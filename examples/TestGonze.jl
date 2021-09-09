@@ -1,6 +1,6 @@
 using Revise
-push!(LOAD_PATH, "./examples")
-using fdeSolver
+push!(LOAD_PATH, "./src")
+using FdeSolver
 using Plots
 
 # time span
