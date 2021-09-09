@@ -1,6 +1,6 @@
 using Revise
-push!(LOAD_PATH, "./src")
-using FdeSolver
+push!(LOAD_PATH, "./examples")
+using fdeSolver
 using Plots
 
 N = 1
@@ -22,7 +22,7 @@ function F(t, n, α, y, par)
 
 end
 
-t, Yapp = FDEsolver(F, tSpan, y0, α, par, h = h)
+t, Yapp = improveit10(F, tSpan, y0, α, par, h = h)
 
 plot(t, Yapp, linewidth = 5, title = "Numerical solution of SIR model",
      xaxis = "Time (t)", yaxis = "y(t)")
