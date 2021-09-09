@@ -1,6 +1,6 @@
 using Revise
-push!(LOAD_PATH, "./examples")
-using fdeSolver
+push!(LOAD_PATH, "./src")
+using FdeSolver
 using Plots
 
 tSpan = [0, 25]
@@ -17,7 +17,7 @@ function F(t, n, β, y, par)
 
 end
 
-t, Yapp = improveit10(F, tSpan, y0, β, par)
+t, Yapp = FDEsolver(F, tSpan, y0, β, par)
 
 plot(t, Yapp, linewidth = 5, title = "Solution to LV model with 2 FDEs",
      xaxis = "Time (t)", yaxis = "y(t)", label = "Approximation")
