@@ -1,3 +1,7 @@
+"""
+Solve fractional differential equations with a predictor-corrector approach.
+"""
+
 function FDEsolver(F, tSpan, y0, β, par...; h = 0.01, nc = 2, tol = 10^(-6), itmax = 30)
 
     # Time discretization
@@ -12,7 +16,7 @@ function FDEsolver(F, tSpan, y0, β, par...; h = 0.01, nc = 2, tol = 10^(-6), it
 
     for n in 1:N
 
-        T0 = sum([(t[n] - tSpan[1]) ^ k / factorial(k) * y0[:, k + 1] for k in 0:m - 1])
+        T0 = taylor_expansion(tSpan[1], t[n], y0)
 
         if n == 1
 
