@@ -1,7 +1,7 @@
 # FdeSolver
 
 [![Build Status](https://app.travis-ci.com/RiboRings/FdeSolver.svg?token=9yfWbTs9S5YoYK3sRzw8&branch=build_package)](https://app.travis-ci.com/RiboRings/FdeSolver)
-[![Build Status](https://ci.appveyor.com/api/projects/status/github/RiboRings/FdeSolver.jl?svg=true)](https://ci.appveyor.com/project/RiboRings/FdeSolver-jl)
+[![Build status](https://ci.appveyor.com/api/projects/status/w2xsg7fdr9df8lqb/branch/main?svg=true)](https://ci.appveyor.com/project/RiboRings/fdesolver/branch/build_package)
 [![Coverage](https://codecov.io/gh/RiboRings/FdeSolver.jl/branch/build_package/graph/badge.svg)](https://codecov.io/gh/RiboRings/FdeSolver.jl)
 [![Coverage](https://coveralls.io/repos/github/RiboRings/FdeSolver.jl/badge.svg?branch=build_package)](https://coveralls.io/github/RiboRings/FdeSolver.jl?branch=build_package)
 
