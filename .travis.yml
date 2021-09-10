@@ -8,7 +8,6 @@ julia:
   - nightly
 os:
   - linux
-  - Windows
   - osx
 arch:
   - x64
