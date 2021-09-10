@@ -1,9 +1,7 @@
 # FdeSolver
 
 [![Build Status](https://app.travis-ci.com/RiboRings/FdeSolver.svg?token=9yfWbTs9S5YoYK3sRzw8&branch=build_package)](https://app.travis-ci.com/RiboRings/FdeSolver)
-[![Build status](https://ci.appveyor.com/api/projects/status/w2xsg7fdr9df8lqb/branch/main?svg=true)](https://ci.appveyor.com/project/RiboRings/fdesolver/branch/build_package)
 [![Coverage](https://codecov.io/gh/RiboRings/FdeSolver.jl/branch/build_package/graph/badge.svg)](https://codecov.io/gh/RiboRings/FdeSolver.jl)
-[![Coverage](https://coveralls.io/repos/github/RiboRings/FdeSolver.jl/badge.svg?branch=build_package)](https://coveralls.io/github/RiboRings/FdeSolver.jl?branch=build_package)
 
 This is a solver Pkg in Julia for a class of fractional differential equations.
 There are some related source codes in [MATLAB](https://www.dm.uniba.it/members/garrappa/software) but not yet in Julia. Hence, the purpose is to develop a Julia package that numerically solves nonlinear fractional ordinary differential equations.
