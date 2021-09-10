@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/RiboRings/FdeSolver.jl.svg?branch=build_package)](https://travis-ci.com/RiboRings/FdeSolver.jl)
+[![Build Status](https://travis-ci.com/RiboRings/FDE_Solver.jl.svg?branch=build_package)](https://travis-ci.com/RiboRings/FDE_Solver.jl)
 [![Build Status](https://ci.appveyor.com/api/projects/status/github/RiboRings/FdeSolver.jl?svg=true)](https://ci.appveyor.com/project/RiboRings/FdeSolver-jl)
 [![Coverage](https://codecov.io/gh/RiboRings/FdeSolver.jl/branch/build_package/graph/badge.svg)](https://codecov.io/gh/RiboRings/FdeSolver.jl)
 [![Coverage](https://coveralls.io/repos/github/RiboRings/FdeSolver.jl/badge.svg?branch=build_package)](https://coveralls.io/github/RiboRings/FdeSolver.jl?branch=build_package)
