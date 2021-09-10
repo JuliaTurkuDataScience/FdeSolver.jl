@@ -1,7 +1,7 @@
-[![Build Status](https://travis-ci.com/RiboRings/sample_package.jl.svg?branch=master)](https://travis-ci.com/RiboRings/sample_package.jl)
-[![Build Status](https://ci.appveyor.com/api/projects/status/github/RiboRings/sample_package.jl?svg=true)](https://ci.appveyor.com/project/RiboRings/sample_package-jl)
-[![Coverage](https://codecov.io/gh/RiboRings/sample_package.jl/branch/master/graph/badge.svg)](https://codecov.io/gh/RiboRings/sample_package.jl)
-[![Coverage](https://coveralls.io/repos/github/RiboRings/sample_package.jl/badge.svg?branch=master)](https://coveralls.io/github/RiboRings/sample_package.jl?branch=master)
+[![Build Status](https://travis-ci.com/RiboRings/FdeSolver.jl.svg?branch=build_package)](https://travis-ci.com/RiboRings/FdeSolver.jl)
+[![Build Status](https://ci.appveyor.com/api/projects/status/github/RiboRings/FdeSolver.jl?svg=true)](https://ci.appveyor.com/project/RiboRings/FdeSolver-jl)
+[![Coverage](https://codecov.io/gh/RiboRings/FdeSolver.jl/branch/build_package/graph/badge.svg)](https://codecov.io/gh/RiboRings/FdeSolver.jl)
+[![Coverage](https://coveralls.io/repos/github/RiboRings/FdeSolver.jl/badge.svg?branch=build_package)](https://coveralls.io/github/RiboRings/FdeSolver.jl?branch=build_package)
 
 # FdeSolver
 This is a solver Pkg in Julia for a class of fractional differential equations.
