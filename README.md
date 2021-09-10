@@ -1,6 +1,6 @@
 # FdeSolver
 
-[![Build Status](https://app.travis-ci.com/RiboRings/FdeSolver.svg?token=9yfWbTs9S5YoYK3sRzw8&branch=build_package)](https://app.travis-ci.com/RiboRings/FdeSolver)
+[![Build Status](https://app.travis-ci.com/JuliaTurkuDataScience/FdeSolver.jl.svg?branch=main)](https://app.travis-ci.com/JuliaTurkuDataScience/FdeSolver.jl)
 [![codecov](https://codecov.io/gh/RiboRings/FdeSolver/branch/build_package/graph/badge.svg?token=00WTJLJQLV)](https://codecov.io/gh/RiboRings/FdeSolver)
 
 This is a solver Pkg in Julia for a class of fractional differential equations.
