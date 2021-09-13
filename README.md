@@ -2,7 +2,7 @@
 
 [![Stable](https://img.shields.io/badge/docs-stable-blue.svg)](https://RiboRings.github.io/FdeSolver.jl/stable)
 [![Dev](https://img.shields.io/badge/docs-dev-blue.svg)](https://RiboRings.github.io/FdeSolver.jl/dev)
-[![Build Status](https://github.com/RiboRings/FdeSolver.jl/workflows/CI/badge.svg)](https://github.com/RiboRings/FdeSolver.jl/actions)
+![example workflow](https://github.com/JuliaTurkuDataScience/FdeSolver/actions/workflows/CI.yml/badge.svg?branch=build_package)
 [![Coverage](https://codecov.io/gh/RiboRings/FdeSolver.jl/branch/master/graph/badge.svg)](https://codecov.io/gh/RiboRings/FdeSolver.jl)
 
 This is a solver Pkg in Julia for a class of fractional differential equations.
