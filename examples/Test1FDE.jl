@@ -1,10 +1,6 @@
-push!(LOAD_PATH, "./src")
 using FdeSolver
-using Test
-
 using SpecialFunctions
 using Plots
-using MittagLeffler
 
 tSpan = [0, 1.5]
 y0 = 0

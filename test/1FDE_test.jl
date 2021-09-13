@@ -1,7 +1,6 @@
 using FdeSolver
 using Test
 using SpecialFunctions
-using MittagLeffler
 
 @testset "FdeSolver.jl" begin
 
@@ -16,7 +15,7 @@ using MittagLeffler
     end
 
     t, Yapp = FDEsolver(F, tSpan, y0, β)
-    
+
     @test @isdefined(t)
     @test @isdefined(Yapp)
 

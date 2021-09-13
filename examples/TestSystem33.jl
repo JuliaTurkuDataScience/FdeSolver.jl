@@ -1,7 +1,4 @@
-using Revise
-push!(LOAD_PATH, "./src")
 using FdeSolver
-
 using Plots
 using SpecialFunctions
 
