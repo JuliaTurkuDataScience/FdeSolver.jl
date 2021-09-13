@@ -11,3 +11,5 @@ end
     b = FdeSolver.greet()
     @test @isdefined(b)
 end
+
+# new line
