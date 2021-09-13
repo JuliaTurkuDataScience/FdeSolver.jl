@@ -1,9 +1,10 @@
-[![Build Status](https://travis-ci.com/RiboRings/sample_package.jl.svg?branch=master)](https://travis-ci.com/RiboRings/sample_package.jl)
-[![Build Status](https://ci.appveyor.com/api/projects/status/github/RiboRings/sample_package.jl?svg=true)](https://ci.appveyor.com/project/RiboRings/sample_package-jl)
-[![Coverage](https://codecov.io/gh/RiboRings/sample_package.jl/branch/master/graph/badge.svg)](https://codecov.io/gh/RiboRings/sample_package.jl)
-[![Coverage](https://coveralls.io/repos/github/RiboRings/sample_package.jl/badge.svg?branch=master)](https://coveralls.io/github/RiboRings/sample_package.jl?branch=master)
-
 # FdeSolver
+
+[![Stable](https://img.shields.io/badge/docs-stable-blue.svg)](https://RiboRings.github.io/FdeSolver.jl/stable)
+[![Dev](https://img.shields.io/badge/docs-dev-blue.svg)](https://RiboRings.github.io/FdeSolver.jl/dev)
+[![Build Status](https://github.com/RiboRings/FdeSolver.jl/workflows/CI/badge.svg)](https://github.com/RiboRings/FdeSolver.jl/actions)
+[![Coverage](https://codecov.io/gh/RiboRings/FdeSolver.jl/branch/master/graph/badge.svg)](https://codecov.io/gh/RiboRings/FdeSolver.jl)
+
 This is a solver Pkg in Julia for a class of fractional differential equations.
 There are some related source codes in [MATLAB](https://www.dm.uniba.it/members/garrappa/software) but not yet in Julia. Hence, the purpose is to develop a Julia package that numerically solves nonlinear fractional ordinary differential equations.
 We implement the predictor-corrector algorithms.

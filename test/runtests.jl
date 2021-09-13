@@ -1,23 +1,9 @@
-push!(LOAD_PATH, "./src")
-using FdeSolver
-using Test
+using SafeTestsets
 
-@testset "FdeSolver.jl" begin
+@safetestset "solving 1 FDE" begin include("1FDE_test.jl") end
 
-    tSpan = [0, 25]
-    y0 = [34, 6]
-    β = [0.98, 0.99]
-    par = [0.55, 0.028, 0.80, 0.024]
+@safetestset "solving 2 parametric FDEs" begin include("2FDE_par_test.jl") end
 
-    function F(t, n, β, y, par)
+@safetestset "solving 3 parametric FDEs with inner function" begin include("3FDE_par_test.jl") end
 
-        F1 = par[1] .* y[n, 1] .- par[2] .* y[n, 1] .* y[n, 2]
-        F2 = - par[3] .* y[n, 2] .+ par[4] .* y[n, 1] .* y[n, 2]
-
-        [F1, F2]
-
-    end
-
-    t, Yapp = FDEsolver(F, tSpan, y0, β, par)
-
-end
+@safetestset "sample test" begin include("sample_test.jl") end
