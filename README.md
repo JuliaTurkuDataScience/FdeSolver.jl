@@ -1,8 +1,5 @@
 # FdeSolver
 
-[![Build Status](https://app.travis-ci.com/JuliaTurkuDataScience/FdeSolver.jl.svg?branch=main)](https://app.travis-ci.com/JuliaTurkuDataScience/FdeSolver.jl)
-[![codecov](https://codecov.io/gh/RiboRings/FdeSolver/branch/build_package/graph/badge.svg?token=00WTJLJQLV)](https://codecov.io/gh/RiboRings/FdeSolver)
-
 This is a solver Pkg in Julia for a class of fractional differential equations.
 There are some related source codes in [MATLAB](https://www.dm.uniba.it/members/garrappa/software) but not yet in Julia. Hence, the purpose is to develop a Julia package that numerically solves nonlinear fractional ordinary differential equations.
 We implement the predictor-corrector algorithms.
