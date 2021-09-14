@@ -3,8 +3,8 @@
 [![CI](https://github.com/JuliaTurkuDataScience/FdeSolver.jl/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/JuliaTurkuDataScience/FdeSolver.jl/actions/workflows/CI.yml)
 [![codecov](https://codecov.io/gh/JuliaTurkuDataScience/FdeSolver.jl/branch/main/graph/badge.svg?token=SJ5F6RQ31P)](https://codecov.io/gh/JuliaTurkuDataScience/FdeSolver.jl)
 
-This is a Pkg in Julia for solution to a class of fractional differential equations and system equations.
-Many advanced source codes in [MATLAB](https://www.dm.uniba.it/members/garrappa/software) are available that they are not open source projects like this one in Julia. Hence, the purpose is to develop a Julia package that numerically solves nonlinear fractional ordinary differential equations.
+This is a Pkg in **Julia** for solution to a class of fractional differential equations and system equations.
+Many advanced source codes are available in [MATLAB](https://www.dm.uniba.it/members/garrappa/software), but they are not open source projects like this one in Julia. Hence, the purpose is to develop a Julia package that numerically solves nonlinear fractional ordinary differential equations.
 
 ### Method
 
@@ -27,3 +27,24 @@ import Pkg; Pkg.add("FdeSolver")
 ```
 
 ## API
+
+```julia>
+using FdeSolver
+using SpecialFunctions
+using Plots
+
+tSpan = [0, 1.5]
+y0 = 0
+β = 0.9
+
+function F(t, n, β, y)
+
+    return (40320 ./ gamma(9 - β) .* t[n] .^ (8 - β) .- 3 .* gamma(5 + β / 2) ./ gamma(5 - β / 2) .* t[n] .^ (4 - β / 2) .+ 9/4 * gamma(β + 1) .+ (3/2 .* t[n] .^ (β / 2) .- t[n] .^ 4) .^ 3 .- y[n] .^ (3/2))
+
+end
+
+t, Yapp = FDEsolver(F, tSpan, y0, β)
+
+plot(t, Yapp, linewidth = 5, title = "Solution of a system of 2 FDEs", xaxis = "Time (t)", yaxis = "y(t)", label = "Approximation 1")
+plot!(t, t -> (t.^8 - 3 * t .^ (4 + β / 2) + 9/4 * t.^β), lw = 3, ls = :dash, label = "Exact solution 1")
+```
