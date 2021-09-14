@@ -1,3 +1,7 @@
+# """
+# $(DocStringExtensions.README)
+# """
+
 module FdeSolver
 
 using SpecialFunctions
