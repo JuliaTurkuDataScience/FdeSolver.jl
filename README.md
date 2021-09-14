@@ -3,13 +3,13 @@
 [![CI](https://github.com/JuliaTurkuDataScience/FdeSolver.jl/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/JuliaTurkuDataScience/FdeSolver.jl/actions/workflows/CI.yml)
 [![codecov](https://codecov.io/gh/JuliaTurkuDataScience/FdeSolver.jl/branch/main/graph/badge.svg?token=SJ5F6RQ31P)](https://codecov.io/gh/JuliaTurkuDataScience/FdeSolver.jl)
 
-This is a solver Pkg in Julia for a class of fractional differential equations.
-There are some related source codes in [MATLAB](https://www.dm.uniba.it/members/garrappa/software) but not yet in Julia. Hence, the purpose is to develop a Julia package that numerically solves nonlinear fractional ordinary differential equations.
-We implement the predictor-corrector algorithms.
-You can find the details of the methods [here](https://link.springer.com/article/10.1023/A:1016592219341) that the authors have discussed the [convergence and accuracy](https://link.springer.com/article/10.1023/B:NUMA.0000027736.85078.be).
-Interested readers can also find the [stability](https://www.tandfonline.com/doi/full/10.1080/00207160802624331) of the methods and see how to implement the methods for solving [multi-term](https://link.springer.com/article/10.1007/s00607-003-0033-3) fractional differential equations.
+This is a Pkg in Julia for solution to a class of fractional differential equations and system equations.
+Many advanced source codes in [MATLAB](https://www.dm.uniba.it/members/garrappa/software) are available that they are not open source projects like this one in Julia. Hence, the purpose is to develop a Julia package that numerically solves nonlinear fractional ordinary differential equations.
 
-## Method
+### Method
+
+We implement the [predictor-corrector](https://link.springer.com/article/10.1023/A:1016592219341) algorithms with a sufficient [convergence and accuracy](https://link.springer.com/article/10.1023/B:NUMA.0000027736.85078.be). Interested readers can also find the [stability](https://www.tandfonline.com/doi/full/10.1080/00207160802624331) of the methods and see how to implement the methods for solving [multi-term](https://link.springer.com/article/10.1007/s00607-003-0033-3) fractional differential equations.
+
 Let us suppose the following initial value problem with the Caputo fractional derivative <img src="https://latex.codecogs.com/svg.image?{}_{C}\!D_{t_0}^\beta" title="{}_{C}\!D_{t_0}^\beta" /> when <img src="https://latex.codecogs.com/svg.image?\beta>0" title="\beta>0" />
 
 <img src="https://latex.codecogs.com/svg.image?{}_{C}\!D_{t_0}^{\beta}y(t)=f(t,y(t))" title="{}_{C}\!D_{t_0}^{\beta}y(t)=f(t,y(t))" />
@@ -19,13 +19,11 @@ with the initial condition <img src="https://latex.codecogs.com/svg.image?y(t_0)
 We solve the problem by using predector corrector method (the equation (14) from this [paper](https://www.mdpi.com/2227-7390/6/2/16#)).
 
 
-## Usage
-**We will later update this part**
+## Installation
+If Julia is installed correctly, you can import FdeSolver.jl as:
 
-The solver is named FDESolver, and its arguments are listed below:
+```julia>
+import Pkg; Pkg.add("FdeSolver")
+```
 
-FDESolver(β=order of derivative,y0=initial value,t0=initial time,T=final time,h=time step,F=function $f(t,y)$ )
-
-All arguments β, y0, t0, T, h should be a scaler, but the type of F should be a function.
-
-output(t, y):  t is the discret-time, and y is the solution corresponding to the time.
+## API
