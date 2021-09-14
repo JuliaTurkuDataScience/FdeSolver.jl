@@ -22,13 +22,13 @@ We solve the problem by using predector corrector method (the equation (14) from
 ## Installation
 If Julia is installed correctly, you can import FdeSolver.jl as:
 
-```julia>
+```julia
 import Pkg; Pkg.add("FdeSolver")
 ```
 
 ## API
 
-```julia>
+```julia
 using FdeSolver
 using SpecialFunctions
 using Plots
