@@ -28,6 +28,14 @@ import Pkg; Pkg.add("FdeSolver")
 
 ## API
 
+Example1:
+[Fractional Riccati equation](https://www.sciencedirect.com/science/article/pii/S0898122111003245#s000055)
+<img src="https://latex.codecogs.com/gif.latex?{}_{C}\!D_{t_0}^{\beta}y(t)=1+2y(t)-[y(t)]^2" />, <img src="https://latex.codecogs.com/gif.latex?0<\beta\leq1" /> ,
+subject to the initial condition <img src="https://latex.codecogs.com/gif.latex?y(0)=0" />.
+The exact solution for <img src="https://latex.codecogs.com/gif.latex?\beta=1" /> is
+
+<img src="https://latex.codecogs.com/gif.latex?y(t)=1+\sqrt{2}tanh\left(\sqrt{2}t+\frac{1}{2}ln\Bigg(\frac{\sqrt{2}-1}{\sqrt{2}+1}\Bigg)\right)." />
+
 ```julia
 using FdeSolver
 using SpecialFunctions
@@ -48,3 +56,35 @@ t, Yapp = FDEsolver(F, tSpan, y0, β)
 plot(t, Yapp, linewidth = 5, title = "Solution of a system of 2 FDEs", xaxis = "Time (t)", yaxis = "y(t)", label = "Approximation 1")
 plot!(t, t -> (t.^8 - 3 * t .^ (4 + β / 2) + 9/4 * t.^β), lw = 3, ls = :dash, label = "Exact solution 1")
 ```
+
+
+Example2: 
+```julia
+using FdeSolver
+using Plots
+using SpecialFunctions
+
+tSpan = [0, 5]
+y0 = [1, 0.5, 0.3]
+β = [0.5, 0.2, 0.6]
+
+function F(t, n, β, y)
+
+    F1 = 1 / sqrt(pi) * (((y[n, 2] - 0.5) * (y[n, 3] - 0.3))^(1 / 6) + t[n]^(1 / 2))
+    F2 = gamma(2.2) * (y[n, 1] - 1)
+    F3 = gamma(2.8) / gamma(2.2) * (y[n, 2] - 0.5)
+
+    return [F1, F2, F3]
+
+end
+
+t, Yapp = FDEsolver(F, tSpan, y0, β)
+
+plot(t, Yapp, linewidth = 5, title = "Solution of system 33",
+     xaxis = "Time (t)", yaxis = "y(t)", label = "Approximation")
+
+plot!(t, t -> (t .+ 1), lw = 3, ls = :dash, label = "Exact solution")
+plot!(t, t -> (t.^1.2 .+ 0.5), lw = 3, ls = :dash, label = "Exact solution")
+plot!(t, t -> (t.^1.8 .+ 0.3), lw = 3, ls = :dash, label = "Exact solution")
+```
+
