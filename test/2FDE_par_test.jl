@@ -1,5 +1,6 @@
 using FdeSolver
 using Test
+using Statistics
 
 @testset "FdeSolver.jl" begin
 
@@ -21,5 +22,7 @@ using Test
 
     @test @isdefined(t)
     @test @isdefined(Yapp)
+    @test mean(t) == 12.5
+    @test mean(Yapp) == 28.192035534885537
 
 end

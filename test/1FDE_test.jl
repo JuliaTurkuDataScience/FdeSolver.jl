@@ -1,6 +1,7 @@
 using FdeSolver
 using Test
 using SpecialFunctions
+using Statistics
 
 @testset "FdeSolver.jl" begin
 
@@ -18,5 +19,7 @@ using SpecialFunctions
 
     @test @isdefined(t)
     @test @isdefined(Yapp)
+    @test mean(t) == 0.7499999999999999
+    @test mean(Yapp) == 0.9997133883681191
 
 end
