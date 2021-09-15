@@ -101,7 +101,13 @@ y0 = [34, 6] # initial values
 β = [0.98, 0.99] # order of derivatives
 
 ## ODE model
-par = [0.55, 0.028, 0.80, 0.024] # model parameters
+α1=0.55 #growth rate of the prey population
+β=0.028 #rate of shrinkage relative to the product of the population sizes
+γ=0.84 #shrinkage rate of the predator population
+δ=0.026 #growth rate of the predator population as a factor of the product
+        #of the population sizes
+        
+par = [α1, β1, γ, δ] # model parameters
 
 function F(t, n, β, y, par)
 
