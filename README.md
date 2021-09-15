@@ -88,3 +88,34 @@ plot!(t, t -> (t.^1.2 .+ 0.5), lw = 3, ls = :dash, label = "Exact solution")
 plot!(t, t -> (t.^1.8 .+ 0.3), lw = 3, ls = :dash, label = "Exact solution")
 ```
 
+
+Example3:
+[Lotka-volterra-predator-prey](https://mc-stan.org/users/documentation/case-studies/lotka-volterra-predator-prey.html)
+```julia
+using FdeSolver
+using Plots
+
+## inputs
+tSpan = [0, 25] # [intial time, final time]
+y0 = [34, 6] # initial values
+β = [0.98, 0.99] # order of derivatives
+
+## ODE model
+par = [0.55, 0.028, 0.80, 0.024] # model parameters
+
+function F(t, n, β, y, par)
+
+    F1 = par[1] .* y[n, 1] .- par[2] .* y[n, 1] .* y[n, 2]
+    F2 = - par[3] .* y[n, 2] .+ par[4] .* y[n, 1] .* y[n, 2]
+
+    [F1, F2]
+
+end
+## Solution of the 
+t, Yapp = FDEsolver(F, tSpan, y0, β, par)
+
+plot(t, Yapp, linewidth = 5, title = "Solution to LV model with 2 FDEs",
+     xaxis = "Time (t)", yaxis = "y(t)", label = "Approximation")
+
+```
+
