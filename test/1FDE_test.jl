@@ -1,6 +1,7 @@
 using FdeSolver
 using Test
 using SpecialFunctions
+using Statistics
 
 @testset "FdeSolver.jl" begin
 
@@ -18,5 +19,6 @@ using SpecialFunctions
 
     @test @isdefined(t)
     @test @isdefined(Yapp)
+    @test abs(mean(Yapp) - 0.99971) < 0.05
 
 end
