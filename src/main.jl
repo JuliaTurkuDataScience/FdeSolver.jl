@@ -1,7 +1,7 @@
 """
-Solve fractional differential equations with a predictor-corrector approach.
+    FDEsolver(F, tSpan, y0, β, par...; h = 0.01, nc = 2, tol = 10^(-6), itmax = 30)
+Solves fractional differential equations with a predictor-corrector approach.
 """
-
 function FDEsolver(F, tSpan, y0, β, par...; h = 0.01, nc = 2, tol = 10^(-6), itmax = 30)
 
     # Time discretization

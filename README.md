@@ -1,5 +1,6 @@
 # FdeSolver
 
+[![Stable](https://img.shields.io/badge/docs-stable-blue.svg)](https://juliaturkudatascience.github.io/FdeSolver.jl/)
 [![CI](https://github.com/JuliaTurkuDataScience/FdeSolver.jl/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/JuliaTurkuDataScience/FdeSolver.jl/actions/workflows/CI.yml)
 [![codecov](https://codecov.io/gh/JuliaTurkuDataScience/FdeSolver.jl/branch/main/graph/badge.svg?token=SJ5F6RQ31P)](https://codecov.io/gh/JuliaTurkuDataScience/FdeSolver.jl)
 
@@ -30,7 +31,6 @@ import Pkg; Pkg.add("FdeSolver")
 
 Example1:
 [Fractional nonlinear equation]( https://link.springer.com/article/10.1023/B:NUMA.0000027736.85078.be)
-<img src="https://latex.codecogs.com/gif.latex?\footnotesize{{}_{C}\!D_{t_0}^{\beta}y(t)=\frac{40320}{\Gamma(9-\beta)}t^{8-\beta}-3\frac{\Gamma(5+\beta/2)}{\Gamma(5-\beta/2)}t^{4-\beta/2}+\frac{9}{4}\Gamma(\beta+1)+\left(\frac{3}{2}t^{\beta/2}-t^4\right)^3-y(t)^{3/2}}" />, 
 <img src="https://latex.codecogs.com/gif.latex?0<\beta\leq1" /> ,
 subject to the initial condition <img src="https://latex.codecogs.com/gif.latex?y(0)=0" />.
 The exact solution is
