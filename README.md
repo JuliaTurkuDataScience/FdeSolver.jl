@@ -146,7 +146,9 @@ plot(t, Yapp, linewidth = 5, title = "Numerical solution of SIR model",
      xaxis = "Time (t)", yaxis = "SIR populations", label=["Susceptible" "Infectious" "Recovered"])
 ```
 Example4:
-[Dynamic of interaction of N species microbial communities](https://www.biorxiv.org/content/10.1101/2021.09.01.458486v1.abstract)
+Dynamics of interaction of N species microbial communities 
+
+The impact of [ecological memory](https://www.biorxiv.org/content/10.1101/2021.09.01.458486v1.abstract) on the dynamics of interacting communities can be quantified by solving fractional form ODE systems.
 ```julia
 using FdeSolver
 using Plots
@@ -197,7 +199,7 @@ t, Xapp = FDEsolver(F, tSpan, X0, β, par, h = h, nc = 3, tol = 10^(-8))
 
 # plot
 plot(t, Xapp, linewidth = 5,
-     title = "Dynamic of microbial intercation model",
+     title = "Dynamics of microbial intercation model",
      xaxis = "Time (t)")
      yaxis!("Log Abundance", :log10, minorgrid = true)
 ```
