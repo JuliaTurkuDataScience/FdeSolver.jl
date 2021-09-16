@@ -31,7 +31,6 @@ import Pkg; Pkg.add("FdeSolver")
 
 Example1:
 [Fractional nonlinear equation]( https://link.springer.com/article/10.1023/B:NUMA.0000027736.85078.be)
-<img src="https://latex.codecogs.com/gif.latex?\footnotesize{{}_{C}\!D_{t_0}^{\beta}y(t)=\frac{40320}{\Gamma(9-\beta)}t^{8-\beta}-3\frac{\Gamma(5+\beta/2)}{\Gamma(5-\beta/2)}t^{4-\beta/2}+\frac{9}{4}\Gamma(\beta+1)+\left(\frac{3}{2}t^{\beta/2}-t^4\right)^3-y(t)^{3/2}}" />, 
 <img src="https://latex.codecogs.com/gif.latex?0<\beta\leq1" /> ,
 subject to the initial condition <img src="https://latex.codecogs.com/gif.latex?y(0)=0" />.
 The exact solution is
