@@ -20,18 +20,6 @@ We implement the [predictor-corrector](https://link.springer.com/article/10.1023
 
 Let us suppose the following initial value problem with the Caputo fractional derivative
 
-```julia
-{}_{C}\!D_{t_0}^\beta
-# when \beta>0
-
-{}_{C}\!D_{t_0}^{\beta}y(t)=f(t,y(t))
-```
-
-with the initial condition
-
-```julia
-y(t_0)=y_0,y^{(1)}(t_0)=y^{(1)}_0,...,y^{(m-1)}(t_0)=y^{(m-1)}_0
-```
 
 , where m the upper integer of the order of derivative.
 
@@ -50,13 +38,6 @@ import Pkg; Pkg.add("FdeSolver")
 Example1:
 [Fractional nonlinear equation]( https://link.springer.com/article/10.1023/B:NUMA.0000027736.85078.be)
 
-```julia
-\footnotesize{{}_{C}\!D_{t_0}^{\beta}y(t)=\frac{40320}{\Gamma(9-\beta)}t^{8-\beta}-3\frac{\Gamma(5+\beta/2)}{\Gamma(5-\beta/2)}t^{4-\beta/2}+\frac{9}{4}\Gamma(\beta+1)+\left(\frac{3}{2}t^{\beta/2}-t^4\right)^3-y(t)^{3/2}}
-```
-```julia
-\beta\leq1
-```
-subject to the initial condition
 
 ```julia
 y(0)=0
