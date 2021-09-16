@@ -29,32 +29,36 @@ import Pkg; Pkg.add("FdeSolver")
 ## API
 
 Example1:
-[Fractional Riccati equation](https://www.sciencedirect.com/science/article/pii/S0898122111003245#s000055)
-<img src="https://latex.codecogs.com/gif.latex?{}_{C}\!D_{t_0}^{\beta}y(t)=1+2y(t)-[y(t)]^2" />, <img src="https://latex.codecogs.com/gif.latex?0<\beta\leq1" /> ,
+[Fractional nonlinear equation]( https://link.springer.com/article/10.1023/B:NUMA.0000027736.85078.be)
+<img src="https://latex.codecogs.com/gif.latex?\footnotesize{{}_{C}\!D_{t_0}^{\beta}y(t)=\frac{40320}{\Gamma(9-\beta)}t^{8-\beta}-3\frac{\Gamma(5+\beta/2)}{\Gamma(5-\beta/2)}t^{4-\beta/2}+\frac{9}{4}\Gamma(\beta+1)+\left(\frac{3}{2}t^{\beta/2}-t^4\right)^3-y(t)^{3/2}}" />, 
+<img src="https://latex.codecogs.com/gif.latex?0<\beta\leq1" /> ,
 subject to the initial condition <img src="https://latex.codecogs.com/gif.latex?y(0)=0" />.
-The exact solution for <img src="https://latex.codecogs.com/gif.latex?\beta=1" /> is
-
-<img src="https://latex.codecogs.com/gif.latex?y(t)=1+\sqrt{2}tanh\left(\sqrt{2}t+\frac{1}{2}ln\Bigg(\frac{\sqrt{2}-1}{\sqrt{2}+1}\Bigg)\right)." />
+The exact solution is
+<img src="https://latex.codecogs.com/gif.latex?y(t)=t^8-3t^{4+\beta/2}+9/4t^\beta" />.
 
 ```julia
 using FdeSolver
 using SpecialFunctions
 using Plots
 
-tSpan = [0, 1.5]
-y0 = 0
-β = 0.9
+## inputs
+tSpan = [0, 1] # [intial time, final time]
+y0 = 0 # intial value
+β = 0.9 #order of the derivative
 
-function F(t, n, β, y)
+# Equation
+F(t, n, β, y)=(40320 ./ gamma(9 - β) .* t[n] .^ (8 - β) .- 3 .* gamma(5 + β / 2)
+           ./ gamma(5 - β / 2) .* t[n] .^ (4 - β / 2) .+ 9/4 * gamma(β + 1) .+
+           (3/2 .* t[n] .^ (β / 2) .- t[n] .^ 4) .^ 3 .- y[n] .^ (3/2))
 
-    return (40320 ./ gamma(9 - β) .* t[n] .^ (8 - β) .- 3 .* gamma(5 + β / 2) ./ gamma(5 - β / 2) .* t[n] .^ (4 - β / 2) .+ 9/4 * gamma(β + 1) .+ (3/2 .* t[n] .^ (β / 2) .- t[n] .^ 4) .^ 3 .- y[n] .^ (3/2))
-
-end
-
+## Numerical solution
 t, Yapp = FDEsolver(F, tSpan, y0, β)
 
-plot(t, Yapp, linewidth = 5, title = "Solution of a system of 2 FDEs", xaxis = "Time (t)", yaxis = "y(t)", label = "Approximation 1")
-plot!(t, t -> (t.^8 - 3 * t .^ (4 + β / 2) + 9/4 * t.^β), lw = 3, ls = :dash, label = "Exact solution 1")
+#plot
+plot(t, Yapp, linewidth = 5, title = "Solution of a 1D fractional IVP",
+     xaxis = "Time (t)", yaxis = "y(t)", label = "Approximation")
+plot!(t, t -> (t.^8 - 3 * t .^ (4 + β / 2) + 9/4 * t.^β),
+      lw = 3, ls = :dash, label = "Exact solution")
 ```
 
 
