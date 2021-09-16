@@ -18,5 +18,5 @@ makedocs(;
 )
 
 deploydocs(;
-    repo="github.com/JuliaTurkuDataScience/FdeSolver.jl.git",
+    repo="github.com/JuliaTurkuDataScience/FdeSolver.jl",
 )
