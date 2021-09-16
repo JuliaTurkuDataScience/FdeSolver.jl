@@ -38,7 +38,6 @@ The exact solution is
 
 ```julia
 using FdeSolver
-using SpecialFunctions
 using Plots
 
 ## inputs
@@ -63,38 +62,8 @@ plot!(t, t -> (t.^8 - 3 * t .^ (4 + β / 2) + 9/4 * t.^β),
 
 
 Example2: 
-```julia
-using FdeSolver
-using Plots
-using SpecialFunctions
-
-tSpan = [0, 5]
-y0 = [1, 0.5, 0.3]
-β = [0.5, 0.2, 0.6]
-
-function F(t, n, β, y)
-
-    F1 = 1 / sqrt(pi) * (((y[n, 2] - 0.5) * (y[n, 3] - 0.3))^(1 / 6) + t[n]^(1 / 2))
-    F2 = gamma(2.2) * (y[n, 1] - 1)
-    F3 = gamma(2.8) / gamma(2.2) * (y[n, 2] - 0.5)
-
-    return [F1, F2, F3]
-
-end
-
-t, Yapp = FDEsolver(F, tSpan, y0, β)
-
-plot(t, Yapp, linewidth = 5, title = "Solution of system 33",
-     xaxis = "Time (t)", yaxis = "y(t)", label = "Approximation")
-
-plot!(t, t -> (t .+ 1), lw = 3, ls = :dash, label = "Exact solution")
-plot!(t, t -> (t.^1.2 .+ 0.5), lw = 3, ls = :dash, label = "Exact solution")
-plot!(t, t -> (t.^1.8 .+ 0.3), lw = 3, ls = :dash, label = "Exact solution")
-```
-
-
-Example3:
 [Lotka-volterra-predator-prey](https://mc-stan.org/users/documentation/case-studies/lotka-volterra-predator-prey.html)
+
 ```julia
 using FdeSolver
 using Plots
@@ -105,27 +74,74 @@ y0 = [34, 6] # initial values
 β = [0.98, 0.99] # order of derivatives
 
 ## ODE model
-α1=0.55 #growth rate of the prey population
-β=0.028 #rate of shrinkage relative to the product of the population sizes
-γ=0.84 #shrinkage rate of the predator population
-δ=0.026 #growth rate of the predator population as a factor of the product
-        #of the population sizes
-        
-par = [α1, β1, γ, δ] # model parameters
+
+par = [0.55, 0.028, 0.84, 0.026] # model parameters
 
 function F(t, n, β, y, par)
 
-    F1 = par[1] .* y[n, 1] .- par[2] .* y[n, 1] .* y[n, 2]
-    F2 = - par[3] .* y[n, 2] .+ par[4] .* y[n, 1] .* y[n, 2]
+    α1=par[1] #growth rate of the prey population
+    β1=par[2] #rate of shrinkage relative to the product of the population sizes
+    γ=par[3] #shrinkage rate of the predator population
+    δ=par[4] #growth rate of the predator population as a factor of the product
+             #of the population sizes
+
+    u= y[n, 1] #population size of the prey species at time t[n]
+    v= y[n, 2] #population size of the predator species at time t[n]
+
+    F1 = α1 .* u .- β1 .* u .* v
+    F2 = - γ .* v .+ δ .* u .* v
 
     [F1, F2]
 
 end
-## Solution of the 
+## Solution
 t, Yapp = FDEsolver(F, tSpan, y0, β, par)
 
+# plotting
 plot(t, Yapp, linewidth = 5, title = "Solution to LV model with 2 FDEs",
-     xaxis = "Time (t)", yaxis = "y(t)", label = "Approximation")
-
+     xaxis = "Time (t)", yaxis = "y(t)", label = ["Prey" "Predator"])
+     plot!(legendtitle="Population of")
 ```
 
+Example3:
+[SIR model](https://en.wikipedia.org/wiki/Compartmental_models_in_epidemiology)
+
+One application of using fractional calculus is taking into account effects of [memory](https://journals.aps.org/pre/abstract/10.1103/PhysRevE.95.022409) in modeling including epidemic evolution.
+```julia
+using FdeSolver
+using Plots
+
+## inputs
+I0 = 0.001 #intial value of infected
+tSpan = [0, 100] # [intial time, final time]
+y0 = [1 - I0, I0, 0] # initial values [S0,I0,R0]
+α = [1, 1, 1] # order of derivatives
+h = 0.1 # step size of computation (default=0.01)
+
+## ODE model
+par = [0.4, 0.04] # parameters [β, recovery rate]
+
+function F(t, n, α, y, par)
+
+    #parameters
+    β = par[1] #infection rate
+    γ = par[2] #recovery rate
+
+    S = y[n, 1] #Susceptible
+    I = y[n, 2] #Infectious
+    R = y[n, 3] #Recovered
+
+    #System equation
+    dSdt = - β .* S .* I
+    dIdt = β .* S .* I .- γ .* I
+    dRdt = γ .* I
+
+    return [dSdt, dIdt, dRdt]
+
+end
+## Solution and plotting
+t, Yapp = FDEsolver(F, tSpan, y0, α, par, h = h)
+
+plot(t, Yapp, linewidth = 5, title = "Numerical solution of SIR model",
+     xaxis = "Time (t)", yaxis = "SIR populations", label=["Susceptible" "Infectious" "Recovered"])
+```
