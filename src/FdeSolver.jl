@@ -21,6 +21,5 @@ include("phi_function.jl")
 include("gamma_function.jl")
 
 export(FDEsolver)
-export(my_f)
 
 end
