@@ -39,6 +39,7 @@ The exact solution is
 ```julia
 using FdeSolver
 using Plots
+using SpecialFunctions
 
 ## inputs
 tSpan = [0, 1] # [intial time, final time]
