@@ -1,5 +1,6 @@
 using FdeSolver
 using Test
+using Statistics
 
 @testset "FdeSolver.jl" begin
 
@@ -21,5 +22,6 @@ using Test
 
     @test @isdefined(t)
     @test @isdefined(Yapp)
+    @test abs((mean(Yapp) - 28.19203)) < 0.05
 
 end
