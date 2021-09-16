@@ -6,8 +6,11 @@ module FdeSolver
 
 using SpecialFunctions
 
+"""
+    greet()
+Motivates to get started with FdeSolver
+"""
 greet() = print("Hey, let's solve some FDEs!")
-my_f(x, y) = x + y
 
 include("main.jl")
 include("defineY.jl")

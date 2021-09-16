@@ -20,6 +20,6 @@ using Statistics
     @test @isdefined(t)
     @test @isdefined(Yapp)
     @test mean(t) == 0.7499999999999999
-    @test mean(Yapp) == 0.9997133883681191
+    @test abs(mean(Yapp) - 0.9997133883681191) < 0.05
 
 end

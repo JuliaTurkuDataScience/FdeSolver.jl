@@ -1,5 +1,4 @@
-using FdeSolver
-using Documenter
+using Documenter, FdeSolver
 
 DocMeta.setdocmeta!(FdeSolver, :DocTestSetup, :(using FdeSolver); recursive=true)
 
