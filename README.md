@@ -15,7 +15,7 @@ Let us suppose the following initial value problem with the Caputo fractional de
 
 <img src="https://latex.codecogs.com/svg.image?{}_{C}\!D_{t_0}^{\beta}y(t)=f(t,y(t))" title="{}_{C}\!D_{t_0}^{\beta}y(t)=f(t,y(t))" />
 
-with the initial condition <img src="https://latex.codecogs.com/svg.image?y(t_0)=y_0,y^{(1)}(t_0)=y^{(1)}_0,...,y^{(m-1)}(t_0)=y^{(m-1)}_0" title="y(t_0)=y0" />, where m the smallest integer or equal to the order of derivative.
+with the initial condition <img src="https://latex.codecogs.com/svg.image?y(t_0)=y_0,y^{(1)}(t_0)=y^{(1)}_0,...,y^{(m-1)}(t_0)=y^{(m-1)}_0" title="y(t_0)=y0" />, where m the upper integer of the order of derivative.
 
 We solve the problem by using predector corrector method (the equation (14) from this [paper](https://www.mdpi.com/2227-7390/6/2/16#)).
 
@@ -62,7 +62,7 @@ plot!(t, t -> (t.^8 - 3 * t .^ (4 + β / 2) + 9/4 * t.^β),
 ```
 
 
-Example2: 
+Example2:
 [Lotka-volterra-predator-prey](https://mc-stan.org/users/documentation/case-studies/lotka-volterra-predator-prey.html)
 
 ```julia
@@ -108,8 +108,10 @@ Example3:
 [SIR model](https://en.wikipedia.org/wiki/Compartmental_models_in_epidemiology)
 
 One application of using fractional calculus is taking into account effects of [memory](https://journals.aps.org/pre/abstract/10.1103/PhysRevE.95.022409) in modeling including epidemic evolution.
+
+By `using FdeSolver_Jacob` and defining the Jacobian matrix by the user it is possible to have a faster convergence based on the modified [Newton–Raphson](https://www.mdpi.com/2227-7390/6/2/16/htm) method.
 ```julia
-using FdeSolver
+using FdeSolver_Jacob
 using Plots
 
 ## inputs
@@ -140,14 +142,44 @@ function F(t, n, α, y, par)
     return [dSdt, dIdt, dRdt]
 
 end
+
+## Jacobian of ODE system
+function JacobF(t, n, α, y, par)
+
+    #parameters
+    β = par[1] #infection rate
+    γ = par[2] #recovery rate
+
+    S = y[n, 1] #Susceptible
+    I = y[n, 2] #Infectious
+    R = y[n, 3] #Recovered
+
+    #System equation
+    J11 = - β * I
+    J12 = - β * S
+    J13 =  0
+    J21 =  β * I
+    J22 =  β * S - γ
+    J23 =  0
+    J31 =  0
+    J32 =  γ
+    J33 =  0
+
+    J = [J11 J12 J13
+         J21 J22 J23
+         J31 J32 J33]
+    return J
+
+end
+
 ## Solution and plotting
-t, Yapp = FDEsolver(F, tSpan, y0, α, par, h = h)
+t, Yapp = FDEsolver_Jacob(F, JacobF, tSpan, y0, α, par, h = h)
 
 plot(t, Yapp, linewidth = 5, title = "Numerical solution of SIR model",
      xaxis = "Time (t)", yaxis = "SIR populations", label=["Susceptible" "Infectious" "Recovered"])
 ```
 Example4:
-Dynamics of interaction of N species microbial communities 
+Dynamics of interaction of N species microbial communities
 
 The impact of [ecological memory](https://www.biorxiv.org/content/10.1101/2021.09.01.458486v1.abstract) on the dynamics of interacting communities can be quantified by solving fractional form ODE systems.
 ```julia
