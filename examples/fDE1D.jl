@@ -1,4 +1,3 @@
-push!(LOAD_PATH,"./src")
 using FdeSolver
 using FdeSolver_Jacob
 using Plots
