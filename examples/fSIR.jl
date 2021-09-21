@@ -1,6 +1,4 @@
-
 using FdeSolver
-using FdeSolver_Jacob
 using Plots
 
 ## inputs
@@ -63,7 +61,7 @@ end
 ## Solution
 t, Yapp = FDEsolver(F, tSpan, y0, α, par, h = h)
 
-t1, Yapp1 = FDEsolver_Jacob(F, JacobF, tSpan, y0, α, par, h = h)
+t1, Yapp1 = FDEsolver(F, tSpan, y0, α, JacobF, par, h = h)
 
 ## plotting
 plot(t, Yapp, linewidth = 5, title = "Numerical solution of SIR model",

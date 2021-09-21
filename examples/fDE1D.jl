@@ -1,5 +1,4 @@
 using FdeSolver
-using FdeSolver_Jacob
 using Plots
 using SpecialFunctions
 
@@ -19,7 +18,7 @@ JacobF(t, n, β, y) = -(3/2).* y[n] .^ (1/2)
 ## Numerical solution
 t, Yapp = FDEsolver(F, tSpan, y0, β)
 
-t1, Yapp1 = FDEsolver_Jacob(F, JacobF, tSpan, y0, β)
+t1, Yapp1 = FDEsolver(F, tSpan, y0, β, JacobF)
 
 #plot
 plot(t, Yapp, linewidth = 5, title = "Solution of a 1D fractional IVP",

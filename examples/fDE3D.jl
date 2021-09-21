@@ -1,7 +1,6 @@
 ```
 Equation 33 of https://www.mdpi.com/2227-7390/6/2/16/htm
 ```
-
 using FdeSolver
 using Plots
 
