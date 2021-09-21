@@ -13,5 +13,6 @@ include("main_Jacob.jl")
 include("SupFuns.jl")
 
 export(FDEsolver)
+export(FDEsolver_Jacob)
 
 end

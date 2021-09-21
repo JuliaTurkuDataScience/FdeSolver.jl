@@ -9,7 +9,7 @@ F = function corresponfing to the right side of  FDEs. It must return a vector
 
 Description of output parameters:
 """
-function FDEsolver(F, tSpan, y0, β, JacobF, par...; h = 0.01, nc = 3, tol = 10^(-9), itmax = 10)
+function FDEsolver_Jacob(F, tSpan, y0, β, JacobF, par...; h = 0.01, nc = 3, tol = 10^(-9), itmax = 10)
 
     # Time discretization
     N::Int64 = cld(tSpan[2] - tSpan[1], h)
