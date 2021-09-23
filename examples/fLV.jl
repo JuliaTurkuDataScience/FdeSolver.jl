@@ -2,9 +2,9 @@ using FdeSolver
 using Plots
 
 ## inputs
-tSpan = [0, 25] # [intial time, final time]
-y0 = [34, 6] # initial values
-β = [0.98, 0.99] # order of derivatives
+tSpan = [0, 25]        # [intial time, final time]
+y0 = [34, 6]           # initial values
+β = [0.98, 0.99]       # order of derivatives
 
 ## ODE model
 

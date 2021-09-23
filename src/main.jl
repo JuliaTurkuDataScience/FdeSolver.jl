@@ -1,15 +1,3 @@
-"""
-    FDEsolver(F, tSpan, y0, β, par...; h = 0.01, nc = 3, tol = 10e-10, itmax = 10)
-Solves fractional differential equations with a predictor-corrector approach.
-
-Description of input arguments:
-
-F = function corresponfing to the right side of  FDEs. It must return a vector
-    function with the same number of entries of order of derivatives. This function
-    can include a vector of parameters: par... .
-
-Description of output parameters:
-"""
 function FDEsolver(F, tSpan, y0, β, par...; h = 0.01, nc = 3, tol = 10e-10, itmax = 10)
 
     # Time discretization

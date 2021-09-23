@@ -1,15 +1,4 @@
-"""
-Solve fractional differential equations with a predictor-corrector approach.
-
-Description of input arguments:
-
-F = function corresponfing to the right side of  FDEs. It must return a vector
-    function with the same number of entries of order of derivatives. This function
-    can include a vector of parameters: par... .
-
-Description of output parameters:
-"""
-function FDEsolver(F, tSpan, y0, β, Jac = JacobF, par...; h = 0.01, nc = 3, tol = 10^(-9), itmax = 10)
+function FDEsolver(F, tSpan, y0, β, J = nothing, par...; h = 0.01, nc = 3, tol = 10^(-9), itmax = 10)
 
     # Time discretization
     N::Int64 = cld(tSpan[2] - tSpan[1], h)
@@ -38,11 +27,11 @@ function FDEsolver(F, tSpan, y0, β, Jac = JacobF, par...; h = 0.01, nc = 3, tol
             # inverse matrix including Jacobian function
         if Neq == 1
 
-            JF = inv(I(Neq) .- (h .^ β ./ Γ(β .+ 2)) * JacobF(t, n + 1, β, Y, par...))
+            JF = inv(I(Neq) .- (h .^ β ./ Γ(β .+ 2)) * J(t, n + 1, β, Y, par...))
 
         else
 
-            JF = inv(I(Neq) .- Diagonal(h .^ β ./ Γ(β .+ 2)) * JacobF(t, n + 1, β, Y, par...))
+            JF = inv(I(Neq) .- Diagonal(h .^ β ./ Γ(β .+ 2)) * J(t, n + 1, β, Y, par...))
 
         end
 
@@ -75,9 +64,9 @@ function FDEsolver(F, tSpan, y0, β, Jac = JacobF, par...; h = 0.01, nc = 3, tol
                            F(t, n, β, Y, par...))
           # inverse matrix including Jacobian function
       if Neq == 1
-          JF = inv(I(Neq) .- (α(0, β) .* h .^ β) * JacobF(t, n+1, β, Y, par...))
+          JF = inv(I(Neq) .- (α(0, β) .* h .^ β) * J(t, n+1, β, Y, par...))
       else
-          JF = inv(I(Neq) .- Diagonal(α(0, β) .* h .^ β) * JacobF(t, n+1, β, Y, par...))
+          JF = inv(I(Neq) .- Diagonal(α(0, β) .* h .^ β) * J(t, n+1, β, Y, par...))
       end
           # multiple corrections
           for j in 1:nc
