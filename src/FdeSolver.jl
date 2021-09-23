@@ -7,8 +7,6 @@ Solves fractional differential equations with a predictor-corrector approach.
 
 Additionally takes the Jacobian of the system (J) to evaluate the solution.
 
-...
-
 # Arguments
 - `F`: the right side of the system of differential equations. It must be expressed
    in the form of a function and return a vector function with the same number of
@@ -27,8 +25,6 @@ Additionally takes the Jacobian of the system (J) to evaluate the solution.
 - `nc:Int64`: the desired number of corrections.
 - `tol::Float64`: the tolerance.
 - `ìtmax::Int64`: the maximal number of iterations.
-
-...
 
 # Examples
 Solution of Predator-Prey Model with additional parameters as par:
