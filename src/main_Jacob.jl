@@ -9,7 +9,7 @@ F = function corresponfing to the right side of  FDEs. It must return a vector
 
 Description of output parameters:
 """
-function FDEsolver_Jacob(F, tSpan, y0, β, JacobF, par...; h = 0.01, nc = 3, tol = 10^(-9), itmax = 10)
+function FDEsolver(F, tSpan, y0, β, Jac = JacobF, par...; h = 0.01, nc = 3, tol = 10^(-9), itmax = 10)
 
     # Time discretization
     N::Int64 = cld(tSpan[2] - tSpan[1], h)
@@ -27,7 +27,7 @@ function FDEsolver_Jacob(F, tSpan, y0, β, JacobF, par...; h = 0.01, nc = 3, tol
     for n in 1:N
 
         T0 = taylor_expansion(tSpan[1], t[n], y0)
-        JF = zeros(Neq,Neq)
+        JF = zeros(Neq, Neq)
         YnΨnC0fn = zeros(Neq)
 
         if n == 1
@@ -37,10 +37,15 @@ function FDEsolver_Jacob(F, tSpan, y0, β, JacobF, par...; h = 0.01, nc = 3, tol
 
             # inverse matrix including Jacobian function
         if Neq == 1
-            JF = inv(I(Neq) .- (h .^ β ./ Γ(β .+ 2)) * JacobF(t, n+1, β, Y, par...))
+
+            JF = inv(I(Neq) .- (h .^ β ./ Γ(β .+ 2)) * JacobF(t, n + 1, β, Y, par...))
+
         else
-            JF = inv(I(Neq) .- Diagonal(h .^ β ./ Γ(β .+ 2)) * JacobF(t, n+1, β, Y, par...))
+
+            JF = inv(I(Neq) .- Diagonal(h .^ β ./ Γ(β .+ 2)) * JacobF(t, n + 1, β, Y, par...))
+
         end
+
             for j in 1:nc
 
             # Y11

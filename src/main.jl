@@ -1,5 +1,6 @@
 """
-Solve fractional differential equations with a predictor-corrector approach.
+    FDEsolver(F, tSpan, y0, β, par...; h = 0.01, nc = 3, tol = 10e-10, itmax = 10)
+Solves fractional differential equations with a predictor-corrector approach.
 
 Description of input arguments:
 
@@ -9,7 +10,7 @@ F = function corresponfing to the right side of  FDEs. It must return a vector
 
 Description of output parameters:
 """
-function FDEsolver(F, tSpan, y0, β, par...; h = 0.01, nc = 3, tol = 10^(-9), itmax = 10)
+function FDEsolver(F, tSpan, y0, β, par...; h = 0.01, nc = 3, tol = 10e-10, itmax = 10)
 
     # Time discretization
     N::Int64 = cld(tSpan[2] - tSpan[1], h)
