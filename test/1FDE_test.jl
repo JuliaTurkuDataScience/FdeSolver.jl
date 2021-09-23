@@ -1,7 +1,7 @@
 using FdeSolver
 using Test
 using SpecialFunctions
-using MittagLeffler
+using Statistics
 
 @testset "FdeSolver.jl" begin
 
@@ -16,8 +16,9 @@ using MittagLeffler
     end
 
     t, Yapp = FDEsolver(F, tSpan, y0, β)
-    
+
     @test @isdefined(t)
     @test @isdefined(Yapp)
+    @test abs(mean(Yapp) - 0.99971) < 0.05
 
 end

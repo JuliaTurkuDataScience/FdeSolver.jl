@@ -1,19 +1,18 @@
+# """
+# $(DocStringExtensions.README)
+# """
 module FdeSolver
 
 using SpecialFunctions
+using LinearAlgebra
 
 greet() = print("Hey, let's solve some FDEs!")
-my_f(x, y) = x + y
 
 include("main.jl")
-include("defineY.jl")
-include("taylor_expansion.jl")
-include("a_n0_function.jl")
-include("alpha_function.jl")
-include("phi_function.jl")
-include("gamma_function.jl")
+include("main_Jacob.jl")
+include("SupFuns.jl")
 
 export(FDEsolver)
-export(my_f)
+export(FDEsolver_Jacob)
 
 end
