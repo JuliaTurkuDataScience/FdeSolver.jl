@@ -1,5 +1,5 @@
 """
-    FDEsolver(F, tSpan, y0, β, par...; h = 0.01, nc = 3, tol = 10^(-9), itmax = 10)
+    FDEsolver(F, tSpan, y0, β, par...; h = 0.01, nc = 3, StopIt = "Standard", tol = 10^(-9), itmax = 10)
 
 Solves fractional differential equations with a predictor-corrector approach.
 
