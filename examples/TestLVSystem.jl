@@ -1,3 +1,5 @@
+using Revise
+push!(LOAD_PATH, "./FdeSolver.jl/src/")
 using FdeSolver
 using Plots
 
@@ -24,7 +26,7 @@ function F(t, n, β, y)
 
 end
 
-t, Yapp = FDEsolver(F, tSpan, y0, β, nc = "Convergence")
+t, Yapp = FDEsolver(F, tSpan, y0, β, StopIt = "Convergence")
 
 plot(t, Yapp, linewidth = 5, title = "Solution to LV model with 2 FDEs",
      xaxis = "Time (t)", yaxis = "y(t)", label = "Approximation")
