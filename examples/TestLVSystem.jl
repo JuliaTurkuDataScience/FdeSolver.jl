@@ -1,5 +1,3 @@
-using Revise
-push!(LOAD_PATH, "./FdeSolver.jl/src/")
 using FdeSolver
 using Plots
 
