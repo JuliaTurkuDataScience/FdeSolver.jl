@@ -16,7 +16,7 @@ Solves fractional differential equations with a predictor-corrector approach.
    each element corresponds to the order of one differential equation. It can take
    decimal as well as integer values.
 - `par...`: additional parameters for the function F.
-- `h::Number`: the step size for correction.
+- `h::Real`: the step size for correction.
 - `nc:Int64`: the desired number of corrections.
 - `StopIt::String`: the method to stop correction. It can take either "Standard"
    (by default) or "Convergence". In the former case, the function will repeat
