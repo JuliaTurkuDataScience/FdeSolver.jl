@@ -3,10 +3,6 @@
 
 Solves fractional differential equations with a predictor-corrector approach.
 
-    FDEsolver(F, tSpan, y0, β, J = JacobF, par...; h = 0.01, nc = 3, tol = 10^(-9), itmax = 10)
-
-Additionally takes the Jacobian of the system (J) to evaluate the solution.
-
 # Arguments
 - `F`: the right side of the system of differential equations. It must be expressed
    in the form of a function and return a vector function with the same number of
@@ -19,10 +15,13 @@ Additionally takes the Jacobian of the system (J) to evaluate the solution.
 - `β::Vector{Number}`: the orders of derivation in the form of a row vector, where
    each element corresponds to the order of one differential equation. It can take
    decimal as well as integer values.
-- `J::Matrix{Number}`: the Jacobian of F.
 - `par...`: additional parameters for the function F.
 - `h::Number`: the step size for correction.
 - `nc:Int64`: the desired number of corrections.
+- `StopIt::String`: the method to stop correction. It can take either "Standard"
+   (by default) or "Convergence". In the former case, the function will repeat
+   correction as many times as specified in nc; in the latter case, correction will
+   stop only when tolerance (tol) or the iteration max (itmax) is reached.
 - `tol::Float64`: the tolerance.
 - `ìtmax::Int64`: the maximal number of iterations.
 
