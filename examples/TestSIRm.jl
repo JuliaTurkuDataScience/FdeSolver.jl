@@ -22,7 +22,7 @@ function F(t, n, α, y)
 
 end
 
-t, Yapp = FDEsolver(F, tSpan, y0, α, h = h)
+t, Yapp = FDEsolver(F, tSpan, y0, α, h = h, StopIt = "Convergence")
 
 plot(t, Yapp, linewidth = 5, title = "Numerical solution of SIR model",
      xaxis = "Time (t)", yaxis = "y(t)")

@@ -24,7 +24,7 @@ function F(t, n, β, y)
 
 end
 
-t, Yapp = FDEsolver(F, tSpan, y0, β)
+t, Yapp = FDEsolver(F, tSpan, y0, β, StopIt = "Convergence")
 
 plot(t, Yapp, linewidth = 5, title = "Solution to LV model with 2 FDEs",
      xaxis = "Time (t)", yaxis = "y(t)", label = "Approximation")
