@@ -59,8 +59,8 @@ function JacobF(t, n, α, y, par)
 
 end
 ## Solution
-t, Yapp = FDEsolver(F, tSpan, y0, α, par = par, h = h)
-t1, Yapp1 = FDEsolver(F, tSpan, y0, α, J = JacobF, par, h = h)
+t, Yapp = FDEsolver(F, tSpan, y0, α, nothing, par, h = h)
+t1, Yapp1 = FDEsolver(F, tSpan, y0, α, JacobF, par, h = h, StopIt = "Convergence")
 
 ## plotting
 plot(t, Yapp, linewidth = 5, title = "Numerical solution of SIR model",

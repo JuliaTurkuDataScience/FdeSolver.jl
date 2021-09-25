@@ -16,7 +16,7 @@ F(t, n, β, y) = (40320 ./ gamma(9 - β) .* t[n] .^ (8 - β) .- 3 .* gamma(5 + �
 JacobF(t, n, β, y) = -(3 / 2) .* y[n] .^ (1 / 2)
 
 ## Numerical solution
-t, Yapp = FDEsolver(F, tSpan, y0, β)
+t, Yapp = FDEsolver(F, tSpan, y0, β, nothing)
 
 t1, Yapp1 = FDEsolver(F, tSpan, y0, β, JacobF)
 

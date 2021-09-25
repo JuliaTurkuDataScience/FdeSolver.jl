@@ -1,4 +1,4 @@
-function FDEsolver_Jacob(F, tSpan, y0, β, J, par...; h = 0.01, nc = 3, tol = 10^(-9), itmax = 10)
+function FDEsolver(F, tSpan, y0, β, J, par...; h = 0.01, nc = 3, StopIt = "Standard", tol = 10e-10, itmax = 10)
 
     # Time discretization
     N::Int64 = cld(tSpan[2] - tSpan[1], h)
@@ -17,7 +17,7 @@ function FDEsolver_Jacob(F, tSpan, y0, β, J, par...; h = 0.01, nc = 3, tol = 10
 
         T0 = taylor_expansion(tSpan[1], t[n], y0)
         JF = zeros(Neq, Neq)
-        YnΨnC0fn = zeros(Neq)
+        Ψ = zeros(Neq)
 
         if n == 1
 
@@ -25,32 +25,42 @@ function FDEsolver_Jacob(F, tSpan, y0, β, J, par...; h = 0.01, nc = 3, tol = 10
             Y[2, :] .= T0 .+ h .^ β .* F(t, n, β, Y, par...) ./ Γ(β .+ 1)
 
             # inverse matrix including Jacobian function
-        if Neq == 1
+            if Neq == 1
 
-            JF = inv(I(Neq) .- (h .^ β ./ Γ(β .+ 2)) * J(t, n + 1, β, Y, par...))
+                JF = inv(I(Neq) .- (h .^ β ./ Γ(β .+ 2)) * J(t, n + 1, β, Y, par...))
 
-        else
+            else
 
-            JF = inv(I(Neq) .- Diagonal(h .^ β ./ Γ(β .+ 2)) * J(t, n + 1, β, Y, par...))
+                JF = inv(I(Neq) .- Diagonal(h .^ β ./ Γ(β .+ 2)) * J(t, n + 1, β, Y, par...))
 
-        end
-
-            for j in 1:nc
-
-            # Y11
-            YnΨnC0fn = (Y[2, :] .- T0 .- h .^ β .* β .* F(t, n, β, Y, par...)
-            ./ Γ(β .+ 2) .- h .^ β .* F(t, n + 1, β, Y, par...) ./ Γ(β .+ 2))
-            Y11 = Y[2, :] - JF * YnΨnC0fn
-
-            Y[2, :] = Y11
-
-            # check the convergence criteria when number of corrections is Inf
-            if nc == Inf
-                σ = sqrt(sum((Y11 .- Y[2, :]) .^ 2))
-                if (σ < tol || j >= itmax)
-                    break
-                end
             end
+
+            if StopIt == "Standard"
+
+                for j in 1:nc
+
+                    # Y11
+                    Ψ = (Y[2, :] .- T0 .- h .^ β .* β .* F(t, n, β, Y, par...) ./ Γ(β .+ 2) .- h .^ β .* F(t, n + 1, β, Y, par...) ./ Γ(β .+ 2))
+                    Y11 = Y[2, :] - JF * Ψ
+                    Y[2, :] .= Y11
+
+                end
+
+            elseif StopIt == "Convergence"
+
+                σ = 1.1 * tol
+                j = 0
+
+                while (σ > tol && j < itmax)
+
+                    # Y11
+                    Y11 = T0 .+ h .^ β .* β .* F(t, n, β, Y, par...) ./ Γ(β .+ 2) .+ h .^ β .* F(t, n + 1, β, Y, par...) ./ Γ(β .+ 2)
+                    σ = sqrt(sum((Y11 .- Y[2, :]) .^ 2))
+                    Y[2, :] .= Y11
+
+                    j += 1
+
+                end
 
             end
 
@@ -59,31 +69,46 @@ function FDEsolver_Jacob(F, tSpan, y0, β, J, par...; h = 0.01, nc = 3, tol = 10
             ϕ = Phi(Y, F, β, t, n, par...)
 
             # Yp
-            Y[n + 1, :] .= T0 .+ h .^ β .* (ϕ .- α(0, β) .*
-                           F(t, n - 1, β, Y, par...) .+ 2 .* α(0, β) .*
-                           F(t, n, β, Y, par...))
-          # inverse matrix including Jacobian function
-      if Neq == 1
-          JF = inv(I(Neq) .- (α(0, β) .* h .^ β) * J(t, n+1, β, Y, par...))
-      else
-          JF = inv(I(Neq) .- Diagonal(α(0, β) .* h .^ β) * J(t, n+1, β, Y, par...))
-      end
-          # multiple corrections
-          for j in 1:nc
-          # Y2
-          YnΨnC0fn .= (Y[n+1, :] .- (T0 .+ h .^ β .* ϕ) .-
-             h .^ β.* α(0, β) .* F(t, n + 1, β, Y, par...))
-          Y2 = Y[n+1, :] - JF * YnΨnC0fn
+            Y[n + 1, :] .= T0 .+ h .^ β .* (ϕ .- α(0, β) .* F(t, n - 1, β, Y, par...) .+ 2 .* α(0, β) .* F(t, n, β, Y, par...))
 
-          Y[n + 1, :] = Y2
+            # inverse matrix including Jacobian function
+            if Neq == 1
 
-           # check the convergence criteria when number of corrections is Inf
-            if  nc == Inf
-                σ = sqrt(sum((Y2 .- Y[n+1, :]) .^ 2))
-                if (σ < tol || j >= itmax)
-                    break
-                end
+                JF = inv(I(Neq) .- (α(0, β) .* h .^ β) * J(t, n+1, β, Y, par...))
+
+            else
+
+                JF = inv(I(Neq) .- Diagonal(α(0, β) .* h .^ β) * J(t, n+1, β, Y, par...))
+
             end
+
+            if StopIt == "Standard"
+
+                for j in 1:nc
+
+                    # Y2
+                    Ψ .= (Y[n + 1, :] .- (T0 .+ h .^ β .* ϕ) .- h .^ β.* α(0, β) .* F(t, n + 1, β, Y, par...))
+                    Y2 = Y[n + 1, :] - JF * Ψ
+                    Y[n + 1, :] .= Y2
+
+                end
+
+            elseif StopIt == "Convergence"
+
+                σ = 1.1 * tol
+                j = 0
+
+                while (σ > tol && j < itmax)
+
+                    # Y2
+                    Y2 = T0 .+ h .^ β .* (ϕ .+ α(0, β) .* F(t, n + 1, β, Y, par...))
+                    σ = sqrt(sum((Y2 .- Y[n + 1, :]) .^ 2))
+                    Y[n + 1, :] .= Y2
+
+                    j += 1
+
+                end
+
             end
 
         end
