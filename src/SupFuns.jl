@@ -17,12 +17,9 @@ function defineY(N, y0::Matrix{Number})
 
 end
 
-
 ## taylor_expansion ##
 taylor_expansion(t0, t, y0) = y0
-
-taylor_expansion(t0, t, y0::Matrix{Number}) = sum([(t - tSpan[1]) ^ k /
-                 factorial(k) * y0[:, k + 1] for k in 0:m - 1])
+taylor_expansion(t0, t, y0::Matrix{Number}) = sum([(t - tSpan[1]) ^ k / factorial(k) * y0[:, k + 1] for k in 0:m - 1])
 
 ## function ϕ ##
 function Phi(y, F, β, t, n, par...)
@@ -36,6 +33,7 @@ function Phi(y, F, β, t, n, par...)
     a_n0(n, β) .* F(t, 1, β, y, par...) .+ sum([alpha[i] .* fun[i] for i in 1:n - 1])
 
 end
+
 a_n0(n, β) = ((n - 1) .^ (β .+ 1) .- n .^ β .* (n .- β .- 1)) ./ Γ(β .+ 2)
 
 ## function α ##
@@ -47,12 +45,11 @@ function α(n, β)
 
     else
 
-        return ((n .- 1) .^ (β .+ 1) .- 2 .* n .^ (β .+ 1) .+ (n .+ 1) .^
-                (β .+ 1)) ./ Γ(β .+ 2)
+        return ((n .- 1) .^ (β .+ 1) .- 2 .* n .^ (β .+ 1) .+ (n .+ 1) .^ (β .+ 1)) ./ Γ(β .+ 2)
 
     end
 
 end
 
-## Gamma function for vectors #
+## Gamma function for vectors ##
 Γ(b) = map(gamma, b)

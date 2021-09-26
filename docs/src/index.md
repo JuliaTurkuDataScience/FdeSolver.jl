@@ -8,9 +8,12 @@
 ## Function Documentation
 ```@docs
 FdeSolver
+<<<<<<< HEAD
 ```
 
 To access the manual of `FDEsolver` from the Julia REPL, type:
 ```julia
 ?FdeSolver
+=======
+>>>>>>> main
 ```

@@ -1,8 +1,13 @@
+<<<<<<< HEAD:examples/fDE3D.jl
 ```
 Equation 33 of https://www.mdpi.com/2227-7390/6/2/16/htm
 ```
+=======
+push!(LOAD_PATH, "./FdeSolver.jl/src/")
+>>>>>>> main:examples/TestSystem33.jl
 using FdeSolver
 using Plots
+using SpecialFunctions
 
 tSpan = [0, 5]
 y0 = [1, 0.5, 0.3]
@@ -23,6 +28,6 @@ t, Yapp = FDEsolver(F, tSpan, y0, β, nothing)
 plot(t, Yapp, linewidth = 5, title = "Solution of system 33",
      xaxis = "Time (t)", yaxis = "y(t)", label = "Approximation")
 
-plot!(t, t -> (t .+ 1), lw = 3, ls = :dash, color= "red", label = "Exact solution")
-plot!(t, t -> (t.^1.2 .+ 0.5), lw = 3, ls = :dash, color= "cyan", label = "Exact solution")
-plot!(t, t -> (t.^1.8 .+ 0.3), lw = 3, ls = :dash, color= "black" ,label = "Exact solution")
+plot!(t, t -> (t .+ 1), lw = 3, ls = :dash, label = "Exact solution")
+plot!(t, t -> (t.^1.2 .+ 0.5), lw = 3, ls = :dash, label = "Exact solution")
+plot!(t, t -> (t.^1.8 .+ 0.3), lw = 3, ls = :dash, label = "Exact solution")
