@@ -1,4 +1,10 @@
+<<<<<<< HEAD:examples/fDE3D.jl
+```
+Equation 33 of https://www.mdpi.com/2227-7390/6/2/16/htm
+```
+=======
 push!(LOAD_PATH, "./FdeSolver.jl/src/")
+>>>>>>> main:examples/TestSystem33.jl
 using FdeSolver
 using Plots
 using SpecialFunctions
@@ -17,7 +23,7 @@ function F(t, n, β, y)
 
 end
 
-t, Yapp = FDEsolver(F, tSpan, y0, β)
+t, Yapp = FDEsolver(F, tSpan, y0, β, nothing)
 
 plot(t, Yapp, linewidth = 5, title = "Solution of system 33",
      xaxis = "Time (t)", yaxis = "y(t)", label = "Approximation")

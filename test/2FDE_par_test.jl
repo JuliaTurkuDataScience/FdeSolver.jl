@@ -18,7 +18,7 @@ using Statistics
 
     end
 
-    t, Yapp = FDEsolver(F, tSpan, y0, β, par)
+    t, Yapp = FDEsolver(F, tSpan, y0, β, nothing, par)
 
     @test @isdefined(t)
     @test @isdefined(Yapp)
