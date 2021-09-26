@@ -4,7 +4,7 @@ using FdeSolver, Documenter
 
 makedocs(
          format=Documenter.HTML(;
-         prettyurls=false
+         canonical="https://github.com/JuliaTurkuDataScience/FdeSolver.jl"
          ),
          sitename = "FdeSolver.jl",
          modules  = [FdeSolver],
