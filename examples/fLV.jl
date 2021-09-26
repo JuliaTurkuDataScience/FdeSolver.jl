@@ -29,7 +29,7 @@ function F(t, n, β, y, par)
 end
 
 ## Solution
-t, Yapp = FDEsolver(F, tSpan, y0, β, par)
+t, Yapp = FDEsolver(F, tSpan, y0, β, nothing, par)
 
 # plotting
 plot(t, Yapp, linewidth = 5, title = "Solution to LV model with 2 FDEs",

@@ -1,16 +1,16 @@
-```@meta
-CurrentModule = FdeSolver
+# FdeSolver.jl
+
+*Let's solve some differential equations!*
+
+## Package features
+- Solve fractional calculus problems
+
+## Function Documentation
+```@docs
+FdeSolver
 ```
 
-# FdeSolver
-
-Documentation for [FdeSolver](https://github.com/JuliaTurkuDataScience/FdeSolver.jl).
-
-```@autodocs
-Modules = [FdeSolver]
-```
-
-```@index
-Pages = []
-Modules = [FdeSolver]
+To access the manual of `FDEsolver` from the Julia REPL, type:
+```julia
+?FdeSolver
 ```

@@ -18,7 +18,7 @@ function F(t, n, β, y)
 
 end
 
-t, Yapp = FDEsolver(F, tSpan, y0, β)
+t, Yapp = FDEsolver(F, tSpan, y0, β, nothing)
 
 plot(t, Yapp, linewidth = 5, title = "Solution of system 33",
      xaxis = "Time (t)", yaxis = "y(t)", label = "Approximation")
