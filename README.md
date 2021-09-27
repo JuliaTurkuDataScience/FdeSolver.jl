@@ -108,6 +108,8 @@ Example3:
 [SIR model](https://en.wikipedia.org/wiki/Compartmental_models_in_epidemiology)
 
 One application of using fractional calculus is taking into account effects of [memory](https://journals.aps.org/pre/abstract/10.1103/PhysRevE.95.022409) in modeling including epidemic evolution.
+
+By defining the Jacobian matrix by the user it is possible to have a faster convergence based on the modified [Newton–Raphson](https://www.mdpi.com/2227-7390/6/2/16/htm) method.
 ```julia
 using FdeSolver
 using Plots
@@ -140,8 +142,38 @@ function F(t, n, α, y, par)
     return [dSdt, dIdt, dRdt]
 
 end
+
+## Jacobian of ODE system
+function JacobF(t, n, α, y, par)
+
+    #parameters
+    β = par[1] #infection rate
+    γ = par[2] #recovery rate
+
+    S = y[n, 1] #Susceptible
+    I = y[n, 2] #Infectious
+    R = y[n, 3] #Recovered
+
+    #System equation
+    J11 = - β * I
+    J12 = - β * S
+    J13 =  0
+    J21 =  β * I
+    J22 =  β * S - γ
+    J23 =  0
+    J31 =  0
+    J32 =  γ
+    J33 =  0
+
+    J = [J11 J12 J13
+         J21 J22 J23
+         J31 J32 J33]
+    return J
+
+end
+
 ## Solution and plotting
-t, Yapp = FDEsolver(F, tSpan, y0, α, par, h = h)
+t, Yapp = FDEsolver_Jacob(F, tSpan, y0, α, JacobF, par, h = h)
 
 plot(t, Yapp, linewidth = 5, title = "Numerical solution of SIR model",
      xaxis = "Time (t)", yaxis = "SIR populations", label=["Susceptible" "Infectious" "Recovered"])
