@@ -1,3 +1,4 @@
+/Manifest.toml
 .Rhistory
 .DS_Store
 *.jl.*.cov
