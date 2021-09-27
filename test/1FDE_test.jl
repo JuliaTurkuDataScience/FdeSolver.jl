@@ -15,10 +15,18 @@ using Statistics
 
     end
 
-    t, Yapp = FDEsolver(F, tSpan, y0, β, nothing)
+    JacobF(t, n, β, y) = -(3 / 2) .* y[n] .^ (1 / 2)
+
+    t, Yapp = FDEsolver(F, tSpan, y0, β, nothing, StopIt = "Convergence", tol = 10e-8, itmax = 15)
+    t1, Yapp1 = FDEsolver(F, tSpan, y0, β, JacobF, StopIt = "Convergence", tol = 10e-8, itmax = 15)
 
     @test @isdefined(t)
     @test @isdefined(Yapp)
+
+    @test @isdefined(t1)
+    @test @isdefined(Yapp1)
+
     @test abs(mean(Yapp) - 0.99971) < 0.05
+    @test abs(mean(Yapp1) - 0.99971) < 0.05
 
 end
