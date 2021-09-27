@@ -20,13 +20,13 @@ with the initial condition
 ```math
 y(t_0)=y_0,y^{(1)}(t_0)=y^{(1)}_0,...,y^{(m-1)}(t_0)=y^{(m-1)}_0,
 ```
-in which, ```math
+in which
+```math
 {}_{C}\!D_{t_0}^\beta,  \beta>0,
 ```
 the Caputo fractional derivative and m the upper integer of the order of derivative.
 
 We solve the problem by using predictor-corrector method (the equation (14) from this [paper](https://www.mdpi.com/2227-7390/6/2/16#)).
-
 
 ## Installation
 If Julia is installed correctly, you can import FdeSolver.jl as:
