@@ -16,9 +16,9 @@ F(t, n, β, y) = (40320 ./ gamma(9 - β) .* t[n] .^ (8 - β) .- 3 .* gamma(5 + �
 JacobF(t, n, β, y) = -(3 / 2) .* y[n] .^ (1 / 2)
 
 ## Numerical solution
-t, Yapp = FDEsolver(F, tSpan, y0, β, nothing)
+t, Yapp = FDEsolver(F, tSpan, y0, β, nothing, StopIt = "Convergence", tol = 10e-8, itmax = 15)
 
-t1, Yapp1 = FDEsolver(F, tSpan, y0, β, JacobF)
+t1, Yapp1 = FDEsolver(F, tSpan, y0, β, JacobF, StopIt = "Convergence", tol = 10e-8, itmax = 15)
 
 #plot
 plot(t, Yapp, linewidth = 5, title = "Solution of a 1D fractional IVP",
