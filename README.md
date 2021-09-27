@@ -52,7 +52,7 @@ F(t, n, β, y)=(40320 ./ gamma(9 - β) .* t[n] .^ (8 - β) .- 3 .* gamma(5 + β 
            (3/2 .* t[n] .^ (β / 2) .- t[n] .^ 4) .^ 3 .- y[n] .^ (3/2))
 
 ## Numerical solution
-t, Yapp = FDEsolver(F, tSpan, y0, β)
+t, Yapp = FDEsolver(F, tSpan, y0, β, nothing)
 
 #plot
 plot(t, Yapp, linewidth = 5, title = "Solution of a 1D fractional IVP",
@@ -78,7 +78,7 @@ y0 = [34, 6] # initial values
 
 par = [0.55, 0.028, 0.84, 0.026] # model parameters
 
-function F(t, n, β, y, par)
+function F(t, n, β, y, nothing, par)
 
     α1=par[1] #growth rate of the prey population
     β1=par[2] #rate of shrinkage relative to the product of the population sizes
@@ -96,7 +96,7 @@ function F(t, n, β, y, par)
 
 end
 ## Solution
-t, Yapp = FDEsolver(F, tSpan, y0, β, par)
+t, Yapp = FDEsolver(F, tSpan, y0, β, nothing, par)
 
 # plotting
 plot(t, Yapp, linewidth = 5, title = "Solution to LV model with 2 FDEs",
@@ -173,7 +173,7 @@ function JacobF(t, n, α, y, par)
 end
 
 ## Solution and plotting
-t, Yapp = FDEsolver_Jacob(F, tSpan, y0, α, JacobF, par, h = h)
+t, Yapp = FDEsolver(F, tSpan, y0, α, JacobF, par, h = h)
 
 plot(t, Yapp, linewidth = 5, title = "Numerical solution of SIR model",
      xaxis = "Time (t)", yaxis = "SIR populations", label=["Susceptible" "Infectious" "Recovered"])
@@ -228,7 +228,7 @@ function F(t, n, β, x, par)
 end
 
 # numerical solution
-t, Xapp = FDEsolver(F, tSpan, X0, β, par, h = h, nc = 3, tol = 10^(-8))
+t, Xapp = FDEsolver(F, tSpan, X0, β, nothing, par, h = h, nc = 3, tol = 10e-9)
 
 # plot
 plot(t, Xapp, linewidth = 5,
