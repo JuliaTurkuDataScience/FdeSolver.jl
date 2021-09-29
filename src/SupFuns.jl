@@ -26,13 +26,13 @@ function defineY(N, y0::Vector{<:Real}, β)
 
 end
 
-# function defineY(N, y0::Matrix{<:Real}, β)
-#
-#     Y = zeros(N + 1, size(y0)[2])
-#     Y[1, :] .= y0[1, :]
-#     Y
-#
-# end
+function defineY(N, y0::Matrix{<:Real}, β)
+
+    Y = zeros(N + 1, size(y0)[2])
+    Y[1, :] .= y0[1, :]
+    Y
+
+end
 
 ## indexY ##
 function indexY(n, Y::Vector{<:Real}, Ynext)
