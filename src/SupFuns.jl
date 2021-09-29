@@ -65,8 +65,8 @@ function taylor_expansion(t0, t, y0::Vector{<:Real}, β, m)
     end
 
 end
-#
-# taylor_expansion(t0, t, y0::Matrix{<:Real}, β, m) = sum([(t - t0) ^ k / factorial(k) * y0[:, k + 1] for k in 0:m - 1])
+
+taylor_expansion(t0, t, y0::Matrix{<:Real}, β, m) = sum([(t - t0) ^ k / factorial(k) * y0[:, k + 1] for k in 0:m - 1])
 
 ## function ϕ ##
 function Phi(y, F, β, t, n, par...)
