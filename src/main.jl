@@ -8,8 +8,9 @@ function FDEsolver(F, tSpan, y0, β, ::Nothing, par...; h = 0.01, nc = 3, StopIt
     Y = defineY(N, y0, β)
 
     # Calculate T with taylor expansion
+    m::Int64 = ceil(β[1])
+    
     for n in 1:N
-        m::Int64 = ceil(β[1])
 
         T0 = taylor_expansion(tSpan[1], t[n], y0, β, m)
 
