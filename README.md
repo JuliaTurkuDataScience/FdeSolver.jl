@@ -5,7 +5,7 @@
 [![codecov](https://codecov.io/gh/JuliaTurkuDataScience/FdeSolver.jl/branch/main/graph/badge.svg?token=SJ5F6RQ31P)](https://codecov.io/gh/JuliaTurkuDataScience/FdeSolver.jl)
 
 This is a Pkg in **Julia** for solution to a class of fractional differential equations and system equations.
-Many advanced source codes are available in [MATLAB](https://www.dm.uniba.it/members/garrappa/software), but they are not much open source projects like this one (and also (FractionalCalculus)[https://github.com/ErikQQY/FractionalCalculus.jl.git]) in Julia. Hence, the purpose is to develop a Julia package that numerically solves nonlinear fractional ordinary differential equations.
+Many advanced source codes are available in [MATLAB](https://www.dm.uniba.it/members/garrappa/software), but they are not much open source projects like this one (and also [FractionalCalculus](https://github.com/ErikQQY/FractionalCalculus.jl.git)) in Julia. Hence, the purpose is to develop a Julia package that numerically solves nonlinear fractional ordinary differential equations.
 
 ### Method
 
