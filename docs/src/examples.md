@@ -39,7 +39,9 @@ plot!(t, t -> (t.^8 - 3 * t .^ (4 + β / 2) + 9/4 * t.^β),
       lw = 3, ls = :dash, label = "Exact solution")
 ```
 
-![](../../assets/example1.png)
+```@raw html
+<img src="https://github.com/JuliaTurkuDataScience/FdeSolver.jl/blob/main/docs/assets/example1.png">
+```
 
 ## Example 2: [Lotka-Volterra-predator-prey](https://mc-stan.org/users/documentation/case-studies/lotka-volterra-predator-prey.html)
 
@@ -83,7 +85,9 @@ plot(t, Yapp, linewidth = 5, title = "Solution to LV model with 2 FDEs",
      plot!(legendtitle = "Population of")
 ```
 
-![](../../assets/example2.png)
+```@raw html
+<img src="https://github.com/JuliaTurkuDataScience/FdeSolver.jl/blob/main/docs/assets/example2.png">
+```
 
 ## Example 3: [SIR model](https://en.wikipedia.org/wiki/Compartmental_models_in_epidemiology)
 
@@ -161,7 +165,9 @@ plot(t, Yapp, linewidth = 5, title = "Numerical solution of SIR model",
      xaxis = "Time (t)", yaxis = "SIR populations", label=["Susceptible" "Infectious" "Recovered"], legend = :right)
 ```
 
-![](../../assets/example3.png)
+```@raw html
+<img src="https://github.com/JuliaTurkuDataScience/FdeSolver.jl/blob/main/docs/assets/example3.png">
+```
 
 ## Example 4: [Dynamics of interaction of N species microbial communities](https://www.biorxiv.org/content/10.1101/2021.09.01.458486v1.abstract)
 
@@ -218,4 +224,6 @@ plot(t, Xapp, linewidth = 5,
      yaxis!("Log Abundance", :log10, minorgrid = true)
 ```
 
-![](../../assets/example4.png)
+```@raw html
+<img src="https://github.com/JuliaTurkuDataScience/FdeSolver.jl/blob/main/docs/assets/example4.png">
+```
