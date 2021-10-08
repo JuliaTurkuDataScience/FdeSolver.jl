@@ -1,4 +1,4 @@
-function FDEsolver(F, tSpan, y0, β, J, par...; h = 0.01, nc = 3, StopIt = "Standard", tol = 10e-10, itmax = 10)
+function FDEsolver(F, tSpan, y0, β, ::Nothing, J, par...; h = 2^(-5), nc = 3, StopIt = "Standard", tol = 10e-6, itmax = 100)
 
     # Time discretization
     N::Int64 = cld(tSpan[2] - tSpan[1], h)

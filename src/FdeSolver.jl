@@ -1,9 +1,9 @@
 """
-    FDEsolver(F, tSpan, y0, β, ::Nothing, par...; h = 0.01, nc = 3, StopIt = "Standard", tol = 10e-10, itmax = 10)
+    FDEsolver(F, tSpan, y0, β, ::Nothing, par...; h = 0.01, nc = 1, StopIt = "Standard", tol = 10e-10, itmax = 10)
 
 Solves fractional differential equations with a predictor-corrector approach.
 
-    FDEsolver(F, tSpan, y0, β, J, par...; h = 0.01, nc = 3, StopIt = "Standard", tol = 10e-10, itmax = 10)
+    FDEsolver(F, tSpan, y0, β, J, par...; h = 0.01, nc = 1, StopIt = "Standard", tol = 10e-6, itmax = 10)
 
 Additionally takes the Jacobian of the system J to evaluate the solution.
 
@@ -35,6 +35,9 @@ module FdeSolver
 
 using SpecialFunctions
 using LinearAlgebra
+using LabelledArrays
+using FFTW
+
 
 """
     greet()
@@ -44,7 +47,10 @@ greet() = print("Hey, let's solve some FDEs!")
 
 include("main.jl")
 include("main_Jacob.jl")
+include("main_fft.jl")
 include("SupFuns.jl")
+include("SupFuns_FFT.jl")
+
 
 export(FDEsolver)
 

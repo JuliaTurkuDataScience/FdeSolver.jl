@@ -1,4 +1,4 @@
-function FDEsolver(F, tSpan, y0, β, ::Nothing, par...; h = 0.01, nc = 3, StopIt = "Standard", tol = 10e-10, itmax = 10)
+function FDEsolver(F, tSpan, y0, β, ::Nothing, ::Nothing, par...; h = 0.01, nc = 3, StopIt = "Standard", tol = 10e-10, itmax = 10)
 
     # Time discretization
     N::Int64 = cld(tSpan[2] - tSpan[1], h)
@@ -9,7 +9,7 @@ function FDEsolver(F, tSpan, y0, β, ::Nothing, par...; h = 0.01, nc = 3, StopIt
 
     # Calculate T with taylor expansion
     m::Int64 = ceil(β[1])
-    
+
     for n in 1:N
 
         T0 = taylor_expansion(tSpan[1], t[n], y0, β, m)
