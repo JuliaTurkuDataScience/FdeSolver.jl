@@ -5,7 +5,7 @@
 [![codecov](https://codecov.io/gh/JuliaTurkuDataScience/FdeSolver.jl/branch/main/graph/badge.svg?token=SJ5F6RQ31P)](https://codecov.io/gh/JuliaTurkuDataScience/FdeSolver.jl)
 
 This is a Pkg in **Julia** for solution to fractional differential equations and ODEs.
-Many advanced source codes are available in [MATLAB](https://www.dm.uniba.it/members/garrappa/software), but there are not much open source projects in Julia. Hence, the purpose is to develop a Julia package that numerically solves nonlinear fractional ordinary differential equations in the sense of Caputo. It is noteworthy to mention [another](https://github.com/ErikQQY/FractionalCalculus.jl.git) availabe Julia Package that is trying to cover different types of fractional operators.
+Many advanced source codes are available in [MATLAB](https://www.dm.uniba.it/members/garrappa/software), but there are not many open source projects in Julia. Hence, the purpose is to develop a Julia package that numerically solves nonlinear fractional ordinary differential equations in the sense of Caputo. It is noteworthy to mention [another](https://github.com/ErikQQY/FractionalCalculus.jl.git) available Julia Package that is trying to cover different types of fractional operators.
 
 ### Method
 
@@ -17,7 +17,7 @@ Let us suppose the following initial value problem with the Caputo fractional de
 
 with the initial condition <img src="https://latex.codecogs.com/svg.image?y(t_0)=y_0,y^{(1)}(t_0)=y^{(1)}_0,...,y^{(m-1)}(t_0)=y^{(m-1)}_0" title="y(t_0)=y0" />, where m the smallest integer or equal to the order of derivative.
 
-We solve the problem by using predector corrector method (the equation (14) from this [paper](https://www.mdpi.com/2227-7390/6/2/16#)).
+We solve the problem by using predictor corrector method (the equation (14) from this [paper](https://www.mdpi.com/2227-7390/6/2/16#)).
 
 
 ## Installation
@@ -112,7 +112,7 @@ Example3:
 
 One application of using fractional calculus is taking into account effects of [memory](https://journals.aps.org/pre/abstract/10.1103/PhysRevE.95.022409) in modeling including epidemic evolution.
 
-By defining the Jacobian matrix by the user it is possible to have a faster convergence based on the modified [Newton–Raphson](https://www.mdpi.com/2227-7390/6/2/16/htm) method.
+By defining the Jacobian matrix, the user can achieve a faster convergence based on the modified [Newton–Raphson](https://www.mdpi.com/2227-7390/6/2/16/htm) method.
 ```julia
 using FdeSolver
 using Plots
