@@ -14,7 +14,7 @@ else
 end
 
 # Storage of initial conditions
-initial_conditions = @SLVector (:t0 ,:y0,:m_β, :m_β_factorial)
+# initial_conditions = @SLVector (:t0 ,:y0,:m_β, :m_β_factorial)
 ic = initial_conditions(tSpan[1], y0, Int64.(map(ceil, β)),
      zeros(β_length,Int64.(ceil(maximum(β)))))
 for i in 1 : β_length
@@ -24,7 +24,7 @@ for i in 1 : β_length
 end
 
 # Storage of information on the problem
-Problem = @SLVector (:ic , :f_fun, :problem_size, :param, :β, :β_length)
+# Problem = @SLVector (:ic , :f_fun, :problem_size, :param, :β, :β_length)
 Probl = Problem(ic , F, problem_size,par, β, β_length)
 
 # Time discretization
@@ -74,8 +74,9 @@ for i_β in 1 : Probl.β_length
         a0[i_β,:] = [ 0 ; (nβ1[1:end-2] - nβ[2:end-1].*(nvett[2:end-1] .- β[i_β] .- 1))]
     end
 end
-Method = @SLVector (:bn, :an, :a0, :hα1, :hα2, :μ, :μTol, :r, :StopIt,:itmax)
-METH = Method(bn, an, a0, h.^β./Γ(β.+1), h.^β./Γ(β.+2), nc, tol, r, StopIt, itmax)
+
+# Method = @SLVector (:bn, :an, :a0, :hα1, :hα2, :μ, :μTol, :r, :StopIt,:itmax)
+METH = Method(bn, an, a0, h.^β./Γ(β.+1), h.^β./Γ(β.+2), nc, tol, r, StopIt, itmax);
 
 # Evaluation of FFT of coefficients of the PECE method
 if Qr >= 0
@@ -104,7 +105,7 @@ if Qr >= 0
             end
         end
     end
-    Method_fft = @SLVector (:bn_fft,:an_fft,:index_fft)
+    # Method_fft = @SLVector (:bn_fft,:an_fft,:index_fft)
     METH_fft = Method_fft(bn_fft, an_fft, Int64.(index_fft))
 end
 
@@ -134,5 +135,5 @@ end
 
 t = t[1:N+1] ; y = y[:,1:N+1]
 
-return t, y
+return t, transpose(y)
 end

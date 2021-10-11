@@ -35,7 +35,7 @@ module FdeSolver
 
 using SpecialFunctions
 using LinearAlgebra
-using LabelledArrays
+# using LabelledArrays
 using FFTW
 
 
@@ -52,6 +52,6 @@ include("SupFuns.jl")
 include("SupFuns_FFT.jl")
 
 
-export(FDEsolver)
+export FDEsolver
 
 end

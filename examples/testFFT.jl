@@ -18,7 +18,7 @@ F(t, y, par)= par * y
 @time t1, y1 = FDEsolver(F, tSpan, y0, β, nothing, nothing, par)
 @time t2, y2 = FDEsolver(F, tSpan, y0, β, 1, nothing, par, StopIt = "Convergence", tol = 10e-10, itmax = 100)
 # If the 5th argument is integer then distpach (of FDEsolver) works for main_fft.That it not nice!
-plot(t,y[1,:]) # This is not nice that we have to say y[1,:] instead of y, in a 1D example.
+plot(t,y) # This is not nice that we have to say y[1,:] instead of y, in a 1D example.
 # Juno.@enter FDEsolver(F, tSpan, y0, β, 1,  nothing, par)
 
 ############ Let's try FFT for a system
@@ -40,7 +40,7 @@ end
 
 @time t, Yapp = FDEsolver(F, tSpan, y0, β, 1, nothing, par)
 # Juno.@enter FDEsolver(F, tSpan, y0, β, 1,  nothing, par)
-plot(t, transpose(Yapp))
+plot(t, Yapp)
 #######################
 
 ## inputs
@@ -85,7 +85,7 @@ function F(t, x, par)
 end
 
 t, Yapp = FDEsolver(F, tSpan, X0, β, 1, nothing, par, nc =1)
-plot(t, transpose(Yapp))
+plot(t, Yapp)
 
 
 #######################
@@ -133,4 +133,4 @@ end
 
 using BenchmarkTools
 @btime t, Yapp = FDEsolver(F, tSpan, X0, β, 1, nothing, par, nc =1)
-plot(t, transpose(Yapp))
+plot(t, Yapp)

@@ -1,3 +1,40 @@
+## some structures
+struct Problem
+       ic
+       f_fun
+       problem_size::Int64
+       param::Any
+       β #we should think about its type
+       β_length::Int64
+end
+
+struct Method
+           bn::Matrix{Float64}
+           an::Matrix{Float64}
+           a0::Matrix{Float64}
+           hα1#we should think about its type
+           hα2#we should think about its type
+           μ::Int64
+           μTol::Float64
+           r::Int64
+           StopIt::String
+           itmax::Int64
+end
+
+struct Method_fft
+       bn_fft::Matrix{ComplexF64}
+       an_fft::Matrix{ComplexF64}
+       index_fft::Matrix{Int64}
+end
+
+struct initial_conditions
+       t0::Float64
+       y0::Any
+       m_β #we should think about its type
+       m_β_factorial::Matrix{Int64}
+end
+
+
 ## define initial values ##
 # I changed this part. We defineY0 only for intial conditions that only used in StartingTerm (taylor_expansion)
 function defineY0(y0, β)
@@ -75,7 +112,6 @@ i_fft = Int64.(log2(coef_end/METH.r))
 funz_beg = nyi+1 ; funz_end = nyf+1
 Nnxf = min(N,nxf)
 
-Indxfft=Int64.(METH_fft.index_fft) # IDK why METH_fft.index_fft was truned to complex number! So we need to change the type to Int.
  # Evaluation convolution segment for the predictor
 vett_funz=zeros(Probl.problem_size,coef_end)
 vett_funz[:,1:funz_end-funz_beg+1] = fy[:,funz_beg:funz_end]
@@ -83,7 +119,7 @@ vett_funz_fft = fft(vett_funz,2)
 zzn_pred = zeros(Probl.problem_size,coef_end)
 for i = 1 : Probl.problem_size
     i_β = min(Probl.β_length,i)
-    Z = METH_fft.bn_fft[i_β,Indxfft[1,i_fft]:Indxfft[2,i_fft]].*vett_funz_fft[i,:]
+    Z = METH_fft.bn_fft[i_β,METH_fft.index_fft[1,i_fft]:METH_fft.index_fft[2,i_fft]].*vett_funz_fft[i,:]
     zzn_pred[i,:] = real(ifft(Z))
 end
 zzn_pred = zzn_pred[:,nxf-nyf:end-1]
@@ -99,7 +135,7 @@ if METH.μ > 0
     zzn_corr = zeros(Probl.problem_size,coef_end)
     for i = 1 : Probl.problem_size
         i_β = min(Probl.β_length,i)
-        Z = METH_fft.an_fft[i_β,Indxfft[1,i_fft]:Indxfft[2,i_fft]].*vett_funz_fft[i,:]
+        Z = METH_fft.an_fft[i_β,METH_fft.index_fft[1,i_fft]:METH_fft.index_fft[2,i_fft]].*vett_funz_fft[i,:]
         zzn_corr[i,:] = real(ifft(Z))
     end
     zzn_corr = zzn_corr[:,nxf-nyf+1:end]
