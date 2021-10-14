@@ -8,17 +8,17 @@ y0 = 0             # intial value
 β = 0.9            # order of the derivative
 
 # Equation
-F(t, n, β, y) = (40320 ./ gamma(9 - β) .* t[n] .^ (8 - β) .- 3 .* gamma(5 + β / 2)
-           ./ gamma(5 - β / 2) .* t[n] .^ (4 - β / 2) .+ 9/4 * gamma(β + 1) .+
-           (3 / 2 .* t[n] .^ (β / 2) .- t[n] .^ 4) .^ 3 .- y[n] .^ (3 / 2))
-
+par = β
+F(t, y, par) = (40320 ./ gamma(9 - par) .* t .^ (8 - par) .- 3 .* gamma(5 + par / 2)
+           ./ gamma(5 - par / 2) .* t .^ (4 - par / 2) .+ 9/4 * gamma(par + 1) .+
+           (3 / 2 .* t .^ (par / 2) .- t .^ 4) .^ 3 .- y .^ (3 / 2))
 # Jacobian
-JacobF(t, n, β, y) = -(3 / 2) .* y[n] .^ (1 / 2)
+JacobF(t, y, par) = -(3 / 2) .* y .^ (1 / 2)
 
 ## Numerical solution
-t, Yapp = FDEsolver(F, tSpan, y0, β, nothing, StopIt = "Convergence", tol = 10e-8, itmax = 15)
+t, Yapp = FDEsolver(F, nothing, tSpan, y0, β, par, StopIt = "Convergence", tol = 10e-8, itmax = 30)
 
-t1, Yapp1 = FDEsolver(F, tSpan, y0, β, JacobF, StopIt = "Convergence", tol = 10e-8, itmax = 15)
+t1, Yapp1 = FDEsolver(F,  JacobF, tSpan, y0, β, par, StopIt = "Convergence", tol = 10e-8, itmax = 30)
 
 #plot
 plot(t, Yapp, linewidth = 5, title = "Solution of a 1D fractional IVP",

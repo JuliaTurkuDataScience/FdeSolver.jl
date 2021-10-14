@@ -11,15 +11,15 @@ h = 0.1                # step size of computation (default=0.01)
 ## ODE model
 par = [0.4, 0.04] # parameters [β, recovery rate]
 
-function F(t, n, α, y, par)
+function F(t, y, par)
 
     # parameters
     β = par[1]    # infection rate
     γ = par[2]    # recovery rate
 
-    S = y[n, 1]   # Susceptible
-    I = y[n, 2]   # Infectious
-    R = y[n, 3]   # Recovered
+    S = y[1]   # Susceptible
+    I = y[2]   # Infectious
+    R = y[3]   # Recovered
 
     # System equation
     dSdt = - β .* S .* I
@@ -31,15 +31,15 @@ function F(t, n, α, y, par)
 end
 
 ## Jacobian of ODE system
-function JacobF(t, n, α, y, par)
+function JacobF(t, y, par)
 
     # parameters
     β = par[1]     # infection rate
     γ = par[2]     # recovery rate
 
-    S = y[n, 1]    # Susceptible
-    I = y[n, 2]    # Infectious
-    R = y[n, 3]    # Recovered
+    S = y[1]    # Susceptible
+    I = y[2]    # Infectious
+    R = y[3]    # Recovered
 
     # System equation
     J11 = - β * I
@@ -59,8 +59,8 @@ function JacobF(t, n, α, y, par)
 
 end
 ## Solution
-t, Yapp = FDEsolver(F, tSpan, y0, α, nothing, par, h = h)
-t1, Yapp1 = FDEsolver(F, tSpan, y0, α, JacobF, par, h = h, StopIt = "Convergence")
+t, Yapp = FDEsolver(F, nothing, tSpan, y0, α, par, h = h)
+t1, Yapp1 = FDEsolver(F, JacobF, tSpan, y0, α, par, h = h, StopIt = "Convergence")
 
 ## plotting
 plot(t, Yapp, linewidth = 5, title = "Numerical solution of SIR model",

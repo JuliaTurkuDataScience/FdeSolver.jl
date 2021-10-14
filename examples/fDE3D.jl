@@ -11,18 +11,18 @@ y0 = [1, 0.5, 0.3]     # Initial values
 β = [0.5, 0.2, 0.6]    # Order of derivation
 
 # Definition of the System
-function F(t, n, β, y)
+function F(t, y)
 
-    F1 = 1 / sqrt(pi) * (((y[n, 2] - 0.5) * (y[n, 3] - 0.3))^(1 / 6) + t[n]^(1 / 2))
-    F2 = gamma(2.2) * (y[n, 1] - 1)
-    F3 = gamma(2.8) / gamma(2.2) * (y[n, 2] - 0.5)
+    F1 = 1 / sqrt(pi) * (((y[2] - 0.5) * (y[3] - 0.3))^(1 / 6) + t^(1 / 2))
+    F2 = gamma(2.2) * (y[1] - 1)
+    F3 = gamma(2.8) / gamma(2.2) * (y[2] - 0.5)
 
     return [F1, F2, F3]
 
 end
 
 # Numerical Solution
-t, Yapp = FDEsolver(F, tSpan, y0, β, nothing, nc = 5)
+t, Yapp = FDEsolver(F, nothing, tSpan, y0, β, nc = 5)
 
 # Plot
 plot(t, Yapp, linewidth = 5, title = "Solution of system 33",

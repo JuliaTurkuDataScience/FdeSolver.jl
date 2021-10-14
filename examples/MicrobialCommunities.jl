@@ -21,7 +21,7 @@ par = [2,
       4*rand(N,N),
        N]
 
-function F(t, n, β, x, par)
+function F(t, x, par)
     l = par[1] # Hill coefficient
     b = par[2] # growth rates
     k = par[3] # death rates
@@ -33,9 +33,9 @@ function F(t, n, β, x, par)
     for i in 1:N
     # inhibition functions
     f = prod(K[i,1:end .!= i] .^ l ./
-             (K[i,1:end .!= i] .^ l .+ x[n, 1:end .!= i] .^l))
+             (K[i,1:end .!= i] .^ l .+ x[ 1:end .!= i] .^l))
     # System of equations
-    Fun[i] = x[n, i] .* (b[i] .* f .- k[i] .* x[n, i])
+    Fun[i] = x[ i] .* (b[i] .* f .- k[i] .* x[ i])
     end
 
     return Fun
@@ -43,7 +43,7 @@ function F(t, n, β, x, par)
 end
 
 # numerical solution
-t, Xapp = FDEsolver(F, tSpan, X0, β, nothing, par, h = h, nc = 3, tol = 10^(-8))
+t, Xapp = FDEsolver(F, nothing, tSpan, X0, β, par, h = h, nc = 3, tol = 10^(-8))
 
 # plot
 plot(t, Xapp, linewidth = 5,

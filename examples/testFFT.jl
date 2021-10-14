@@ -12,11 +12,15 @@ alpha = 0.6
 lambda = -10
 par = lambda
 F(t, y, par)= par * y
+JF(t, y, par) = y
 
 ## Numerical solution
-@time t, y = FDEsolver(F, tSpan, y0, β, 1, nothing, par)
-@time t1, y1 = FDEsolver(F, tSpan, y0, β, nothing, nothing, par)
-@time t2, y2 = FDEsolver(F, tSpan, y0, β, 1, nothing, par, StopIt = "Convergence", tol = 10e-10, itmax = 100)
+t,y = FDEsolver(F, nothing, tSpan, y0, β, par)
+t,y = FDEsolver(F, JF, tSpan, y0, β, par)
+@benchmark FDEsolver(F, nothing, tSpan, y0, β, 1, nothing, par)
+@btime FDEsolver(F, JF, tSpan, y0, β, 1, nothing, par)
+@time FDEsolver(F, tSpan, y0, β, nothing, nothing, par)
+@time FDEsolver(F, tSpan, y0, β, 1, nothing, par, StopIt = "Convergence", tol = 10e-10, itmax = 100)
 # If the 5th argument is integer then distpach (of FDEsolver) works for main_fft.That it not nice!
 plot(t,y) # This is not nice that we have to say y[1,:] instead of y, in a 1D example.
 # Juno.@enter FDEsolver(F, tSpan, y0, β, 1,  nothing, par)
@@ -91,7 +95,7 @@ plot(t, Yapp)
 #######################
 # Benchmark with MATLAB
 ## inputs
-tSpan = [0, 10] # time span
+tSpan = [0, 700] # time span
 
 h = 0.01 # time step
 
@@ -132,5 +136,7 @@ function F(t, x, par)
 end
 
 using BenchmarkTools
-@btime t, Yapp = FDEsolver(F, tSpan, X0, β, 1, nothing, par, nc =1)
+@benchmark FDEsolver(F, nothing, tSpan, X0, β, 1, nothing, par, nc =1)
+@elapsed t, Yapp = FDEsolver(F, tSpan, X0, β, 1, nothing, par, nc =1)
+@time t, Yapp = FDEsolver(F, tSpan, X0, β, 1, nothing, par, nc =1)
 plot(t, Yapp)

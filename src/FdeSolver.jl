@@ -47,9 +47,8 @@ greet() = print("Hey, let's solve some FDEs!")
 
 include("main.jl")
 include("main_Jacob.jl")
-include("main_fft.jl")
 include("SupFuns.jl")
-include("SupFuns_FFT.jl")
+include("SupFuns_Jacob.jl")
 
 
 export FDEsolver
