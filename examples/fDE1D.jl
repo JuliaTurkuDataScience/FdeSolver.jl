@@ -16,9 +16,9 @@ F(t, y, par) = (40320 ./ gamma(9 - par) .* t .^ (8 - par) .- 3 .* gamma(5 + par 
 JacobF(t, y, par) = -(3 / 2) .* y .^ (1 / 2)
 
 ## Numerical solution
-t, Yapp = FDEsolver(F, nothing, tSpan, y0, β, par, StopIt = "Convergence", tol = 10e-8, itmax = 30)
+t, Yapp = FDEsolver(F, nothing, tSpan, y0, β, par, nc=4, StopIt = "Convergence", tol = 10e-8, itmax = 30)
 
-t1, Yapp1 = FDEsolver(F,  JacobF, tSpan, y0, β, par, StopIt = "Convergence", tol = 10e-8, itmax = 30)
+t1, Yapp1 = FDEsolver(F,  JacobF, tSpan, y0, β, par, nc= 4, StopIt = "Convergence", tol = 10e-8, itmax = 30)
 
 #plot
 plot(t, Yapp, linewidth = 5, title = "Solution of a 1D fractional IVP",

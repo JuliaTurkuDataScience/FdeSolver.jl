@@ -42,21 +42,26 @@ function defineY0(y0, β)
     Y0 = zeros(size(y0,1),Int64.(ceil(maximum(β))))
 
     Y0[:,1] .= y0
-
+return Y0 # this is important for the output size ([1,:] or [:,1])
 end
 
 function defineY0(y0::Vector{<:Real}, β)
 
-    Y0 = zeros(size(y0,1),Int64.(ceil(maximum(β))))
-
-    Y0[:,1] .= y0
+    if size(y0) == size(β)
+        Y0 = zeros(size(y0,1),Int64.(ceil(maximum(β))))
+        Y0[:,1] .= y0
+    elseif size(y0) != size(β)
+        Y0 = zeros(size(y0,2),Int64.(ceil(maximum(β))))
+        Y0[1,:] .= y0
+    end
+    return Y0# this is important for the output size ([1,:] or [:,1])
 end
 
-function defineY0(y0::Matrix{<:Real}, β) # I am not sure about it yet ks well if it works well for order>1
+function defineY0(y0::Matrix{<:Real}, β)
 
     Y0 = zeros(size(y0,1),Int64.(ceil(maximum(β))))
     Y0[: , 1] .= y0[:,1]
-
+return Y0# this is important for the output size ([1,:] or [:,1])
 end
 
 ## Gamma function for vectors ##
@@ -216,7 +221,7 @@ for k in 1:maximum(ic.m_β)
         ys = ys .+ (t-ic.t0).^(k-1)./ic.m_β_factorial[k].*ic.y0[:,k]
     else
         i_β = findall(k .<= ic.m_β)
-        ys[i_β,1] = ys[i_β,1] + (t-ic.t0)^(k-1)*ic.y0[i_β,k]./ic.m_β_factorial[i_β,k]
+        ys[i_β,1] += (t-ic.t0)^(k-1)*ic.y0[i_β,k]./ic.m_β_factorial[i_β,k]
     end
 end
 

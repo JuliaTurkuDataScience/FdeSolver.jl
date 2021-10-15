@@ -1,5 +1,5 @@
 # If the 5th argument is integer then distpach (of FDEsolver) works for main_fft.That it not nice!
-function FDEsolver(F, JF, tSpan, y0, β, par...; h = 0.01, nc = 1, StopIt = "Standard", tol = 10e-6, itmax = 100)
+function FDEsolver(F, JF, tSpan, y0, β, par...; h = 2^-5, nc = 1, StopIt = "Standard", tol = 10e-6, itmax = 100)
 
 # Check compatibility size of the problem with number of fractional orders
 y0 = defineY0(y0, β)
@@ -35,7 +35,7 @@ t = tSpan[1] .+ collect(0:N) .* h
 # Y = defineY(N, y0, β)
 
 # Check compatibility size of the problem with size of the vector field
-f_temp = F(t[1], y0, par...)
+f_temp = F(t[1], y0[:,1], par...)
 
 # Number of points in which to evaluate weights and solution
 r = 16
