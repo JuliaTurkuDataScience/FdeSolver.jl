@@ -15,8 +15,8 @@ F(t, y, par)= par * y
 JF(t, y, par) = y
 
 ## Numerical solution
-t,y = FDEsolver(F, nothing, tSpan, y0, β, par)
-t1,y1 = FDEsolver(F, JF, tSpan, y0, β, par)
+t,y = FDEsolver(F, tSpan, y0, β, par)
+t1,y1 = FDEsolver(F, tSpan, y0, β, par, J = JF)
 plot(t,y)
 plot!(t1,y1, ls = :dash)
 # Juno.@enter FDEsolver(F, tSpan, y0, β, 1,  nothing, par)
@@ -24,7 +24,7 @@ plot!(t1,y1, ls = :dash)
 ############ Let's try FFT for a system
 tSpan = [0, 50]
 h = 2^(-5)
-y0 = [ 1.2 , 2.8]
+y0 = [1.2, 2.8]
 β = [0.8,0.7]
 A = 1 ; B = 3
 par = [ A , B ]
