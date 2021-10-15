@@ -43,7 +43,7 @@ function F(t, x, par)
 end
 
 # numerical solution
-t, Xapp = FDEsolver(F, nothing, tSpan, X0, β, par, h = h, nc = 3, tol = 10^(-8))
+t, Xapp = FDEsolver(F, tSpan, X0, β, par, h = h, nc = 3, tol = 10^(-8))
 
 # plot
 plot(t, Xapp, linewidth = 5,

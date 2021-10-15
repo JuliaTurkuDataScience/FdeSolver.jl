@@ -22,7 +22,7 @@ function F(t, y)
 end
 
 # Numerical Solution
-t, Yapp = FDEsolver(F, nothing, tSpan, y0, β, nc = 5)
+t, Yapp = FDEsolver(F, tSpan, y0, β, nc = 5)
 
 # Plot
 plot(t, Yapp, linewidth = 5, title = "Solution of system 33",
