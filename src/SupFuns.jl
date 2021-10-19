@@ -86,7 +86,7 @@ while ~stop
 
     zn_pred, zn_corr = Quadrato(nxi, nxf, nyi, nyf, fy, zn_pred, zn_corr, N, METH, METH_fft, Probl)
 
-    y, fy = Triangolo(nxi, nxi+r-1, t, y, fy, zn_pred, zn_corr, N, METH, METH_fft, Probl)
+    y, fy = Triangolo(nxi, nxi+r-1, t, y, fy, zn_pred, zn_corr, N, METH, Probl)
     i_triangolo += 1
 
     if ~stop
@@ -155,7 +155,7 @@ end
 
 ##
 # Based on Roberto Garrappa's codes
-function Triangolo(nxi, nxf, t, y, fy, zn_pred, zn_corr, N, METH, METH_fft, Probl)
+function Triangolo(nxi, nxf, t, y, fy, zn_pred, zn_corr, N, METH, Probl)
 
 for n in nxi:min(N,nxf)
 

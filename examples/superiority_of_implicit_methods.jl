@@ -4,9 +4,8 @@ using Plots
 ## inputs
 tSpan = [0, 5]     # [intial time, final time]
 y0 = 1             # intial value
-β = 0.6            # order of the derivative
+β = 1.6            # order of the derivative
 
-alpha = 0.6
 λ = -10
 par = λ
 F(t, y, par)= par * y

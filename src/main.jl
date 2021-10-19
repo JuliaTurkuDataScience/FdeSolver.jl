@@ -111,7 +111,7 @@ end
 # Initializing solution and proces of computation
 y[:,1] = y0[:,1]
 fy[:,1] = f_temp
-y, fy = Triangolo(1, r-1, t, y, fy, zn_pred, zn_corr, N, METH, METH_fft, Probl) ;
+y, fy = Triangolo(1, r-1, t, y, fy, zn_pred, zn_corr, N, METH, Probl) ;
 
 # Main process of computation by means of the FFT algorithm
 ff = zeros(1,2 .^ (Qr+2)) ; ff[1:2] = [0, 2] ; card_ff = 2

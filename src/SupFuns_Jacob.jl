@@ -47,7 +47,7 @@ while ~stop
 
     zn = JQuadrato(nxi, nxf, nyi, nyf, fy, zn, N, METH, METH_fft, Probl)
 
-    y, fy = JTriangolo(nxi, nxi+r-1, t, y, fy, zn, N, METH, METH_fft, Probl)
+    y, fy = JTriangolo(nxi, nxi+r-1, t, y, fy, zn, N, METH, Probl)
     i_triangolo += 1
 
     if ~stop
@@ -118,7 +118,7 @@ end
 
 ##
 # Based on Roberto Garrappa's codes
-function JTriangolo(nxi, nxf, t, y, fy, zn, N, METH, METH_fft, Probl)
+function JTriangolo(nxi, nxf, t, y, fy, zn, N, METH, Probl)
 
 for n in nxi:min(N,nxf)
 
