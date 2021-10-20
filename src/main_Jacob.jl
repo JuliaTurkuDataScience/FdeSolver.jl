@@ -6,11 +6,11 @@ function _FDEsolver(F, JF, tSpan, y0, β, par...; h = 2^-6, nc = 1, StopIt = "St
     problem_size = size(y0, 1)
 
     if β_length > 1
-    
+
         # println("Oh! Good! ODE system!")
-    
+
     else
-    
+
         β = β * ones(problem_size, 1)
         β_length = problem_size
 
@@ -20,13 +20,13 @@ function _FDEsolver(F, JF, tSpan, y0, β, par...; h = 2^-6, nc = 1, StopIt = "St
     ic = initial_conditions(tSpan[1], y0, Int64.(map(ceil, β)), zeros(β_length, Int64.(ceil(maximum(β)))))
 
     for i in 1:β_length
-    
+
         for j in 0:ic.m_β[i] - 1
 
             ic.m_β_factorial[i, j + 1] = factorial(j)
-        
+
         end
-    
+
     end
 
     # Storage of information on the problem
@@ -60,72 +60,66 @@ function _FDEsolver(F, JF, tSpan, y0, β, par...; h = 2^-6, nc = 1, StopIt = "St
     a0 = zeros(Probl.β_length, NNr + 1)
 
     for i_β in 1:Probl.β_length
-        
+
         find_β = findall(β[i_β] == β[1:i_β - 1])
-        
+
         if !isempty(find_β) # it is for speeding up the computations; we can use multilpe distpach
-            
+
             an[i_β, :] = an[find_β[1], :]
             a0[i_β, :] = a0[find_β[1], :]
-        
+
         else
-        
+
             nβ = nvett .^ β[i_β]
             nβ1 = nβ .* nvett
             an[i_β,:] = [ 1; (nβ1[1:end - 2] - 2 * nβ1[2:end - 1] + nβ1[3:end])]
             a0[i_β, :] = [0; (nβ1[1:end - 2] - nβ[2:end - 1] .* (nvett[2:end - 1] .- β[i_β] .- 1))]
-        
+
         end
-    
+
     end
 
     METH = JMethod(an, a0, h.^β ./ Γ(β .+ 1), h.^β ./ Γ(β .+ 2), nc, tol, r, StopIt, itmax)
 
     # Evaluation of FFT of coefficients of the PECE method
     if Qr >= 0
-    
+
         index_fft = Int64.(zeros(2, Qr + 1)) # I have tried index_fft::Int64 = zeros(2,Qr+1) and I got an error for converting Type!
-    
+
         for l in 1:Qr + 1
-        
+
             if l == 1
-            
+
                 index_fft[1, l] = 1
                 index_fft[2, l] = r * 2
-        
+
             else
-            
+
                 index_fft[1,l] = index_fft[2,l-1] + 1
                 index_fft[2,l] = index_fft[2,l-1]+2^l*r
-        
+
             end
-    
+
         end
 
         an_fft =ComplexF64.(zeros(Probl.β_length, index_fft[2, Qr + 1]))
 
         for l in 1:Qr + 1
-        
+
             coef_end = 2^l * r
-        
+
             for i_β in 1:Probl.β_length
-            
+
                 find_β = findall(β[i_β] == β[1:i_β - 1])
-            
-                if !isempty(find_β)
-                
-                    an_fft[i_β, index_fft[1, l]:index_fft[2, l]] = an_fft[find_β[1], index_fft[1, l]:index_fft[2, l]]
-            
-                else
-                
-                    an_fft[i_β,index_fft[1, l]:index_fft[2, l]] = fft(METH.an[i_β, 1:coef_end])
-            
-                end
-        
+
+                an_fft[i_β, index_fft[1, l]:index_fft[2, l]] = ifelse(!isempty(find_β),
+                                                                      an_fft[find_β[1], index_fft[1, l]:index_fft[2, l]],
+                                                                      fft(METH.an[i_β, 1:coef_end]))
+
             end
-    
+
         end
-    
+
         METH_fft = JMethod_fft(an_fft, Int64.(index_fft))
 
     end
@@ -139,12 +133,12 @@ function _FDEsolver(F, JF, tSpan, y0, β, par...; h = 2^-6, nc = 1, StopIt = "St
     ff = zeros(1, 2^(Qr + 2))
     ff[1:2] = [0, 2]
     card_ff = 2
-    
+
     nx0 = 0
     ny0 = 0
 
     for qr in 0:Qr
-        
+
         L = 2^qr
         y, fy = JDisegnaBlocchi(L, ff, r, Nr, nx0 + L * r, ny0, t, y, fy, zn, N, METH, METH_fft, Probl)
         ff[1:2 * card_ff] = [ff[1:card_ff]; ff[1:card_ff]]
@@ -155,16 +149,16 @@ function _FDEsolver(F, JF, tSpan, y0, β, par...; h = 2^-6, nc = 1, StopIt = "St
 
     # Evaluation solution in T when T is not in the mesh
     if tSpan[end] < t[N + 1]
-    
+
         c = [tSpan[end] - t(N)] / h
         t[N + 1] = tSpan[end]
         y[:, N + 1] = (1 - c) * y[:, N] + c * y[:, N + 1]
-    
+
     end
 
     t = t[1:N + 1]
     y = transpose(y[:, 1:N + 1])
 
     return t, y
-    
+
 end
