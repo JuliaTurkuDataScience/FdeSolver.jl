@@ -64,6 +64,27 @@ function defineY0(y0::Matrix{<:Real}, β)
 return Y0# this is important for the output size ([1,:] or [:,1])
 end
 
+##
+function f_value(F, nEq)
+
+    f = zeros(nEq)
+    f[:] = [F]
+return f
+end
+function f_value(F::Vector{<:Real}, nEq)
+
+    f = zeros(nEq)
+    f[:] = F
+return f
+end
+
+function f_value(F::Matrix{<:Real}, nEq)
+
+    f = zeros(nEq)
+    f[:] = F
+return f
+end
+
 ## Gamma function for vectors ##
 Γ(b) = map(gamma, b)
 
@@ -171,7 +192,7 @@ for n in nxi:min(N,nxf)
     end
     St = taylor_expansion(t[n+1], Probl.ic)
     y_pred = St .+ METH.hα1.*(zn_pred[:,n+1] .+ Φ)
-    f_pred = Probl.f_fun(t[n], y_pred, Probl.param...)
+    f_pred = f_value(Probl.f_fun(t[n], y_pred, Probl.param...),Probl.problem_size)
 
     # Evaluation of the corrector
     if METH.μ == 0
@@ -200,7 +221,7 @@ for n in nxi:min(N,nxf)
             else
                 stop = mu_it == METH.μ
             end
-            fn1 = Probl.f_fun(t[n], yn1, Probl.param...)
+            fn1 = f_value(Probl.f_fun(t[n], yn1, Probl.param...),Probl.problem_size)
             yn0 = yn1 ; fn0 = fn1
         end
         y[:,n+1] = yn1

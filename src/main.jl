@@ -30,11 +30,8 @@ Probl = Problem(ic , F, problem_size,par, β, β_length)
 N = Int64.(cld(tSpan[2] - tSpan[1], h))
 t = tSpan[1] .+ collect(0:N) .* h
 
-# Enter the initial values
-# Y = defineY(N, y0, β)
-
 # Check compatibility size of the problem with size of the vector field
-f_temp = F(t[1], y0[:,1], par...)
+f_temp = f_value(F(t[1], y0[:,1], par...), Probl.problem_size)
 
 # Number of points in which to evaluate weights and solution
 r = 16
