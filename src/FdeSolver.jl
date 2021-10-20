@@ -35,15 +35,7 @@ module FdeSolver
 
 using SpecialFunctions
 using LinearAlgebra
-# using LabelledArrays
 using FFTW
-
-
-"""
-    greet()
-Motivates to get started with FdeSolver.
-"""
-greet() = print("Hey, let's solve some FDEs!")
 
 include("main.jl")
 include("main_Jacob.jl")
