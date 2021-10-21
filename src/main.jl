@@ -40,7 +40,7 @@ function _FDEsolver(F, ::Nothing, tSpan, y0, β, par...; h = 2^-6, nc = 1, StopI
     # Y = defineY(N, y0, β)
 
     # Check compatibility size of the problem with size of the vector field
-    f_temp = F(t[1], y0[:, 1], par...)
+    f_temp = f_value(F(t[1], y0[:,1], par...), Probl.problem_size)
 
     # Number of points in which to evaluate weights and solution
     r = 16

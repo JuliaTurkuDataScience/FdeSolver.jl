@@ -159,7 +159,7 @@ function JTriangolo(nxi, nxf, t, y, fy, zn, N, METH, Probl)
 
         Φ_n = St + METH.hα2 .* (METH.a0[1:Probl.β_length, n + 1] .* fy[:, 1] .+ zn[:, n + 1] .+ Φ)
         yn0 = y[:, n]
-        fn0 = Probl.f_fun(t[n + 1], yn0, Probl.param...)
+        fn0 = f_value(Probl.f_fun(t[n + 1], yn0, Probl.param...), Probl.problem_size)
         Jfn0 = Probl.JF(t[n + 1], yn0, Probl.param...)
         Gn0 = yn0 - METH.hα2 .* fn0 - Φ_n
 
@@ -174,7 +174,7 @@ function JTriangolo(nxi, nxf, t, y, fy, zn, N, METH, Probl)
 
             JGn0 = I(Probl.problem_size) .- Diagonal(METH.hα2) * Jfn0
             yn1 = yn0 - inv(JGn0) * Gn0
-            fn1 = Probl.f_fun(t[n + 1], yn1, Probl.param...)
+            fn1 = f_value(Probl.f_fun(t[n + 1], yn1, Probl.param...), Probl.problem_size)
             Gn1 = yn1 - METH.hα2 .* fn1 - Φ_n
 
             mu_it += 1

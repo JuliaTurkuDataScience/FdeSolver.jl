@@ -74,6 +74,34 @@ function defineY0(y0::Matrix{<:Real}, β)
 
 end
 
+##
+function f_value(F, nEq)
+
+    f = zeros(nEq)
+    f[:] = [F]
+
+    return f
+
+end
+
+function f_value(F::Vector{<:Real}, nEq)
+
+    f = zeros(nEq)
+    f[:] = F
+
+    return f
+
+end
+
+function f_value(F::Matrix{<:Real}, nEq)
+
+    f = zeros(nEq)
+    f[:] = F
+
+    return f
+    
+end
+
 ## Gamma function for vectors ##
 Γ(b) = map(gamma, b)
 
@@ -226,7 +254,7 @@ function Triangolo(nxi, nxf, t, y, fy, zn_pred, zn_corr, N, METH, Probl)
 
     for n in nxi:min(N, nxf)
 
-    # Evaluation of the predictor
+        # Evaluation of the predictor
         Φ = zeros(Probl.problem_size, 1)
 
         j_beg = ifelse(nxi == 1, 0, nxi) # if nxi == 1 -> first triangle, else -> any other triangle
@@ -239,7 +267,7 @@ function Triangolo(nxi, nxf, t, y, fy, zn_pred, zn_corr, N, METH, Probl)
 
         St = taylor_expansion(t[n + 1], Probl.ic)
         y_pred = St .+ METH.hα1 .* (zn_pred[:, n + 1] .+ Φ)
-        f_pred = Probl.f_fun(t[n], y_pred, Probl.param...)
+        f_pred = f_value(Probl.f_fun(t[n], y_pred, Probl.param...), Probl.problem_size)
 
         # Evaluation of the corrector
         if METH.μ == 0
@@ -291,7 +319,7 @@ function Triangolo(nxi, nxf, t, y, fy, zn_pred, zn_corr, N, METH, Probl)
 
                 end
 
-                fn1 = Probl.f_fun(t[n], yn1, Probl.param...)
+                fn1 = f_value(Probl.f_fun(t[n], yn1, Probl.param...),Probl.problem_size)
                 yn0 = yn1
                 fn0 = fn1
 
