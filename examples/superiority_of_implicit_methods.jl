@@ -13,13 +13,11 @@ JF(t, y, par) = par
 
 ## Numerical solution
 t,y = FDEsolver(F, tSpan, y0, β, par)
-t_J,y_J = FDEsolver(F, tSpan, y0, β, par, J = JF)
-# Juno.@enter FDEsolver(F, tSpan, y0, β, 1,  nothing, par)
+t_J, y_J = FDEsolver(F, tSpan, y0, β, par, J = JF)
 
-
-using MittagLeffler #for the exact solution
+using MittagLeffler # for the exact solution
 
 plot(t,y,linewidth=5,title="Solution to a linear fractional equation",
     xaxis="Time (t)",yaxis="y(t)",ls = :dot, label="Approximation")
-    plot!(t,  t -> mittleff(β,λ *t .^ β),linewidth=5,label="Exact solution")
+plot!(t,  t -> mittleff(β,λ *t .^ β),linewidth=5,label="Exact solution")
 plot!(t_J,y_J,linewidth=5, ls = :dash, label="Approximation with jacobian")
