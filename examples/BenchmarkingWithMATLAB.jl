@@ -19,18 +19,18 @@ F(t, y, par)= par * y
 JF(t, y, par) = par
 h=zeros()
 Bench1=(zeros(length(H),2,2))
-Exact(t)=mittleff(β,λ *t .^ β)
+Exact1(t)=mittleff(β,λ *t .^ β)
 for i in 1:length(H)
         h = H[i]
-    Bench1[i,1,1]= mean(@benchmark FDEsolver(F, tSpan, y0, β, par, h=h)).time*10^-9
-    Bench1[i,2,1]= mean(@benchmark FDEsolver(F, tSpan, y0, β, par, J = JF, h=h)).time*10^-9
+    Bench1[i,1,1]= mean(@benchmark FDEsolver($F, $tSpan, $y0, $β, $par, h=$h)).time*10^-9
+    Bench1[i,2,1]= mean(@benchmark FDEsolver($F, $tSpan, $y0, $β, $par, J = $JF, h=$h)).time*10^-9
 
     if i>=4
 
     t,y = FDEsolver(F, tSpan, y0, β, par, h=h)
     t1,y1 = FDEsolver(F, tSpan, y0, β, par, J=JF, h=h)
-    Bench1[i,1,2]=norm(y-map(Exact,t),2)
-    Bench1[i,2,2]=norm(y1-map(Exact,t),2)
+    Bench1[i,1,2]=norm(y-map(Exact1,t),2)
+    Bench1[i,2,2]=norm(y1-map(Exact1,t),2)
     end
 
 end
@@ -61,28 +61,28 @@ h=zeros()
 Bench2=(zeros(length(H),2,2))
 
 
-Exact1(t)=t.^8 - 3 * t .^ (4 + β / 2) + 9 / 4 * t.^β
+Exact2(t)=t.^8 - 3 * t .^ (4 + β / 2) + 9 / 4 * t.^β
 
-for i in 1:length(H)
+for i in 2:length(H)
         h = H[i]
     Bench2[i,1,1]= mean(@benchmark FDEsolver(F, tSpan, y0, β, par, h=h)).time*10^-9
     Bench2[i,2,1]= mean(@benchmark FDEsolver(F, tSpan, y0, β, par, J = JF, h=h)).time*10^-9
 
     t,y = FDEsolver(F, tSpan, y0, β, par, h=h)
     t1,y1 = FDEsolver(F, tSpan, y0, β, par, J=JF, h=h)
-    Exact=map(Exact1,t)
+    Exact=map(Exact2,t)
     Bench2[i,1,2]=norm(y-Exact)
     Bench2[i,2,2]=norm(y1-Exact)
 
 
 end
 Mdata=DataFrame(CSV.File("Bench2.csv",header=0));
-plot(H,Bench2[:,:,1],linewidth=5,xscale = :log,yscale = :log,title="Becnhmark for Example2",yaxis="Time(Sc)",xaxis="Step size", label=["PI_PC" "PI_IM"])
-plot!(H,Mdata[!,1],linewidth=5,xscale = :log,yscale = :log, label="M_PI_PC")
-plot!(H,Mdata[!,2],linewidth=5,xscale = :log,yscale = :log, label="M_PI_IM")
-plot(H,Bench2[:,:,2],yscale = :log,xscale = :log,linewidth=5,title="Square norm of the erorrs",yaxis="Errors",xaxis="Step size", label=["PI_PC" "PI_IM"])
-plot!(H,Mdata[!,3],linewidth=5,xscale = :log,ls = :dash,yscale = :log, label="M_PI_PC")
-plot!(H,Mdata[!,4],linewidth=5,xscale = :log,yscale = :log, ls = :dot,label="M_PI_IM")
+plot(H[2:end],Bench2[2:end,:,1],linewidth=5,xscale = :log,yscale = :log,title="Becnhmark for Example2",yaxis="Time(Sc)",xaxis="Step size", label=["PI_PC" "PI_IM"])
+plot!(H[2:end],Mdata[2:end,1],linewidth=5,xscale = :log,yscale = :log, label="M_PI_PC")
+plot!(H[2:end],Mdata[2:end,2],linewidth=5,xscale = :log,yscale = :log, label="M_PI_IM")
+plot(H[2:end],Bench2[2:end,:,2],yscale = :log,xscale = :log,linewidth=5,title="Square norm of the erorrs",yaxis="Errors",xaxis="Step size", label=["PI_PC" "PI_IM"])
+plot!(H[2:end],Mdata[2:end,3],linewidth=5,xscale = :log,ls = :dash,yscale = :log, label="M_PI_PC")
+plot!(H[2:end],Mdata[2:end,4],linewidth=5,xscale = :log,yscale = :log, ls = :dot,label="M_PI_IM")
 
 
 ##
@@ -101,12 +101,12 @@ function F(t,y,β)
     return dy
 end
 # Jacobian
-JF(t, y, β) = t
+JF(t, y, β) = 0
 
 h=zeros()
 Bench3=(zeros(length(H),2,2))
 
-function Exact1(t)
+function Exact3(t)
     if t > 1
         y= t .-(t .-1).^2
         else
@@ -118,13 +118,13 @@ end
 
 for i in 1:length(H)
         h = H[i]
-    Bench3[i,1,1]= mean(@benchmark FDEsolver(F, tSpan, y0, β, par, h=h)).time*10^-9
+    Bench3[i,1,1]= mean(@benchmark FDEsolver(F, tSpan, y0, β, par, h=h,)).time*10^-9
     Bench3[i,2,1]= mean(@benchmark FDEsolver(F, tSpan, y0, β, par, J = JF, h=h)).time*10^-9
 
     t,y = FDEsolver(F, tSpan, y0, β, par, h=h)
     t1,y1 = FDEsolver(F, tSpan, y0, β, par, J=JF, h=h)
 
-    Exact = map(Exact1,t)
+    Exact = map(Exact3,t)
     Bench3[i,1,2]=norm(y-Exact)
     Bench3[i,2,2]=norm(y1-Exact)
 
@@ -178,7 +178,7 @@ end
 
 h=zeros()
 Bench4=(zeros(length(H),2,2))
-Exact1(t)=[t .+ 1; t.^1.2 .+ 0.5; t.^1.8 .+ 0.3]
+Exact4(t)=[t .+ 1; t.^1.2 .+ 0.5; t.^1.8 .+ 0.3]
 
 for i in 1:length(H)
         h = H[i]
@@ -189,7 +189,7 @@ for i in 1:length(H)
     t,y = FDEsolver(F, tSpan, y0, β, h=h)
     # t1,y1 = FDEsolver(F, tSpan, y0, β, J=JF, h=h)
 
-    Exact = reshape(Exact1(t),length(t),3)
+    Exact = reshape(Exact4(t),length(t),3)
     Bench4[i,1,2]=norm(y-Exact)
     # Bench4[i,2,2]=norm(y1-Exact)
 
@@ -220,7 +220,7 @@ par=β
 
 h=zeros()
 Bench5=(zeros(length(H),2,2))
-Exact1(t)=t.^2
+Exact5(t)=t.^2
 
 for i in 1:length(H)
         h = H[i]
@@ -230,7 +230,7 @@ for i in 1:length(H)
     t,y = FDEsolver(F, tSpan, y0, β, par, h=h)
     t1,y1 = FDEsolver(F, tSpan, y0, β, par, J=JF, h=h)
 
-    Exact = map(Exact1,t)
+    Exact = map(Exact5,t)
     Bench5[i,1,2]=norm(y-Exact)
     Bench5[i,2,2]=norm(y1-Exact)
 
@@ -270,17 +270,17 @@ JF(t,y,par) = - par[1] ./ par[2]
 h=zeros()
 Bench6=(zeros(length(H),2,2))
 
-Exact1(t)=y0[1] .* cos(sqrt(par[1] / par[2]) .* t) .+ y0[2] ./ sqrt(par[1] / par[2]) .* sin(sqrt(par[1] / par[2]) .* t)
+Exact6(t)=y0[1] .* cos(sqrt(par[1] / par[2]) .* t) .+ y0[2] ./ sqrt(par[1] / par[2]) .* sin(sqrt(par[1] / par[2]) .* t)
 
 for i in 1:length(H)
         h = H[i]
     Bench6[i,1,1]= mean(@benchmark FDEsolver(F, tSpan, y0, β, par, h=h)).time*10^-9
-    Bench6[i,2,1]= mean(@benchmark FDEsolver(F, tSpan, y0, β, par, J = JF, h=h)).time*10^-9
+    Bench6[i,2,1]= mean(@benchmark FDEsolver(F, tSpan, y0, β, par, J = JF, h=h, StopIt = "Convergence")).time*10^-9
 
     t,y = FDEsolver(F, tSpan, y0, β, par, h=h)
-    t1,y1 = FDEsolver(F, tSpan, y0, β, par, J=JF, h=h)
+    t1,y1 = FDEsolver(F, tSpan, y0, β, par, J=JF, h=h, StopIt = "Convergence")
 
-    Exact = map(Exact1,t)
+    Exact = map(Exact6,t)
     Bench6[i,1,2]=norm(y-Exact)
     Bench6[i,2,2]=norm(y1-Exact)
 

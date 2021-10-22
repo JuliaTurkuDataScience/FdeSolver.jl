@@ -42,12 +42,12 @@ end
 
 # Numerical Solution
 t, Yapp = FDEsolver(F, tSpan, y0, β, nc = 5)
-# t_J, Yapp_J = FDEsolver(F, tSpan, y0, β, J=JF)
+# t_J, Yapp_J = FDEsolver(F, tSpan, y0, β, J=JF, StopIt = "Convergence")
 
 # Plot
 plot(t, Yapp, linewidth = 5, title = "Solution of system 33",
      xaxis = "Time (t)", yaxis = "y(t)", label = "Approximation")
-
+# plot!(t_J, Yapp_J, linewidth = 5, ls= :dot, label = "Approximation with Jacob")
 plot!(t, t -> (t .+ 1), lw = 3, ls = :dash, color= "red", label = "Exact solution")
 plot!(t, t -> (t.^1.2 .+ 0.5), lw = 3, ls = :dash, color= "cyan", label = "Exact solution")
 plot!(t, t -> (t.^1.8 .+ 0.3), lw = 3, ls = :dash, color= "black" ,label = "Exact solution")

@@ -1,16 +1,19 @@
 function _FDEsolver(F, ::Nothing, tSpan, y0, β, par...; h = 2^-6, nc = 1, StopIt = "Standard", tol = 10e-6, itmax = 100)
 
     # Check compatibility size of the problem with number of fractional orders
+    # if size(y0, 1) != length(β)
+    #     error("Size Is Not Compatible
+    #                 Size %i of the problem as obtained from initial conditions
+    #                 (i.e. the number of rows of Y0) not compatible with the
+    #                 number %i of fractional orders for multi-order systems.
+    #                 ", size(y0, 1), length(β))
+    # end
+
     y0 = defineY0(y0, β)
     β_length = length(β)
     problem_size = size(y0, 1)
 
-    if β_length > 1
-
-            # println("Oh! Good! ODE system!")
-
-    else
-
+    if β_length ==1
         β = β * ones(problem_size, 1)
         β_length = problem_size
 

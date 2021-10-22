@@ -99,7 +99,7 @@ function f_value(F::Matrix{<:Real}, nEq)
     f[:] = F
 
     return f
-    
+
 end
 
 ## Gamma function for vectors ##
@@ -267,7 +267,7 @@ function Triangolo(nxi, nxf, t, y, fy, zn_pred, zn_corr, N, METH, Probl)
 
         St = taylor_expansion(t[n + 1], Probl.ic)
         y_pred = St .+ METH.hα1 .* (zn_pred[:, n + 1] .+ Φ)
-        f_pred = f_value(Probl.f_fun(t[n], y_pred, Probl.param...), Probl.problem_size)
+        f_pred = f_value(Probl.f_fun(t[n+1], y_pred, Probl.param...), Probl.problem_size)
 
         # Evaluation of the corrector
         if METH.μ == 0
@@ -319,7 +319,7 @@ function Triangolo(nxi, nxf, t, y, fy, zn_pred, zn_corr, N, METH, Probl)
 
                 end
 
-                fn1 = f_value(Probl.f_fun(t[n], yn1, Probl.param...),Probl.problem_size)
+                fn1 = f_value(Probl.f_fun(t[n+1], yn1, Probl.param...),Probl.problem_size)
                 yn0 = yn1
                 fn0 = fn1
 

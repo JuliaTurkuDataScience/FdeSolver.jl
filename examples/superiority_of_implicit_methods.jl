@@ -4,7 +4,7 @@ using Plots
 ## inputs
 tSpan = [0, 5]     # [intial time, final time]
 y0 = 1             # intial value
-β = 1.6            # order of the derivative
+β = 0.6            # order of the derivative
 
 λ = -10
 par = λ
