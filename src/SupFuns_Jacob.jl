@@ -118,7 +118,7 @@ function JQuadrato(nxi, nxf, nyi, nyf, fy, zn, N, METH, METH_fft, Probl)
 
     vett_funz = zeros(Probl.problem_size, coef_end)
 
-    vett_funz[:, 1:coef_end] = ifelse(nyi == 0,
+    vett_funz[:, 1:funz_end-funz_beg+1] = ifelse(nyi == 0,
     [zeros(Probl.problem_size, 1) fy[:, funz_beg + 1:funz_end]], # Evaluation of the lowest square
     fy[:, funz_beg:funz_end])                                    # we have this "else" only in Jacob
 
