@@ -1,19 +1,23 @@
-function _FDEsolver(F, ::Nothing, tSpan, y0, β, par...; h = 2^-6, nc = 1, StopIt = "Standard", tol = 10e-6, itmax = 100)
+function _FDEsolver(pos_args, opt_args, ::Nothing, par...)
 
-    # Check compatibility size of the problem with number of fractional orders
-    # if size(y0, 1) != length(β)
-    #     error("Size Is Not Compatible
-    #                 Size %i of the problem as obtained from initial conditions
-    #                 (i.e. the number of rows of Y0) not compatible with the
-    #                 number %i of fractional orders for multi-order systems.
-    #                 ", size(y0, 1), length(β))
-    # end
+    # extract arguments from pos_args and opt_args structure fields
+    F = pos_args.F
+    tSpan = pos_args.tSpan
+    y0 = pos_args.y0
+    β = pos_args.β
+    h = opt_args.h
+    nc = opt_args.nc
+    StopIt = opt_args.StopIt
+    tol = opt_args.tol
+    itmax = opt_args.itmax
 
-    y0 = defineY0(y0, β)
+    # ceck compatibility size of the problem with number of fractional orders
+    y0 = defineY0(pos_args.y0, pos_args.β)
     β_length = length(β)
     problem_size = size(y0, 1)
 
-    if β_length ==1
+    if β_length == 1
+
         β = β * ones(problem_size, 1)
         β_length = problem_size
 

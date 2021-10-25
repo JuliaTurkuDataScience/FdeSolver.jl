@@ -1,6 +1,17 @@
-function _FDEsolver(F, JF, tSpan, y0, β, par...; h = 2^-6, nc = 2, StopIt = "Standard", tol = 10e-6, itmax = 100)
+function _FDEsolver(pos_args, opt_args, JF::Function, par...)
 
-    # Check compatibility size of the problem with number of fractional orders
+    # extract arguments from pos_args and opt_args structure fields
+    F = pos_args.F
+    tSpan = pos_args.tSpan
+    y0 = pos_args.y0
+    β = pos_args.β
+    h = opt_args.h
+    nc = opt_args.nc
+    StopIt = opt_args.StopIt
+    tol = opt_args.tol
+    itmax = opt_args.itmax
+
+    # check compatibility size of the problem with number of fractional orders
     y0 = defineY0(y0, β)
     β_length = length(β)
     problem_size = size(y0, 1)
@@ -52,7 +63,6 @@ function _FDEsolver(F, JF, tSpan, y0, β, par...; h = 2^-6, nc = 2, StopIt = "St
     y = zeros(Probl.problem_size, N + 1)
     fy = zeros(Probl.problem_size, N + 1)
     zn = zeros(Probl.problem_size, NNr + 1)
-
 
     # Evaluation of coefficients of the PECE method
     nvett = 0:NNr + 1

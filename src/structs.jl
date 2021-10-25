@@ -1,15 +1,14 @@
 
-const default_values = (2^-6, 2, "Standard", 10e-6, 100)
+const default_values = (2^-6, 2, nothing, "Standard", 10e-6, 100)
 
 struct PositionalArguments
 
     F::Function
-    JF::Union{Nothing, Function}
     tSpan::Vector{<:Real}
     y0::Union{Real, Vector{<:Real}, Matrix{<:Real}}
     β::Union{Real, Vector{<:Real}}
 
-    function PositionalArguments(F, JF, tSpan, y0, β)
+    function PositionalArguments(F, tSpan, y0, β)
 
         if length(tSpan) != 2
 
@@ -41,7 +40,7 @@ struct PositionalArguments
 
         end
 
-        new(F, JF, tSpan, y0, β)
+        new(F, tSpan, y0, β)
 
     end
 
