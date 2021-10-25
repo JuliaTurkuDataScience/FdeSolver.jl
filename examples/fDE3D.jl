@@ -42,7 +42,7 @@ end
 
 # Numerical Solution
 t, Yapp = FDEsolver(F, tSpan, y0, β, nc = 5)
-# t_J, Yapp_J = FDEsolver(F, tSpan, y0, β, J=JF, StopIt = "Convergence")
+t_J, Yapp_J = FDEsolver(F, tSpan, y0, β, J = JF, StopIt = "Convergence")
 
 # Plot
 plot(t, Yapp, linewidth = 5, title = "Solution of system 33",

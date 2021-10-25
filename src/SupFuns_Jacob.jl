@@ -1,31 +1,3 @@
-## some structures
-struct JProblem
-    ic
-    f_fun
-    problem_size::Int64
-    param
-    β # we should think about its type
-    β_length::Int64
-    JF
-end
-
-struct JMethod
-    an::Matrix{Float64}
-    a0::Matrix{Float64}
-    hα1 # we should think about its type
-    hα2 # we should think about its type
-    μ::Int64
-    μTol::Float64
-    r::Int64
-    StopIt::String
-    itmax::Int64
-end
-
-struct JMethod_fft
-    an_fft::Matrix{ComplexF64}
-    index_fft::Matrix{Int64}
-end
-
 ##
 # Based on Roberto Garrappa's codes
 function JDisegnaBlocchi(L, ff, r, Nr, nx0, ny0, t, y, fy, zn, N, METH, METH_fft, Probl)

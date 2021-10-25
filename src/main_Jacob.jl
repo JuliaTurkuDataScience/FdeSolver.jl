@@ -1,4 +1,4 @@
-function _FDEsolver(F, JF, tSpan, y0, β, par...; h = 2^-6, nc = 2, StopIt = "Convergence", tol = 10e-6, itmax = 100)
+function _FDEsolver(F, JF, tSpan, y0, β, par...; h = 2^-6, nc = 2, StopIt = "Standard", tol = 10e-6, itmax = 100)
 
     # Check compatibility size of the problem with number of fractional orders
     y0 = defineY0(y0, β)
