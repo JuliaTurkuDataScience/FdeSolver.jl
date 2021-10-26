@@ -1,5 +1,5 @@
 
-const default_values = (2^-6, 2, nothing, "Standard", 10e-6, 100)
+const default_values = (2^-6, 1, nothing, "Standard", 10e-6, 100)
 
 struct PositionalArguments
 
@@ -62,6 +62,12 @@ struct OptionalArguments
 
         end
 
+        if h <= 0
+
+            error("The step size h must be positive")
+
+        end
+
         new(h, nc, StopIt, tol, itmax)
 
     end
@@ -110,7 +116,7 @@ struct JProblem
     f_fun
     problem_size::Int64
     param
-    β::Union{Real, Vector{<:Real}, Matrix{<:Real}} # why matrix?
+    β::Union{Real, Vector{<:Real}, Matrix{<:Real}} # why matrix? for a system with orders greater than 1
     β_length::Int64
     JF
 end
