@@ -74,7 +74,7 @@ struct Problem
     f_fun
     problem_size::Int64
     param
-    β # we should think about its type
+    β::Union{Real, Vector{<:Real}, Matrix{<:Real}} # why matrix?
     β_length::Int64
 end
 
@@ -110,7 +110,7 @@ struct JProblem
     f_fun
     problem_size::Int64
     param
-    β # we should think about its type
+    β::Union{Real, Vector{<:Real}, Matrix{<:Real}} # why matrix?
     β_length::Int64
     JF
 end

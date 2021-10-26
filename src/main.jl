@@ -1,19 +1,11 @@
 function _FDEsolver(pos_args, opt_args, ::Nothing, par...)
 
     # extract arguments from pos_args and opt_args structure fields
-    F = pos_args.F
-    tSpan = pos_args.tSpan
-    y0 = pos_args.y0
     β = pos_args.β
-    h = opt_args.h
-    nc = opt_args.nc
-    StopIt = opt_args.StopIt
-    tol = opt_args.tol
-    itmax = opt_args.itmax
 
-    # ceck compatibility size of the problem with number of fractional orders
+    # check compatibility size of the problem with number of fractional orders
     y0 = defineY0(pos_args.y0, pos_args.β)
-    β_length = length(β)
+    β_length = length(pos_args.β)
     problem_size = size(y0, 1)
 
     if β_length == 1
@@ -24,7 +16,7 @@ function _FDEsolver(pos_args, opt_args, ::Nothing, par...)
     end
 
     # Storage of initial conditions
-    ic = initial_conditions(tSpan[1], y0, Int64.(map(ceil, β)), zeros(β_length, Int64.(ceil(maximum(β)))))
+    ic = initial_conditions(pos_args.tSpan[1], y0, Int64.(map(ceil, β)), zeros(β_length, Int64.(ceil(maximum(β)))))
 
     for i in 1:β_length
 
@@ -37,17 +29,14 @@ function _FDEsolver(pos_args, opt_args, ::Nothing, par...)
     end
 
     # Storage of information on the problem
-    Probl = Problem(ic, F, problem_size,par, β, β_length)
+    Probl = Problem(ic, pos_args.F, problem_size, par, β, β_length)
 
     # Time discretization
-    N = Int64.(cld(tSpan[2] - tSpan[1], h))
-    t = tSpan[1] .+ collect(0:N) .* h
-
-    # Enter the initial values
-    # Y = defineY(N, y0, β)
+    N = Int64.(cld(pos_args.tSpan[2] - pos_args.tSpan[1], opt_args.h))
+    t = pos_args.tSpan[1] .+ collect(0:N) .* opt_args.h
 
     # Check compatibility size of the problem with size of the vector field
-    f_temp = f_value(F(t[1], y0[:,1], par...), Probl.problem_size)
+    f_temp = f_value(pos_args.F(t[1], y0[:, 1], par...), Probl.problem_size)
 
     # Number of points in which to evaluate weights and solution
     r = 16
@@ -60,7 +49,7 @@ function _FDEsolver(pos_args, opt_args, ::Nothing, par...)
     fy = zeros(Probl.problem_size, N + 1)
     zn_pred = zeros(Probl.problem_size, NNr + 1)
 
-    zn_corr = ifelse(nc > 0, zeros(Probl.problem_size, NNr + 1), 0)
+    zn_corr = ifelse(opt_args.nc > 0, zeros(Probl.problem_size, NNr + 1), 0)
 
     # Evaluation of coefficients of the PECE method
     nvett = 0:NNr + 1
@@ -91,7 +80,7 @@ function _FDEsolver(pos_args, opt_args, ::Nothing, par...)
 
     end
 
-    METH = Method(bn, an, a0, h.^β ./ Γ(β .+ 1), h .^ β ./ Γ(β .+ 2), nc, tol, r, StopIt, itmax)
+    METH = Method(bn, an, a0, opt_args.h .^ β ./ Γ(β .+ 1), opt_args.h .^ β ./ Γ(β .+ 2), opt_args.nc, opt_args.tol, r, opt_args.StopIt, opt_args.itmax)
 
     # Evaluation of FFT of coefficients of the PECE method
     if Qr >= 0
@@ -102,7 +91,7 @@ function _FDEsolver(pos_args, opt_args, ::Nothing, par...)
 
             if l == 1
 
-                index_fft[1,l] = 1
+                index_fft[1, l] = 1
                 index_fft[2, l] = r * 2
 
             else
@@ -169,10 +158,10 @@ function _FDEsolver(pos_args, opt_args, ::Nothing, par...)
     end
 
      # Evaluation solution in T when T is not in the mesh
-    if tSpan[end] < t[N + 1]
+    if pos_args.tSpan[2] < t[N + 1]
 
-        c = [tSpan[end] - t(N)] / h
-        t[N + 1] = tSpan[end]
+        c = [pos_args.tSpan[2] - t(N)] / opt_args.h
+        t[N + 1] = pos_args.tSpan[2]
         y[:, N + 1] = (1 - c) * y[:, N] + c * y[:, N + 1]
 
     end

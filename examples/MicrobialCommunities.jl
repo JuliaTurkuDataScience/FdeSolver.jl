@@ -6,7 +6,7 @@ tSpan = [0, 50] # time span
 
 h = 0.1 # time step
 
-N = 10 # number of species
+N = 20 # number of species
 
 β = ones(N) # order of derivatives
 
@@ -43,7 +43,7 @@ function F(t, x, par)
 end
 
 # numerical solution
-t, Xapp = FDEsolver(F, tSpan, X0, β, par, h = h, nc = 3, tol = 10^(-8))
+t, Xapp = FDEsolver(F, tSpan, X0, β, par, h = h, nc = 3, tol = 10e-9)
 
 # plot
 plot(t, Xapp, linewidth = 5,
