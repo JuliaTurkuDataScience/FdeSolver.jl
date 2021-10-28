@@ -32,7 +32,22 @@ Solves fractional differential equations with a predictor-corrector approach.
 - `tol::Float64`: the tolerance.
 - `ìtmax::Int64`: the maximal number of iterations.
 """
-function FDEsolver(F, tSpan, y0, β, par...; h = default_values[1], nc = default_values[2], JF = default_values[3], StopIt = default_values[4], tol = default_values[5], itmax = default_values[6])
+function FDEsolver(F, tSpan, y0, β, par...; h = default_values[1], nc = default_values[2], JF = default_values[3], StopIt = default_values[3], tol = default_values[5], itmax = default_values[6])
+
+
+    if isnothing(StopIt)
+
+        if isnothing(JF)
+
+            StopIt = default_values[4][1]
+
+        else
+
+            StopIt = default_values[4][2]
+
+        end
+
+    end
 
     pos_args = PositionalArguments(F, tSpan, y0, β)
     opt_args = OptionalArguments(h, nc, StopIt, tol, itmax)

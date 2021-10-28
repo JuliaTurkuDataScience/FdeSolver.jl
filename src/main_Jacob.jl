@@ -111,7 +111,7 @@ function _FDEsolver(pos_args, opt_args, JF::Function, par...)
 
                 find_β = findall(β[i_β] == β[1:i_β - 1])
 
-                if ~isempty(find_β)
+                if !isempty(find_β)
 
                     an_fft[i_β, index_fft[1, l]:index_fft[2, l]] = an_fft[find_β[1], index_fft[1, l]:index_fft[2, l]]
 
