@@ -163,7 +163,7 @@ function _FDEsolver(pos_args, opt_args, JF::Function, par...)
     end
 
     t = t[1:N + 1]
-    y = transpose(y[:, 1:N + 1])
+    y = y[:, 1:N + 1]'
 
     return t, y
 

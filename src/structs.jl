@@ -52,15 +52,27 @@ struct PositionalArguments
 
         else # typeof(y0) == Matrix{<:Real}
 
-            if size(y0, 1) != Int64(ceil(maximum(β)))
+            if length(β) == 1
 
-                error("The number of rows in y0 should equal the next integer of β. For instance, if β = 1.2, its next integer is 2 and y0 should have 2 rows of initial values.")
+                if size(y0, 2) != Int64(ceil(β))
 
-            end
+                    error("The number of rows in y0 should equal the next integer of β. For instance, if β = 1.2, its next integer is 2 and y0 should have 2 rows of initial values.")
 
-            if size(y0, 2) != length(β)
+                end
 
-                error("The number of columns in y0 should match the length of β, that is, the number of equations to solve.")
+            else # length(β) != 1
+
+                if size(y0, 1) != Int64(ceil(maximum(β)))
+
+                    error("The number of rows in y0 should equal the next integer of β. For instance, if β = 1.2, its next integer is 2 and y0 should have 2 rows of initial values.")
+
+                end
+
+                if size(y0, 2) != length(β)
+
+                    error("The number of columns in y0 should match the length of β, that is, the number of equations to solve.")
+
+                end
 
             end
 
