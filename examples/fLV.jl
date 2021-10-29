@@ -10,7 +10,7 @@ y0 = [34, 6]           # initial values
 
 par = [0.55, 0.028, 0.84, 0.026] # model parameters
 
-function F(t, n, β, y, par)
+function F(t, y, par)
 
     α1 = par[1]      # growth rate of the prey population
     β1 = par[2]      # rate of shrinkage relative to the product of the population sizes
@@ -18,8 +18,8 @@ function F(t, n, β, y, par)
     δ = par[4]       # growth rate of the predator population as a factor of the product
                      # of the population sizes
 
-    u = y[n, 1]      # population size of the prey species at time t[n]
-    v = y[n, 2]      # population size of the predator species at time t[n]
+    u = y[1]      # population size of the prey species at time t[n]
+    v = y[2]      # population size of the predator species at time t[n]
 
     F1 = α1 .* u .- β1 .* u .* v
     F2 = - γ .* v .+ δ .* u .* v
@@ -29,7 +29,7 @@ function F(t, n, β, y, par)
 end
 
 ## Solution
-t, Yapp = FDEsolver(F, tSpan, y0, β, nothing, par)
+t, Yapp = FDEsolver(F, tSpan, y0, β, par)
 
 # plotting
 plot(t, Yapp, linewidth = 5, title = "Solution to LV model with 2 FDEs",

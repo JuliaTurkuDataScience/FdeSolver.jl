@@ -1,122 +1,170 @@
-function FDEsolver(F, tSpan, y0, β, J, par...; h = 0.01, nc = 3, StopIt = "Standard", tol = 10e-10, itmax = 10)
+function _FDEsolver(pos_args, opt_args, JF::Function, par...)
 
-    # Time discretization
-    N::Int64 = cld(tSpan[2] - tSpan[1], h)
-    t = tSpan[1] .+ collect(0:N) .* h
+    # extract arguments from pos_args and opt_args structure fields
+    β = pos_args.β
 
-    # Enter the initial values
-    Y = defineY(N, y0, β)
+    # check compatibility size of the problem with number of fractional orders
+    y0 = defineY0(pos_args.y0, pos_args.β)
+    β_length = length(pos_args.β)
+    problem_size = size(y0, 1)
 
-    # Number of equations
-    Neq = size(y0, 1)
+    if β_length > 1
 
-    # Calculate T with taylor expansion
-    m::Int64 = ceil(β[1])
+        # println("Oh! Good! ODE system!")
 
-    for n in 1:N
+    else
 
-        T0 = taylor_expansion(tSpan[1], t[n], y0, β, m)
-        JF = zeros(Neq, Neq)
-        Ψ = zeros(Neq)
+        β = pos_args.β * ones(problem_size, 1)
+        β_length = problem_size
 
-        if n == 1
+    end
 
-            # Y1
-            Y1 = T0 .+ h .^ β .* F(t, n, β, Y, par...) ./ Γ(β .+ 1)
-            Y = indexY(n, Y, Y1)
+    # Storage of initial conditions
+    ic = initial_conditions(pos_args.tSpan[1], y0, Int64.(map(ceil, β)), zeros(β_length, Int64.(ceil(maximum(β)))))
 
-            # inverse matrix including Jacobian function
-            if Neq == 1
+    for i in 1:β_length
 
-                JF = inv(I(Neq) .- (h .^ β ./ Γ(β .+ 2)) * J(t, n + 1, β, Y, par...))
+        for j in 0:ic.m_β[i] - 1
 
-            else
-
-                JF = inv(I(Neq) .- Diagonal(h .^ β ./ Γ(β .+ 2)) * J(t, n + 1, β, Y, par...))
-
-            end
-
-            if StopIt == "Standard"
-
-                for j in 1:nc
-
-                    # Y11
-                    Ψ = (Y[n + 1, :] .- T0 .- h .^ β .* β .* F(t, n, β, Y, par...) ./ Γ(β .+ 2) .- h .^ β .* F(t, n + 1, β, Y, par...) ./ Γ(β .+ 2))
-                    Y11 = Y[n + 1, :] - JF * Ψ
-                    Y = indexY(n, Y, Y11)
-
-                end
-
-            elseif StopIt == "Convergence"
-
-                σ = 1.1 * tol
-                j = 0
-
-                while (σ > tol && j < itmax)
-
-                    # Y11
-                    Y11 = T0 .+ h .^ β .* β .* F(t, n, β, Y, par...) ./ Γ(β .+ 2) .+ h .^ β .* F(t, n + 1, β, Y, par...) ./ Γ(β .+ 2)
-                    σ = sqrt(sum((Y11 .- Y[2, :]) .^ 2))
-                    Y = indexY(n, Y, Y11)
-
-                    j += 1
-
-                end
-
-            end
-
-        else
-
-            ϕ = Phi(Y, F, β, t, n, par...)
-
-            # Yp
-            Yp = T0 .+ h .^ β .* (ϕ .- α(0, β) .* F(t, n - 1, β, Y, par...) .+ 2 .* α(0, β) .* F(t, n, β, Y, par...))
-            Y = indexY(n, Y, Yp)
-
-            # inverse matrix including Jacobian function
-            if Neq == 1
-
-                JF = inv(I(Neq) .- (α(0, β) .* h .^ β) * J(t, n+1, β, Y, par...))
-
-            else
-
-                JF = inv(I(Neq) .- Diagonal(α(0, β) .* h .^ β) * J(t, n+1, β, Y, par...))
-
-            end
-
-            if StopIt == "Standard"
-
-                for j in 1:nc
-
-                    # Y2
-                    Ψ = (Y[n + 1, :] .- (T0 .+ h .^ β .* ϕ) .- h .^ β.* α(0, β) .* F(t, n + 1, β, Y, par...))
-                    Y2 = Y[n + 1, :] - JF * Ψ
-                    Y = indexY(n, Y, Y2)
-                end
-
-            elseif StopIt == "Convergence"
-
-                σ = 1.1 * tol
-                j = 0
-
-                while (σ > tol && j < itmax)
-
-                    # Y2
-                    Y2 = T0 .+ h .^ β .* (ϕ .+ α(0, β) .* F(t, n + 1, β, Y, par...))
-                    σ = sqrt(sum((Y2 .- Y[n + 1, :]) .^ 2))
-                    Y = indexY(n, Y, Y2)
-
-                    j += 1
-
-                end
-
-            end
+            ic.m_β_factorial[i, j + 1] = factorial(j)
 
         end
 
     end
 
-    # Output
-    t, Y
+    # Storage of information on the problem
+    Probl = JProblem(ic, pos_args.F, problem_size, par, β, β_length, JF)
+
+    # Time discretization
+    N = Int64.(cld(pos_args.tSpan[2] - pos_args.tSpan[1], opt_args.h))
+    t = pos_args.tSpan[1] .+ collect(0:N) .* opt_args.h
+
+    # Check compatibility size of the problem with size of the vector field
+    f_temp = f_value(pos_args.F(t[1], y0[:, 1], par...), Probl.problem_size)
+
+    # Number of points in which to evaluate weights and solution
+    r = 16
+    Nr::Int64 = ceil((N + 1) / r) * r
+    Qr::Int64 = ceil(log2(Nr / r)) - 1
+    NNr::Int64 = 2^(Qr + 1) * r
+
+    # Preallocation of some variables
+    y = zeros(Probl.problem_size, N + 1)
+    fy = zeros(Probl.problem_size, N + 1)
+    zn = zeros(Probl.problem_size, NNr + 1)
+
+    # Evaluation of coefficients of the PECE method
+    nvett = 0:NNr + 1
+    an = zeros(Probl.β_length, NNr + 1)
+    a0 = zeros(Probl.β_length, NNr + 1)
+
+    for i_β in 1:Probl.β_length
+
+        find_β = findall(β[i_β] == β[1:i_β - 1])
+
+        if !isempty(find_β) # it is for speeding up the computations; we can use multilpe distpach
+
+            an[i_β, :] = an[find_β[1], :]
+            a0[i_β, :] = a0[find_β[1], :]
+
+        else
+
+            nβ = nvett .^ β[i_β]
+            nβ1 = nβ .* nvett
+            an[i_β,:] = [ 1; (nβ1[1:end - 2] - 2 * nβ1[2:end - 1] + nβ1[3:end])]
+            a0[i_β, :] = [0; (nβ1[1:end - 2] - nβ[2:end - 1] .* (nvett[2:end - 1] .- β[i_β] .- 1))]
+
+        end
+
+    end
+
+    METH = JMethod(an, a0, opt_args.h .^ β ./ Γ(β .+ 1), opt_args.h .^ β ./ Γ(β .+ 2), opt_args.nc, opt_args.tol, r, opt_args.StopIt, opt_args.itmax)
+
+    # Evaluation of FFT of coefficients of the PECE method
+    if Qr >= 0
+
+        index_fft = Int64.(zeros(2, Qr + 1)) # I have tried index_fft::Int64 = zeros(2,Qr+1) and I got an error for converting Type!
+
+        for l in 1:Qr + 1
+
+            if l == 1
+
+                index_fft[1, l] = 1
+                index_fft[2, l] = r * 2
+
+            else
+
+                index_fft[1, l] = index_fft[2, l - 1] + 1
+                index_fft[2, l] = index_fft[2, l - 1] + 2^l * r
+
+            end
+
+        end
+
+        an_fft =ComplexF64.(zeros(Probl.β_length, index_fft[2, Qr + 1]))
+
+        for l in 1:Qr + 1
+
+            coef_end = 2^l * r
+
+            for i_β in 1:Probl.β_length
+
+                find_β = findall(β[i_β] == β[1:i_β - 1])
+
+                if !isempty(find_β)
+
+                    an_fft[i_β, index_fft[1, l]:index_fft[2, l]] = an_fft[find_β[1], index_fft[1, l]:index_fft[2, l]]
+
+                else
+
+                    an_fft[i_β, index_fft[1, l]:index_fft[2, l]] = fft(METH.an[i_β, 1:coef_end])
+
+                end
+
+
+            end
+
+        end
+
+        METH_fft = JMethod_fft(an_fft, Int64.(index_fft))
+
+    end
+
+    # Initializing solution and proces of computation
+    y[:, 1] = y0[:, 1]
+    fy[:, 1] = f_temp
+    y, fy = JTriangolo(1, r - 1, t, y, fy, zn, N, METH, Probl)
+
+    # Main process of computation by means of the FFT algorithm
+    ff = zeros(1, 2^(Qr + 2))
+    ff[1:2] = [0, 2]
+    card_ff = 2
+
+    nx0 = 0
+    ny0 = 0
+
+    for qr in 0:Qr
+
+        L = 2^qr
+        y, fy = JDisegnaBlocchi(L, ff, r, Nr, nx0 + L * r, ny0, t, y, fy, zn, N, METH, METH_fft, Probl)
+        ff[1:2 * card_ff] = [ff[1:card_ff]; ff[1:card_ff]]
+        card_ff = 2 * card_ff
+        ff[card_ff] = 4 * L
+
+    end
+
+    # Evaluation solution in T when T is not in the mesh
+    if pos_args.tSpan[2] < t[N + 1]
+
+        c = [pos_args.tSpan[2] - t(N)] / opt_args.h
+        t[N + 1] = pos_args.tSpan[2]
+        y[:, N + 1] = (1 - c) * y[:, N] + c * y[:, N + 1]
+
+    end
+
+    t = t[1:N + 1]
+    y = y[:, 1:N + 1]'
+
+    return t, y
 
 end
