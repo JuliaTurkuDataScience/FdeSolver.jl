@@ -6,7 +6,7 @@ using Plots
 tSpan = [0, 50]
 h = 2^(-5)
 y0 = [1.2, 2.8]
-β = [0.8,0.7]
+β = [0.8, 0.7]
 A = 1 ; B = 3
 par = [ A , B ]
 # Definition of the System

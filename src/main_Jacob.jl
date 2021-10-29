@@ -1,8 +1,11 @@
-function _FDEsolver(F, JF, tSpan, y0, β, par...; h = 2^-6, nc = 2, StopIt = "Convergence", tol = 10e-6, itmax = 100)
+function _FDEsolver(pos_args, opt_args, JF::Function, par...)
 
-    # Check compatibility size of the problem with number of fractional orders
-    y0 = defineY0(y0, β)
-    β_length = length(β)
+    # extract arguments from pos_args and opt_args structure fields
+    β = pos_args.β
+
+    # check compatibility size of the problem with number of fractional orders
+    y0 = defineY0(pos_args.y0, pos_args.β)
+    β_length = length(pos_args.β)
     problem_size = size(y0, 1)
 
     if β_length > 1
@@ -11,13 +14,13 @@ function _FDEsolver(F, JF, tSpan, y0, β, par...; h = 2^-6, nc = 2, StopIt = "Co
 
     else
 
-        β = β * ones(problem_size, 1)
+        β = pos_args.β * ones(problem_size, 1)
         β_length = problem_size
 
     end
 
     # Storage of initial conditions
-    ic = initial_conditions(tSpan[1], y0, Int64.(map(ceil, β)), zeros(β_length, Int64.(ceil(maximum(β)))))
+    ic = initial_conditions(pos_args.tSpan[1], y0, Int64.(map(ceil, β)), zeros(β_length, Int64.(ceil(maximum(β)))))
 
     for i in 1:β_length
 
@@ -30,17 +33,14 @@ function _FDEsolver(F, JF, tSpan, y0, β, par...; h = 2^-6, nc = 2, StopIt = "Co
     end
 
     # Storage of information on the problem
-    Probl = JProblem(ic, F, problem_size, par, β, β_length, JF)
+    Probl = JProblem(ic, pos_args.F, problem_size, par, β, β_length, JF)
 
     # Time discretization
-    N = Int64.(cld(tSpan[2] - tSpan[1], h))
-    t = tSpan[1] .+ collect(0:N) .* h
-
-    # Enter the initial values
-    # Y = defineY(N, y0, β)
+    N = Int64.(cld(pos_args.tSpan[2] - pos_args.tSpan[1], opt_args.h))
+    t = pos_args.tSpan[1] .+ collect(0:N) .* opt_args.h
 
     # Check compatibility size of the problem with size of the vector field
-    f_temp = f_value(F(t[1], y0[:,1], par...), Probl.problem_size)
+    f_temp = f_value(pos_args.F(t[1], y0[:, 1], par...), Probl.problem_size)
 
     # Number of points in which to evaluate weights and solution
     r = 16
@@ -52,7 +52,6 @@ function _FDEsolver(F, JF, tSpan, y0, β, par...; h = 2^-6, nc = 2, StopIt = "Co
     y = zeros(Probl.problem_size, N + 1)
     fy = zeros(Probl.problem_size, N + 1)
     zn = zeros(Probl.problem_size, NNr + 1)
-
 
     # Evaluation of coefficients of the PECE method
     nvett = 0:NNr + 1
@@ -79,7 +78,7 @@ function _FDEsolver(F, JF, tSpan, y0, β, par...; h = 2^-6, nc = 2, StopIt = "Co
 
     end
 
-    METH = JMethod(an, a0, h.^β ./ Γ(β .+ 1), h.^β ./ Γ(β .+ 2), nc, tol, r, StopIt, itmax)
+    METH = JMethod(an, a0, opt_args.h .^ β ./ Γ(β .+ 1), opt_args.h .^ β ./ Γ(β .+ 2), opt_args.nc, opt_args.tol, r, opt_args.StopIt, opt_args.itmax)
 
     # Evaluation of FFT of coefficients of the PECE method
     if Qr >= 0
@@ -95,8 +94,8 @@ function _FDEsolver(F, JF, tSpan, y0, β, par...; h = 2^-6, nc = 2, StopIt = "Co
 
             else
 
-                index_fft[1,l] = index_fft[2,l-1] + 1
-                index_fft[2,l] = index_fft[2,l-1]+2^l*r
+                index_fft[1, l] = index_fft[2, l - 1] + 1
+                index_fft[2, l] = index_fft[2, l - 1] + 2^l * r
 
             end
 
@@ -112,10 +111,14 @@ function _FDEsolver(F, JF, tSpan, y0, β, par...; h = 2^-6, nc = 2, StopIt = "Co
 
                 find_β = findall(β[i_β] == β[1:i_β - 1])
 
-                if ~isempty(find_β)
-                    an_fft[i_β,index_fft[1,l]:index_fft[2,l]] = an_fft[find_β[1],index_fft[1,l]:index_fft[2,l]]
+                if !isempty(find_β)
+
+                    an_fft[i_β, index_fft[1, l]:index_fft[2, l]] = an_fft[find_β[1], index_fft[1, l]:index_fft[2, l]]
+
                 else
-                    an_fft[i_β,index_fft[1,l]:index_fft[2,l]] = fft(METH.an[i_β,1:coef_end])
+
+                    an_fft[i_β, index_fft[1, l]:index_fft[2, l]] = fft(METH.an[i_β, 1:coef_end])
+
                 end
 
 
@@ -151,16 +154,16 @@ function _FDEsolver(F, JF, tSpan, y0, β, par...; h = 2^-6, nc = 2, StopIt = "Co
     end
 
     # Evaluation solution in T when T is not in the mesh
-    if tSpan[end] < t[N + 1]
+    if pos_args.tSpan[2] < t[N + 1]
 
-        c = [tSpan[end] - t(N)] / h
-        t[N + 1] = tSpan[end]
+        c = [pos_args.tSpan[2] - t(N)] / opt_args.h
+        t[N + 1] = pos_args.tSpan[2]
         y[:, N + 1] = (1 - c) * y[:, N] + c * y[:, N + 1]
 
     end
 
     t = t[1:N + 1]
-    y = transpose(y[:, 1:N + 1])
+    y = y[:, 1:N + 1]'
 
     return t, y
 

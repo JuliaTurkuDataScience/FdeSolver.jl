@@ -13,7 +13,7 @@ JF(t, y, par) = par
 
 ## Numerical solution
 t,y = FDEsolver(F, tSpan, y0, β, par)
-t_J, y_J = FDEsolver(F, tSpan, y0, β, par, J = JF)
+t_J, y_J = FDEsolver(F, tSpan, y0, β, par, JF = JF)
 
 using MittagLeffler # for the exact solution
 

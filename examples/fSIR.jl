@@ -60,7 +60,7 @@ function JacobF(t, y, par)
 end
 ## Solution
 t, Yapp = FDEsolver(F, tSpan, y0, α, par, h = h)
-t1, Yapp1 = FDEsolver(F, tSpan, y0, α, par, J = JacobF, h = h)
+t1, Yapp1 = FDEsolver(F, tSpan, y0, α, par, JF = JacobF, h = h)
 
 ## plotting
 plot(t, Yapp, linewidth = 5, title = "Numerical solution of SIR model",

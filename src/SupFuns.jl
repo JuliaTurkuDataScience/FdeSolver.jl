@@ -1,46 +1,8 @@
-## some structures
-struct Problem
-    ic
-    f_fun
-    problem_size::Int64
-    param
-    β # we should think about its type
-    β_length::Int64
-end
-
-struct Method
-    bn::Matrix{Float64}
-    an::Matrix{Float64}
-    a0::Matrix{Float64}
-    hα1# we should think about its type
-    hα2# we should think about its type
-    μ::Int64
-    μTol::Float64
-    r::Int64
-    StopIt::String
-    itmax::Int64
-end
-
-struct Method_fft
-    bn_fft::Matrix{ComplexF64}
-    an_fft::Matrix{ComplexF64}
-    index_fft::Matrix{Int64}
-end
-
-struct initial_conditions
-    t0::Float64
-    y0::Any
-    m_β # we should think about its type
-    m_β_factorial::Matrix{Int64}
-end
-
-
 ## define initial values ##
 # I changed this part. We defineY0 only for intial conditions that only used in StartingTerm (taylor_expansion)
 function defineY0(y0, β)
 
-    Y0 = zeros(size(y0, 1), Int64.(ceil(maximum(β))))
-
+    Y0 = zeros(size(y0, 1), Int64(ceil(maximum(β))))
     Y0[:, 1] .= y0
 
     return Y0 # this is important for the output size ([1,:] or [:,1])
@@ -51,13 +13,13 @@ function defineY0(y0::Vector{<:Real}, β)
 
     if size(y0) == size(β)
 
-        Y0 = zeros(size(y0, 1), Int64.(ceil(maximum(β))))
-        Y0[:,1] .= y0
+        Y0 = zeros(size(y0, 1), Int64(ceil(maximum(β))))
+        Y0[:, 1] .= y0
 
     elseif size(y0) != size(β)
 
-        Y0 = zeros(size(y0, 2), Int64.(ceil(maximum(β))))
-        Y0[1,:] .= y0
+        Y0 = zeros(size(y0, 2), Int64(ceil(maximum(β))))
+        Y0[1, :] .= y0
 
     end
 
@@ -67,10 +29,10 @@ end
 
 function defineY0(y0::Matrix{<:Real}, β)
 
-    Y0 = zeros(size(y0, 1), Int64.(ceil(maximum(β))))
+    Y0 = zeros(size(y0, 1), Int64(ceil(maximum(β))))
     Y0[:, 1] .= y0[:, 1]
 
-    return Y0# this is important for the output size ([1,:] or [:,1])
+    return Y0 # this is important for the output size ([1,:] or [:,1])
 
 end
 
@@ -84,16 +46,7 @@ function f_value(F, nEq)
 
 end
 
-function f_value(F::Vector{<:Real}, nEq)
-
-    f = zeros(nEq)
-    f[:] = F
-
-    return f
-
-end
-
-function f_value(F::Matrix{<:Real}, nEq)
+function f_value(F::Union{Vector{<:Real}, Matrix{<:Real}}, nEq)
 
     f = zeros(nEq)
     f[:] = F

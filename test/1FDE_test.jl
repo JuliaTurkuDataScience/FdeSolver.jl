@@ -16,8 +16,8 @@ using Statistics
 
     JacobF(t, y, β) = -(3 / 2) .* y .^ (1 / 2)
 
-    t, Yapp = FDEsolver(F, tSpan, y0, β, β, StopIt = "Convergence", tol = 10e-8, itmax = 15)
-    t1, Yapp1 = FDEsolver(F, tSpan, y0, β, β, J = JacobF, StopIt = "Convergence", tol = 10e-8, itmax = 15)
+    t, Yapp = FDEsolver(F, tSpan, y0, β, par, StopIt = "Convergence", tol = 10e-8, itmax = 15)
+    t1, Yapp1 = FDEsolver(F, tSpan, y0, β, par, JF = JacobF, StopIt = "Convergence", tol = 10e-8, itmax = 15)
 
     @test @isdefined(t)
     @test @isdefined(Yapp)
