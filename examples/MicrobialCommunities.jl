@@ -2,15 +2,11 @@ using FdeSolver
 using Plots
 
 ## inputs
-tSpan = [0, 50] # time span
-
-h = 0.1 # time step
-
-N = 20 # number of species
-
-β = ones(N) # order of derivatives
-
-X0 = 2*rand(N) # initial abundances
+tSpan = [0, 50]   # time span
+h = 0.1           # time step
+N = 20            # number of species
+β = ones(N)       # order of derivatives
+X0 = 2 * rand(N)  # initial abundances
 
 ## System definition
 

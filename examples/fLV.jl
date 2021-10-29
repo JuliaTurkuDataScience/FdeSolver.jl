@@ -18,8 +18,8 @@ function F(t, y, par)
     δ = par[4]       # growth rate of the predator population as a factor of the product
                      # of the population sizes
 
-    u = y[1]      # population size of the prey species at time t[n]
-    v = y[2]      # population size of the predator species at time t[n]
+    u = y[1]         # population size of the prey species at time t[n]
+    v = y[2]         # population size of the predator species at time t[n]
 
     F1 = α1 .* u .- β1 .* u .* v
     F2 = - γ .* v .+ δ .* u .* v
