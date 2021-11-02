@@ -3,7 +3,7 @@ using Plots
 
 ## inputs
 tSpan = [0, 10]     # [intial time, final time]
-x0 = [1 1]             # intial value ([of order 0; of order 1])
+x0 = [1; 1]             # intial value ([of order 0; of order 1])
 β = 2            # order of the derivative
 par = [16.0, 4.0] # [spring constant for a mass on a spring, inertial mass]
 h = 0.01
