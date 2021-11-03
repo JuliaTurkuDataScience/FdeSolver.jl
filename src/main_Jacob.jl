@@ -4,9 +4,8 @@ function _FDEsolver(pos_args, opt_args, JF::Function, par...)
     β = pos_args.β
 
     # check compatibility size of the problem with number of fractional orders
-    y0 = defineY0(pos_args.y0, pos_args.β)
     β_length = length(pos_args.β)
-    problem_size = size(y0, 1)
+    problem_size = size(pos_args.y0, 1)
 
     if β_length > 1
 
@@ -20,7 +19,7 @@ function _FDEsolver(pos_args, opt_args, JF::Function, par...)
     end
 
     # Storage of initial conditions
-    ic = initial_conditions(pos_args.tSpan[1], y0, Int64.(map(ceil, β)), zeros(β_length, Int64.(ceil(maximum(β)))))
+    ic = initial_conditions(pos_args.tSpan[1], pos_args.y0, Int64.(map(ceil, β)), zeros(β_length, Int64.(ceil(maximum(β)))))
 
     for i in 1:β_length
 
@@ -40,7 +39,7 @@ function _FDEsolver(pos_args, opt_args, JF::Function, par...)
     t = pos_args.tSpan[1] .+ collect(0:N) .* opt_args.h
 
     # Check compatibility size of the problem with size of the vector field
-    f_temp = f_value(pos_args.F(t[1], y0[:, 1], par...), Probl.problem_size)
+    f_temp = f_value(pos_args.F(t[1], pos_args.y0[:, 1], par...), Probl.problem_size)
 
     # Number of points in which to evaluate weights and solution
     r = 16
@@ -131,7 +130,7 @@ function _FDEsolver(pos_args, opt_args, JF::Function, par...)
     end
 
     # Initializing solution and proces of computation
-    y[:, 1] = y0[:, 1]
+    y[:, 1] = pos_args.y0[:, 1]
     fy[:, 1] = f_temp
     y, fy = JTriangolo(1, r - 1, t, y, fy, zn, N, METH, Probl)
 

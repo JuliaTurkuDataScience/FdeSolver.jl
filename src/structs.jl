@@ -40,7 +40,7 @@ struct PositionalArguments
 
             elseif (size(y0) != size(β) && length(β) == 1)
 
-                @warn "It is not recommended to give initial values of higher-order derivatives as a vector (y0 = [y0', y0'', y0''', ...]). Instead, they should be given as a matrix (y0 = [y0' y0'' y0''' ...])."
+                error("Initial values of higher-order derivatives should not be given as a vector (y0 = [y0', y0'', y0''', ...]). Instead, they should be given as a matrix (y0 = [y0' y0'' y0''' ...]).")
 
                 if length(y0) != Int64(ceil(β))
 
@@ -50,27 +50,27 @@ struct PositionalArguments
 
             end
 
-        else # typeof(y0) == Matrix{<:Real}
+        else # typeof(y0) <: Matrix{<:Real}
 
             if length(β) == 1
 
                 if size(y0, 2) != Int64(ceil(β))
 
-                    error("The number of rows in y0 should equal the next integer of β. For instance, if β = 1.2, its next integer is 2 and y0 should have 2 rows of initial values.")
+                    error("The number of elements in y0 should equal the next integer of β. For instance, if β = 1.2, its next integer is 2 and y0 should have 2 elements for the initial values.")
 
                 end
 
             else # length(β) != 1
 
-                if size(y0, 1) != Int64(ceil(maximum(β)))
+                if size(y0, 2) != Int64(ceil(maximum(β)))
 
-                    error("The number of rows in y0 should equal the next integer of β. For instance, if β = 1.2, its next integer is 2 and y0 should have 2 rows of initial values.")
+                    error("The number of columns in y0 should equal the next integer of β. For instance, if β = 1.2, its next integer is 2 and y0 should have 2 columns of initial values.")
 
                 end
 
                 if size(y0, 2) != length(β)
 
-                    error("The number of columns in y0 should match the length of β, that is, the number of equations to solve.")
+                    error("The number of rows in y0 should match the length of β, that is, the number of equations to solve.")
 
                 end
 
@@ -97,7 +97,18 @@ struct PositionalArguments
 
         end
 
-        new(F, tSpan, y0, β)
+        if !(typeof(y0) <: Matrix{<:Real})
+
+            Y0 = zeros(size(y0, 1), Int64(ceil(maximum(β))))
+            Y0 .= y0
+
+        else
+
+            Y0 = y0
+
+        end
+
+        new(F, tSpan, Y0, β)
 
     end
 
