@@ -3,7 +3,7 @@
 function defineY0(y0, β)
 
     Y0 = zeros(size(y0, 1), Int64(ceil(maximum(β))))
-    Y0[:, 1] .= y0
+    Y0 .= y0
 
     return Y0 # this is important for the output size ([1,:] or [:,1])
 
@@ -14,12 +14,12 @@ function defineY0(y0::Vector{<:Real}, β)
     if size(y0) == size(β)
 
         Y0 = zeros(size(y0, 1), Int64(ceil(maximum(β))))
-        Y0[:, 1] .= y0
+        Y0 .= y0
 
     elseif size(y0) != size(β)
 
         Y0 = zeros(size(y0, 2), Int64(ceil(maximum(β))))
-        Y0[1, :] .= y0
+        Y0 .= y0
 
     end
 
@@ -30,7 +30,7 @@ end
 function defineY0(y0::Matrix{<:Real}, β)
 
     Y0 = zeros(size(y0, 1), Int64(ceil(maximum(β))))
-    Y0[:, 1] .= y0[:, 1]
+    Y0 .= y0
 
     return Y0 # this is important for the output size ([1,:] or [:,1])
 
