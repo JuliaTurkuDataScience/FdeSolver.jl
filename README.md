@@ -52,7 +52,7 @@ F(t, y, par) = (40320 ./ gamma(9 - par) .* t .^ (8 - par) .- 3 .* gamma(5 + par 
            (3 / 2 .* t .^ (par / 2) .- t .^ 4) .^ 3 .- y .^ (3 / 2))
 
 ## Numerical solution
-t, Yapp = FDEsolver(F, tSpan, y0, β)
+t, Yapp = FDEsolver(F, tSpan, y0, β, par)
 
 # Plot
 plot(t, Yapp, linewidth = 5, title = "Solution of a 1D fractional IVP",
