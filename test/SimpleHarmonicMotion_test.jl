@@ -5,7 +5,7 @@ using Statistics
 @testset "FdeSolver.jl" begin
 
 tSpan = [0, 10]     # [intial time, final time]
-x0 = [1, 1]             # intial value
+x0 = [1 1]             # intial value
 β = 2            # order of the derivative
 par = [16.0, 4.0] # [spring constant for a mass on a spring, inertial mass]
 h = 0.01
