@@ -22,16 +22,16 @@ function F(t, y)
 end
 
 
-function JF(t,y)
+function JF(t, y)
     # System equation
     J11 = 0
-    J12 = (y[2]-0.5).^(-5/6).*(y[3]-0.3).^(1/6)/6/sqrt(pi)
-    J13 = (y[2]-0.5).^(1/6).*(y[3]-0.3).^(-5/6)/6/sqrt(pi)
+    J12 = (y[2] - 0.5).^(-5/6) .* (y[3] - 0.3).^(1/6) / (6 * sqrt(pi))
+    J13 = (y[2] - 0.5).^(1/6) .* (y[3] - 0.3).^(-5/6) / (6 * sqrt(pi))
     J21 =  gamma(2.2)
     J22 =  0
     J23 =  0
     J31 =  0
-    J32 =  gamma(2.8)/gamma(2.2)
+    J32 =  gamma(2.8) / gamma(2.2)
     J33 =  0
 
     J = [J11 J12 J13
