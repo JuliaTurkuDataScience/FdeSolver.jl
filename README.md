@@ -3,6 +3,7 @@
 [![Stable](https://img.shields.io/badge/docs-stable-blue.svg)](https://juliaturkudatascience.github.io/FdeSolver.jl/stable/intro/)
 [![CI](https://github.com/JuliaTurkuDataScience/FdeSolver.jl/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/JuliaTurkuDataScience/FdeSolver.jl/actions/workflows/CI.yml)
 [![codecov](https://codecov.io/gh/JuliaTurkuDataScience/FdeSolver.jl/branch/main/graph/badge.svg?token=SJ5F6RQ31P)](https://codecov.io/gh/JuliaTurkuDataScience/FdeSolver.jl)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5906104.svg)](https://doi.org/10.5281/zenodo.5906104)
 
 This is a Pkg in **Julia** for solution to fractional differential equations and ODEs.
 Many advanced source codes are available in [MATLAB](https://www.dm.uniba.it/members/garrappa/software), but there are not many open source projects in Julia. Hence, the purpose is to develop a Julia package that numerically solves nonlinear fractional ordinary differential equations in the sense of Caputo. It is noteworthy to mention [another](https://github.com/ErikQQY/FractionalCalculus.jl.git) available Julia Package that is trying to cover different types of fractional operators.
