@@ -4,8 +4,18 @@
 [![CI](https://github.com/JuliaTurkuDataScience/FdeSolver.jl/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/JuliaTurkuDataScience/FdeSolver.jl/actions/workflows/CI.yml)
 [![codecov](https://codecov.io/gh/JuliaTurkuDataScience/FdeSolver.jl/branch/main/graph/badge.svg?token=SJ5F6RQ31P)](https://codecov.io/gh/JuliaTurkuDataScience/FdeSolver.jl)
 
-This is a Pkg in **Julia** for solution to fractional differential equations and ODEs.
-Many advanced source codes are available in [MATLAB](https://www.dm.uniba.it/members/garrappa/software), but there are not many open source projects in Julia. Hence, the purpose is to develop a Julia package that numerically solves nonlinear fractional ordinary differential equations in the sense of Caputo. It is noteworthy to mention [another](https://github.com/ErikQQY/FractionalCalculus.jl.git) available Julia Package that is trying to cover different types of fractional operators.
+This is a **Julia** package for fractional differential equations and ODEs. It provides numerical solutions for nonlinear fractional ordinary differential equations (in the sense of Caputo).
+
+Related work includes the independent [FractionalCalculus](https://github.com/ErikQQY/FractionalCalculus.jl.git) Julia Package that covers fractional operators, and earlier tools that are available in [Matlab](https://www.dm.uniba.it/members/garrappa/software).
+
+### Publications
+
+The package development is linked with the following publications/preprints:
+
+- Three-species Lotka-Volterra model with respect to Caputo and Caputo-Fabrizio fractional operators. M Khalighi, L Eftekhari, S Hosseinpour, L Lahti. Symmetry 13 (3):368, 2021. [doi:10.3390/sym13030368](https://doi.org/10.3390/sym13030368)
+
+- Quantifying the impact of ecological memory on the dynamics of interacting communities. M Khalighi, D Gonze, K Faust, G Sommeria-Klein, L Lahti. bioRxiv 2021.09.01.458486 [doi:10.1101/2021.09.01.458486](https://doi.org/10.1101/2021.09.01.458486)
+
 
 ### Method
 
