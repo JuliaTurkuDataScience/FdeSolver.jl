@@ -2,7 +2,7 @@ push!(LOAD_PATH, "../src/")
 ENV["GKS_WSTYPE"] = 100
 using FdeSolver, Documenter
 
-generated_path = joinpath(@__DIR__, "src", "misc")
+generated_path = joinpath(@__DIR__, "src")
 base_url = "https://github.com/JuliaTurkuDataScience/FdeSolver.jl/blob/main/"
 isdir(generated_path) || mkdir(generated_path)
 
