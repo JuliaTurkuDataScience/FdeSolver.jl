@@ -2,6 +2,10 @@ push!(LOAD_PATH, "../src/")
 ENV["GKS_WSTYPE"] = 100
 using FdeSolver, Documenter
 
+generated_path = joinpath(@__DIR__, "src", "misc")
+base_url = "https://github.com/JuliaTurkuDataScience/FdeSolver.jl/blob/main/"
+isdir(generated_path) || mkdir(generated_path)
+
 open(joinpath(generated_path, "readme.md"), "w") do io
     # Point to source license file
     println(
@@ -22,8 +26,9 @@ makedocs(
          format=Documenter.HTML(;
          canonical="https://github.com/JuliaTurkuDataScience/FdeSolver.jl"
          ),
+         authors = "Moein Khalighi, Giulio Benedetti, Leo Lahti",
          sitename = "FdeSolver.jl",
-         modules  = [FdeSolver],
+         modules = [FdeSolver],
          pages=[
                 "Home" => "readme.md"
                 "Manual" => "index.md"
@@ -31,4 +36,5 @@ makedocs(
 
 deploydocs(;
         repo="github.com/JuliaTurkuDataScience/FdeSolver.jl",
+        push_preview=true
 )
