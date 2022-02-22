@@ -1,5 +1,5 @@
 push!(LOAD_PATH, "../src/")
-ENV["GKS_WSTYPE"]=100
+ENV["GKS_WSTYPE"] = 100
 using FdeSolver, Documenter
 
 open(joinpath(generated_path, "readme.md"), "w") do io
