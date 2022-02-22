@@ -7,7 +7,7 @@ base_url = "https://github.com/JuliaTurkuDataScience/FdeSolver.jl/blob/main/"
 isdir(generated_path) || mkdir(generated_path)
 
 open(joinpath(generated_path, "readme.md"), "w") do io
-    # Point to source license file
+    # Point to source readme file
     println(
         io,
         """
@@ -22,19 +22,13 @@ open(joinpath(generated_path, "readme.md"), "w") do io
     end
 end
 
-makedocs(
-         format=Documenter.HTML(;
-         canonical="https://github.com/JuliaTurkuDataScience/FdeSolver.jl"
-         ),
+makedocs(format=Documenter.HTML(),
          authors = "Moein Khalighi, Giulio Benedetti, Leo Lahti",
          sitename = "FdeSolver.jl",
          modules = [FdeSolver],
          pages=[
-                "Home" => "readme.md"
-                "Manual" => "index.md"
+             "Home" => "readme.md",
+             "Manual" => "index.md",
                ])
 
-deploydocs(;
-        repo="github.com/JuliaTurkuDataScience/FdeSolver.jl",
-        push_preview=true
-)
+deploydocs(repo="github.com/JuliaTurkuDataScience/FdeSolver.jl", push_preview=true)
