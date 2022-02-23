@@ -119,7 +119,7 @@ One application of using fractional calculus is taking into account effects of [
 
 By defining the Jacobian matrix, the user can achieve a faster convergence based on the modified [Newton–Raphson](https://www.mdpi.com/2227-7390/6/2/16/htm) method.
 
-```@example
+```@repl 3
 using FdeSolver
 using Plots
 
@@ -187,14 +187,17 @@ t, Yapp = FDEsolver(F, tSpan, y0, α, par, JF = JacobF, h = h)
 # Plot
 plot(t, Yapp, linewidth = 5, title = "Numerical solution of SIR model",
      xaxis = "Time (t)", yaxis = "SIR populations", label=["Susceptible" "Infectious" "Recovered"])
+savefig("example3.png"); nothing # hide
 ```
+
+![example3](example3.png)
 
 Example4:
 Dynamics of interaction of N species microbial communities
 
 The impact of [ecological memory](https://www.biorxiv.org/content/10.1101/2021.09.01.458486v1.abstract) on the dynamics of interacting communities can be quantified by solving fractional form ODE systems.
 
-```@example
+```@repl 4
 using FdeSolver
 using Plots
 
@@ -246,4 +249,7 @@ plot(t, Xapp, linewidth = 5,
      title = "Dynamics of microbial interaction model",
      xaxis = "Time (t)")
      yaxis!("Log Abundance", :log10, minorgrid = true)
+savefig("example4.png"); nothing # hide
 ```
+
+![example4](example4.png)
