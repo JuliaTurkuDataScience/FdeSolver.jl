@@ -46,7 +46,7 @@ subject to the initial condition <img src="https://latex.codecogs.com/gif.latex?
 The exact solution is
 <img src="https://latex.codecogs.com/gif.latex?y(t)=t^8-3t^{4+\beta/2}+9/4t^\beta" />.
 
-```julia
+```@example
 using FdeSolver
 using Plots, SpecialFunctions
 
@@ -71,12 +71,10 @@ plot!(t, t -> (t.^8 - 3 * t .^ (4 + β / 2) + 9/4 * t.^β),
       lw = 3, ls = :dash, label = "Exact solution")
 ```
 
-![](docs/assets/example1.png)
-
 Example2:
 [Lotka-volterra-predator-prey](https://mc-stan.org/users/documentation/case-studies/lotka-volterra-predator-prey.html)
 
-```julia
+```@example
 using FdeSolver
 using Plots
 
@@ -114,8 +112,6 @@ plot(t, Yapp, linewidth = 5, title = "Solution to LV model with 2 FDEs",
 plot!(legendtitle = "Population of")
 ```
 
-![](docs/assets/example2.png)
-
 Example3:
 [SIR model](https://en.wikipedia.org/wiki/Compartmental_models_in_epidemiology)
 
@@ -123,7 +119,7 @@ One application of using fractional calculus is taking into account effects of [
 
 By defining the Jacobian matrix, the user can achieve a faster convergence based on the modified [Newton–Raphson](https://www.mdpi.com/2227-7390/6/2/16/htm) method.
 
-```julia
+```@example
 using FdeSolver
 using Plots
 
@@ -193,14 +189,12 @@ plot(t, Yapp, linewidth = 5, title = "Numerical solution of SIR model",
      xaxis = "Time (t)", yaxis = "SIR populations", label=["Susceptible" "Infectious" "Recovered"])
 ```
 
-![](docs/assets/example3.png)
-
 Example4:
 Dynamics of interaction of N species microbial communities
 
 The impact of [ecological memory](https://www.biorxiv.org/content/10.1101/2021.09.01.458486v1.abstract) on the dynamics of interacting communities can be quantified by solving fractional form ODE systems.
 
-```julia
+```@example
 using FdeSolver
 using Plots
 
@@ -253,5 +247,3 @@ plot(t, Xapp, linewidth = 5,
      xaxis = "Time (t)")
      yaxis!("Log Abundance", :log10, minorgrid = true)
 ```
-
-![](docs/assets/example4.png)
