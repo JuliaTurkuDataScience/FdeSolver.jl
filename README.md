@@ -46,7 +46,7 @@ subject to the initial condition <img src="https://latex.codecogs.com/gif.latex?
 The exact solution is
 <img src="https://latex.codecogs.com/gif.latex?y(t)=t^8-3t^{4+\beta/2}+9/4t^\beta" />.
 
-```@example
+```@repl 1
 using FdeSolver
 using Plots, SpecialFunctions
 
@@ -69,12 +69,15 @@ plot(t, Yapp, linewidth = 5, title = "Solution of a 1D fractional IVP",
      xaxis = "Time (t)", yaxis = "y(t)", label = "Approximation")
 plot!(t, t -> (t.^8 - 3 * t .^ (4 + β / 2) + 9/4 * t.^β),
       lw = 3, ls = :dash, label = "Exact solution")
+savefig("example1.png"); nothing # hide
 ```
+
+![example1](example1.png)
 
 Example2:
 [Lotka-volterra-predator-prey](https://mc-stan.org/users/documentation/case-studies/lotka-volterra-predator-prey.html)
 
-```@example
+```@repl 2
 using FdeSolver
 using Plots
 
@@ -110,7 +113,10 @@ t, Yapp = FDEsolver(F, tSpan, y0, β, par)
 plot(t, Yapp, linewidth = 5, title = "Solution to LV model with 2 FDEs",
      xaxis = "Time (t)", yaxis = "y(t)", label = ["Prey" "Predator"])
 plot!(legendtitle = "Population of")
+savefig("example2.png"); nothing # hide
 ```
+
+![example2](example2.png)
 
 Example3:
 [SIR model](https://en.wikipedia.org/wiki/Compartmental_models_in_epidemiology)
