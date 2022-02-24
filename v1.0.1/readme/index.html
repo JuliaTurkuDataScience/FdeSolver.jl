@@ -128,35 +128,35 @@
  1.0
  1.0
  1.0</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; X0 = 2 * rand(N)  # initial abundances</code><code class="nohighlight hljs ansi" style="display:block;">20-element Vector{Float64}:
- 1.3235433778268204
- 1.4284488924215362
- 0.9137189212742656
- 1.968824316540113
- 0.03378694519899472
- 0.8142357877643329
- 1.925322803931294
- 1.8035961172663275
- 1.5130456538156305
- 0.5785467098281747
- 0.19011242989253185
- 1.2729799777271738
- 1.6868898473771137
- 1.6778800045512705
- 0.1443916001537935
- 1.0065578118956737
- 1.7793767285707909
- 0.505442458977928
- 0.36258541733776584
- 0.849979908891147</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; # parametrisation
+ 0.890830914704154
+ 0.8968633647406836
+ 1.2077145362855077
+ 1.6364642403013923
+ 1.6128535045919294
+ 0.11432255951886905
+ 0.0888863035026608
+ 1.328643250527147
+ 1.339701936268117
+ 0.07466452943525193
+ 1.0108036703802008
+ 1.1124345971691212
+ 0.6573259251010066
+ 1.3360011530043963
+ 1.121489271421225
+ 1.2017531902477083
+ 0.591690197520613
+ 0.13986651991106758
+ 1.6614112865289696
+ 0.2714216951294026</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; # parametrisation
        par = [2,
               2 * rand(N),
               rand(N),
               4 * rand(N, N),
               N]</code><code class="nohighlight hljs ansi" style="display:block;">5-element Vector{Any}:
   2
-   [0.6593883182540816, 1.741053772902628, 0.15771412253251782, 1.2969402431588701, 0.8358064161483116, 0.14486920065898667, 0.6282913422781733, 0.1582222218265228, 1.3454589110013595, 1.120003920502512, 0.3470915026582184, 1.7404288126940326, 1.2207158100532083, 0.49454938839465257, 0.24424673514617856, 0.5739860561487631, 1.8935364207573548, 0.9999297426399165, 0.5638914415094329, 1.4521586851822796]
-   [0.8755309012330166, 0.9213411832154783, 0.9846243445675888, 0.04984365509053701, 0.8964084110160291, 0.07372459487545258, 0.9815834395384524, 0.20521474708803233, 0.25876935830769643, 0.2103597440915017, 0.8144744241281976, 0.3688871764042385, 0.16506758228729912, 0.5564671574697106, 0.4022296205699343, 0.06926040345374829, 0.08632928498430359, 0.3867835178893906, 0.5468598137780023, 0.9866368194649535]
-   [0.2937429457301466 1.9750924756763508 … 2.7358840101676485 1.2407201518319155; 2.1722403178003864 0.8837345254850506 … 1.780052684326341 2.0394306986721062; … ; 2.531311169536788 0.1945778974842547 … 3.527916367592244 1.1099628850312335; 3.414865643353198 1.521176130170586 … 0.8192853685456596 0.8949729409976275]
+   [1.3383428710870153, 1.4980524796043313, 1.9434598108024206, 1.576483296065963, 1.9446350899333917, 0.9059039774280118, 1.5523666109844454, 1.5139100611991556, 0.6265619264339368, 0.5791781881226767, 0.7982685475444704, 1.2743835568760313, 0.7702183163391578, 0.2585375072307694, 0.006972630765226029, 0.04738956006686745, 0.12574919425417397, 0.7936459826858591, 1.4213517981958876, 1.4009872801111363]
+   [0.1988000691995213, 0.8040025514719551, 0.11403419599321762, 0.9533387421099591, 0.3018830650350368, 0.9069711522932482, 0.1521196245729981, 0.9185306761070575, 0.5579216309141997, 0.8988198424958245, 0.44309795025896537, 0.5217781225260747, 0.32145717058832357, 0.24222344718689404, 0.3116161628059757, 0.2701115623453849, 0.7528945315337794, 0.44846103640487645, 0.6525803395990424, 0.17747332685059214]
+   [1.082964921432163 3.235972610798962 … 0.00606353239715407 2.4652605863506487; 2.3072320490043623 3.456323447355966 … 2.9327192266636866 1.3252390922067185; … ; 0.6435344872439979 2.9621776160418216 … 0.2628915310522517 1.4837605188462133; 2.0934677036988196 2.0083873661810143 … 1.8949269841457186 2.3791275945231165]
  20</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; # ODE model
        function F(t, x, par)
        
@@ -184,7 +184,7 @@
        end</code><code class="nohighlight hljs ansi" style="display:block;">F (generic function with 1 method)</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; # Solution
        t, Xapp = FDEsolver(F, tSpan, X0, β, par, h = h, nc = 3, tol = 10e-9)</code><code class="nohighlight hljs ansi" style="display:block;">┌ Warning: The tolerance tol and the maximum number of iterations itmax are relevant only if StopIt is set at &#39;Convergence&#39;.
 └ @ FdeSolver ~/work/FdeSolver.jl/FdeSolver.jl/src/structs.jl:146
-([0.0, 0.1, 0.2, 0.30000000000000004, 0.4, 0.5, 0.6000000000000001, 0.7000000000000001, 0.8, 0.9  …  49.1, 49.2, 49.300000000000004, 49.400000000000006, 49.5, 49.6, 49.7, 49.800000000000004, 49.900000000000006, 50.0], [1.3235433778268204 1.4284488924215362 … 0.36258541733776584 0.849979908891147; 1.1853656426030748 1.2612112493135241 … 0.35553440218072696 0.7840184905686702; … ; 0.022802899534537745 0.19479892978315244 … 0.03461014273912205 0.02263598535738793; 0.02275862496743072 0.19503684025674095 … 0.03455331608998267 0.022597873630060952])</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; # Plot
+([0.0, 0.1, 0.2, 0.30000000000000004, 0.4, 0.5, 0.6000000000000001, 0.7000000000000001, 0.8, 0.9  …  49.1, 49.2, 49.300000000000004, 49.400000000000006, 49.5, 49.6, 49.7, 49.800000000000004, 49.900000000000006, 50.0], [0.890830914704154 0.8968633647406836 … 1.6614112865289696 0.2714216951294026; 0.8753267317469173 0.8364221294825858 … 1.4981337374379111 0.2701207633350783; … ; 0.09086444870639074 0.05675928079379246 … 0.030336781095518735 0.08808188143683895; 0.09070324259164649 0.05670414519380253 … 0.030277826142708422 0.08798852372917079])</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; # Plot
        plot(t, Xapp, linewidth = 5,
             title = &quot;Dynamics of microbial interaction model&quot;,
-            xaxis = &quot;Time (t)&quot;)</code><code class="nohighlight hljs ansi" style="display:block;">ERROR: UndefVarError: plot not defined</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt;      yaxis!(&quot;Log Abundance&quot;, :log10, minorgrid = true)</code><code class="nohighlight hljs ansi" style="display:block;">ERROR: UndefVarError: yaxis! not defined</code><code class="nohighlight hljs ansi" style="display:block;"></code></pre><p><img src="example4.png" alt="example4"/></p></article><nav class="docs-footer"><a class="docs-footer-nextpage" href="../">Manual »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.12 on <span class="colophon-date" title="Thursday 24 February 2022 10:48">Thursday 24 February 2022</span>. Using Julia version 1.6.5.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+            xaxis = &quot;Time (t)&quot;)</code><code class="nohighlight hljs ansi" style="display:block;">ERROR: UndefVarError: plot not defined</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt;      yaxis!(&quot;Log Abundance&quot;, :log10, minorgrid = true)</code><code class="nohighlight hljs ansi" style="display:block;">ERROR: UndefVarError: yaxis! not defined</code><code class="nohighlight hljs ansi" style="display:block;"></code></pre><p><img src="example4.png" alt="example4"/></p></article><nav class="docs-footer"><a class="docs-footer-nextpage" href="../">Manual »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.12 on <span class="colophon-date" title="Thursday 24 February 2022 11:02">Thursday 24 February 2022</span>. Using Julia version 1.6.5.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
