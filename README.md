@@ -82,7 +82,7 @@ using FdeSolver
 using Plots
 
 # Inputs
-tSpan = [0, 25]                    # [intial time, final time]
+tSpan = [0, 25]                    # [initial time, final time]
 y0 = [34, 6]                       # initial values
 β = [0.98, 0.99]                   # order of derivatives
 par = [0.55, 0.028, 0.84, 0.026]   # model parameters

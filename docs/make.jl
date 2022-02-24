@@ -1,5 +1,3 @@
-push!(LOAD_PATH, "../src/")
-ENV["GKS_WSTYPE"] = 100
 using FdeSolver, Documenter
 
 generated_path = joinpath(@__DIR__, "src")
