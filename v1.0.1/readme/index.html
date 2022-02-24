@@ -1,173 +1,190 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Home · FdeSolver.jl</title><script data-outdated-warner src="../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.039/juliamono-regular.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.11/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL=".."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../assets/documenter.js"></script><script src="../siteinfo.js"></script><script src="../../versions.js"></script><script src="../../copy.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit"><a href>FdeSolver.jl</a></span></div><form class="docs-search" action="../search/"><input class="docs-search-query" id="documenter-search-query" name="q" type="text" placeholder="Search docs"/></form><ul class="docs-menu"><li class="is-active"><a class="tocitem" href>Home</a><ul class="internal"><li><a class="tocitem" href="#Installation"><span>Installation</span></a></li><li><a class="tocitem" href="#API"><span>API</span></a></li></ul></li><li><a class="tocitem" href="../">Manual</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><nav class="breadcrumb"><ul class="is-hidden-mobile"><li class="is-active"><a href>Home</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Home</a></li></ul></nav><div class="docs-right"><a class="docs-edit-link" href="https://github.com/JuliaTurkuDataScience/FdeSolver.jl/blob/main/README.md" title="Edit on GitHub"><span class="docs-icon fab"></span><span class="docs-label is-hidden-touch">Edit on GitHub</span></a><a class="docs-settings-button fas fa-cog" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-sidebar-button fa fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a></div></header><article class="content" id="documenter-page"><h1 id="FdeSolver"><a class="docs-heading-anchor" href="#FdeSolver">FdeSolver</a><a id="FdeSolver-1"></a><a class="docs-heading-anchor-permalink" href="#FdeSolver" title="Permalink"></a></h1><p><a href="https://juliaturkudatascience.github.io/FdeSolver.jl/stable/intro/"><img src="https://img.shields.io/badge/docs-stable-blue.svg" alt="Stable"/></a> <a href="https://github.com/JuliaTurkuDataScience/FdeSolver.jl/actions/workflows/CI.yml"><img src="https://github.com/JuliaTurkuDataScience/FdeSolver.jl/actions/workflows/CI.yml/badge.svg?branch=main" alt="CI"/></a> <a href="https://codecov.io/gh/JuliaTurkuDataScience/FdeSolver.jl"><img src="https://codecov.io/gh/JuliaTurkuDataScience/FdeSolver.jl/branch/main/graph/badge.svg?token=SJ5F6RQ31P" alt="codecov"/></a></p><p>This is a <strong>Julia</strong> package for fractional differential equations and ODEs. It provides numerical solutions for nonlinear fractional ordinary differential equations (in the sense of Caputo).</p><p>Related work includes the independent <a href="https://github.com/ErikQQY/FractionalCalculus.jl.git">FractionalCalculus</a> Julia Package that covers fractional operators, and earlier tools that are available in <a href="https://www.dm.uniba.it/members/garrappa/software">Matlab</a>.</p><h3 id="Publications"><a class="docs-heading-anchor" href="#Publications">Publications</a><a id="Publications-1"></a><a class="docs-heading-anchor-permalink" href="#Publications" title="Permalink"></a></h3><p>The package development is linked with the following publications/preprints:</p><ul><li><p>Three-species Lotka-Volterra model with respect to Caputo and Caputo-Fabrizio fractional operators. M Khalighi, L Eftekhari, S Hosseinpour, L Lahti. Symmetry 13 (3):368, 2021. <a href="https://doi.org/10.3390/sym13030368">doi:10.3390/sym13030368</a></p></li><li><p>Quantifying the impact of ecological memory on the dynamics of interacting communities. M Khalighi, D Gonze, K Faust, G Sommeria-Klein, L Lahti. bioRxiv 2021.09.01.458486 <a href="https://doi.org/10.1101/2021.09.01.458486">doi:10.1101/2021.09.01.458486</a></p></li></ul><h3 id="Method"><a class="docs-heading-anchor" href="#Method">Method</a><a id="Method-1"></a><a class="docs-heading-anchor-permalink" href="#Method" title="Permalink"></a></h3><p>We implement the <a href="https://link.springer.com/article/10.1023/A:1016592219341">predictor-corrector</a> algorithms with a sufficient <a href="https://link.springer.com/article/10.1023/B:NUMA.0000027736.85078.be">convergence and accuracy</a>, including fast Fourier transform technique that gives us high computation speed. Interested readers can also find the <a href="https://www.tandfonline.com/doi/full/10.1080/00207160802624331">stability</a> of the methods and see how to implement the methods for solving <a href="https://link.springer.com/article/10.1007/s00607-003-0033-3">multi-term</a> fractional differential equations.</p><p>Let us suppose the following initial value problem with the Caputo fractional derivative &lt;img src=&quot;https://latex.codecogs.com/svg.image?{}<em>{C}!D</em>{t<em>0}^\beta&quot; title=&quot;{}</em>{C}!D<em>{t</em>0}^\beta&quot; /&gt; when &lt;img src=&quot;https://latex.codecogs.com/svg.image?\beta&gt;0&quot; title=&quot;\beta&gt;0&quot; /&gt;</p><p>&lt;img src=&quot;https://latex.codecogs.com/svg.image?{}<em>{C}!D</em>{t<em>0}^{\beta}y(t)=f(t,y(t))&quot; title=&quot;{}</em>{C}!D<em>{t</em>0}^{\beta}y(t)=f(t,y(t))&quot; /&gt;</p><p>with the initial condition &lt;img src=&quot;https://latex.codecogs.com/svg.image?y(t<em>0)=y</em>0,y^{(1)}(t<em>0)=y^{(1)}</em>0,...,y^{(m-1)}(t<em>0)=y^{(m-1)}</em>0&quot; title=&quot;y(t_0)=y0&quot; /&gt;, where m the smallest integer or equal to the order of derivative.</p><p>We solve the problem by using predictor corrector method (the equation (14) from this <a href="https://www.mdpi.com/2227-7390/6/2/16#">paper</a>).</p><h2 id="Installation"><a class="docs-heading-anchor" href="#Installation">Installation</a><a id="Installation-1"></a><a class="docs-heading-anchor-permalink" href="#Installation" title="Permalink"></a></h2><p>If Julia is installed correctly, you can import FdeSolver.jl as:</p><pre><code class="language-julia hljs">import Pkg; Pkg.add(&quot;FdeSolver&quot;)</code></pre><h2 id="API"><a class="docs-heading-anchor" href="#API">API</a><a id="API-1"></a><a class="docs-heading-anchor-permalink" href="#API" title="Permalink"></a></h2><p>Example1: <a href=" https:/link.springer.com/article/10.1023/B:NUMA.0000027736.85078.be">Fractional nonlinear equation</a> &lt;img src=&quot;https://latex.codecogs.com/gif.latex?0&lt;\beta\leq1&quot; /&gt; , subject to the initial condition &lt;img src=&quot;https://latex.codecogs.com/gif.latex?y(0)=0&quot; /&gt;. The exact solution is &lt;img src=&quot;https://latex.codecogs.com/gif.latex?y(t)=t^8-3t^{4+\beta/2}+9/4t^\beta&quot; /&gt;.</p><pre><code class="language-julia hljs">using FdeSolver
-using Plots, SpecialFunctions
-
-# Inputs
-tSpan = [0, 1]     # [intial time, final time]
-y0 = 0             # initial value
-β = 0.9            # order of the derivative
-
-# ODE Model
-par = β
-F(t, y, par) = (40320 ./ gamma(9 - par) .* t .^ (8 - par) .- 3 .* gamma(5 + par / 2)
-           ./ gamma(5 - par / 2) .* t .^ (4 - par / 2) .+ 9/4 * gamma(par + 1) .+
-           (3 / 2 .* t .^ (par / 2) .- t .^ 4) .^ 3 .- y .^ (3 / 2))
-
-## Numerical solution
-t, Yapp = FDEsolver(F, tSpan, y0, β, par)
-
-# Plot
-plot(t, Yapp, linewidth = 5, title = &quot;Solution of a 1D fractional IVP&quot;,
-     xaxis = &quot;Time (t)&quot;, yaxis = &quot;y(t)&quot;, label = &quot;Approximation&quot;)
-plot!(t, t -&gt; (t.^8 - 3 * t .^ (4 + β / 2) + 9/4 * t.^β),
-      lw = 3, ls = :dash, label = &quot;Exact solution&quot;)</code></pre><p><img src="docs/assets/example1.png" alt/></p><p>Example2: <a href="https://mc-stan.org/users/documentation/case-studies/lotka-volterra-predator-prey.html">Lotka-volterra-predator-prey</a></p><pre><code class="language-julia hljs">using FdeSolver
-using Plots
-
-# Inputs
-tSpan = [0, 25]                    # [intial time, final time]
-y0 = [34, 6]                       # initial values
-β = [0.98, 0.99]                   # order of derivatives
-par = [0.55, 0.028, 0.84, 0.026]   # model parameters
-
-# ODE Model
-function F(t, y, par)
-
-    α1 = par[1]      # growth rate of the prey population
-    β1 = par[2]      # rate of shrinkage relative to the product of the population sizes
-    γ = par[3]       # shrinkage rate of the predator population
-    δ = par[4]       # growth rate of the predator population as a factor of the product
-                     # of the population sizes
-
-    u = y[1]         # population size of the prey species at time t[n]
-    v = y[2]         # population size of the predator species at time t[n]
-
-    F1 = α1 .* u .- β1 .* u .* v
-    F2 = - γ .* v .+ δ .* u .* v
-
-    [F1, F2]
-
-end
-
-## Solution
-t, Yapp = FDEsolver(F, tSpan, y0, β, par)
-
-# Plot
-plot(t, Yapp, linewidth = 5, title = &quot;Solution to LV model with 2 FDEs&quot;,
-     xaxis = &quot;Time (t)&quot;, yaxis = &quot;y(t)&quot;, label = [&quot;Prey&quot; &quot;Predator&quot;])
-plot!(legendtitle = &quot;Population of&quot;)</code></pre><p><img src="docs/assets/example2.png" alt/></p><p>Example3: <a href="https://en.wikipedia.org/wiki/Compartmental_models_in_epidemiology">SIR model</a></p><p>One application of using fractional calculus is taking into account effects of <a href="https://journals.aps.org/pre/abstract/10.1103/PhysRevE.95.022409">memory</a> in modeling including epidemic evolution.</p><p>By defining the Jacobian matrix, the user can achieve a faster convergence based on the modified <a href="https://www.mdpi.com/2227-7390/6/2/16/htm">Newton–Raphson</a> method.</p><pre><code class="language-julia hljs">using FdeSolver
-using Plots
-
-# Inputs
-I0 = 0.001             # intial value of infected
-tSpan = [0, 100]       # [intial time, final time]
-y0 = [1 - I0, I0, 0]   # initial values [S0,I0,R0]
-α = [1, 1, 1]          # order of derivatives
-h = 0.1                # step size of computation (default = 0.01)
-par = [0.4, 0.04]      # parameters [β, recovery rate]
-
-## ODE model
-function F(t, y, par)
-
-    # parameters
-    β = par[1]    # infection rate
-    γ = par[2]    # recovery rate
-
-    S = y[1]   # Susceptible
-    I = y[2]   # Infectious
-    R = y[3]   # Recovered
-
-    # System equation
-    dSdt = - β .* S .* I
-    dIdt = β .* S .* I .- γ .* I
-    dRdt = γ .* I
-
-    return [dSdt, dIdt, dRdt]
-
-end
-
-## Jacobian of ODE system
-function JacobF(t, y, par)
-
-    # parameters
-    β = par[1]     # infection rate
-    γ = par[2]     # recovery rate
-
-    S = y[1]    # Susceptible
-    I = y[2]    # Infectious
-    R = y[3]    # Recovered
-
-    # System equation
-    J11 = - β * I
-    J12 = - β * S
-    J13 =  0
-    J21 =  β * I
-    J22 =  β * S - γ
-    J23 =  0
-    J31 =  0
-    J32 =  γ
-    J33 =  0
-
-    J = [J11 J12 J13
-         J21 J22 J23
-         J31 J32 J33]
-
-    return J
-
-end
-
-## Solution
-t, Yapp = FDEsolver(F, tSpan, y0, α, par, JF = JacobF, h = h)
-
-# Plot
-plot(t, Yapp, linewidth = 5, title = &quot;Numerical solution of SIR model&quot;,
-     xaxis = &quot;Time (t)&quot;, yaxis = &quot;SIR populations&quot;, label=[&quot;Susceptible&quot; &quot;Infectious&quot; &quot;Recovered&quot;])</code></pre><p><img src="docs/assets/example3.png" alt/></p><p>Example4: Dynamics of interaction of N species microbial communities</p><p>The impact of <a href="https://www.biorxiv.org/content/10.1101/2021.09.01.458486v1.abstract">ecological memory</a> on the dynamics of interacting communities can be quantified by solving fractional form ODE systems.</p><pre><code class="language-julia hljs">using FdeSolver
-using Plots
-
-## inputs
-tSpan = [0, 50]   # time span
-h = 0.1           # time step
-N = 20            # number of species
-β = ones(N)       # order of derivatives
-X0 = 2 * rand(N)  # initial abundances
-
-# parametrisation
-par = [2,
-       2 * rand(N),
-       rand(N),
-       4 * rand(N, N),
-       N]
-
-# ODE model
-function F(t, x, par)
-
-    l = par[1] # Hill coefficient
-    b = par[2] # growth rates
-    k = par[3] # death rates
-    K = par[4] # inhibition matrix
-    N = par[5] # number of species
-
-    Fun = zeros(N)
-
-    for i in 1:N
-
-        # inhibition functions
-        f = prod(K[i, 1:end .!= i] .^ l ./
-             (K[i, 1:end .!= i] .^ l .+ x[ 1:end .!= i] .^l))
-
-        # System of equations
-        Fun[i] = x[ i] .* (b[i] .* f .- k[i] .* x[ i])
-
-    end
-
-    return Fun
-
-end
-
-# Solution
-t, Xapp = FDEsolver(F, tSpan, X0, β, par, h = h, nc = 3, tol = 10e-9)
-
-# Plot
-plot(t, Xapp, linewidth = 5,
-     title = &quot;Dynamics of microbial interaction model&quot;,
-     xaxis = &quot;Time (t)&quot;)
-     yaxis!(&quot;Log Abundance&quot;, :log10, minorgrid = true)</code></pre><p><img src="docs/assets/example4.png" alt/></p></article><nav class="docs-footer"><a class="docs-footer-nextpage" href="../">Manual »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.12 on <span class="colophon-date" title="Tuesday 22 February 2022 14:17">Tuesday 22 February 2022</span>. Using Julia version 1.6.5.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Home · FdeSolver.jl</title><script data-outdated-warner src="../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.039/juliamono-regular.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.11/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL=".."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../assets/documenter.js"></script><script src="../siteinfo.js"></script><script src="../../versions.js"></script><script src="../../copy.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit"><a href>FdeSolver.jl</a></span></div><form class="docs-search" action="../search/"><input class="docs-search-query" id="documenter-search-query" name="q" type="text" placeholder="Search docs"/></form><ul class="docs-menu"><li class="is-active"><a class="tocitem" href>Home</a><ul class="internal"><li><a class="tocitem" href="#Installation"><span>Installation</span></a></li><li><a class="tocitem" href="#API"><span>API</span></a></li></ul></li><li><a class="tocitem" href="../">Manual</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><nav class="breadcrumb"><ul class="is-hidden-mobile"><li class="is-active"><a href>Home</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Home</a></li></ul></nav><div class="docs-right"><a class="docs-edit-link" href="https://github.com/JuliaTurkuDataScience/FdeSolver.jl/blob/main/README.md" title="Edit on GitHub"><span class="docs-icon fab"></span><span class="docs-label is-hidden-touch">Edit on GitHub</span></a><a class="docs-settings-button fas fa-cog" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-sidebar-button fa fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a></div></header><article class="content" id="documenter-page"><h1 id="FdeSolver"><a class="docs-heading-anchor" href="#FdeSolver">FdeSolver</a><a id="FdeSolver-1"></a><a class="docs-heading-anchor-permalink" href="#FdeSolver" title="Permalink"></a></h1><p><a href="https://juliaturkudatascience.github.io/FdeSolver.jl/stable/"><img src="https://img.shields.io/badge/docs-stable-blue.svg" alt="Stable"/></a> <a href="https://github.com/JuliaTurkuDataScience/FdeSolver.jl/actions/workflows/CI.yml"><img src="https://github.com/JuliaTurkuDataScience/FdeSolver.jl/actions/workflows/CI.yml/badge.svg?branch=main" alt="CI"/></a> <a href="https://codecov.io/gh/JuliaTurkuDataScience/FdeSolver.jl"><img src="https://codecov.io/gh/JuliaTurkuDataScience/FdeSolver.jl/branch/main/graph/badge.svg?token=SJ5F6RQ31P" alt="codecov"/></a></p><p>This is a <strong>Julia</strong> package for fractional differential equations and ODEs. It provides numerical solutions for nonlinear fractional ordinary differential equations (in the sense of Caputo).</p><p>Related work includes the independent <a href="https://github.com/ErikQQY/FractionalCalculus.jl.git">FractionalCalculus</a> Julia Package that covers fractional operators, and earlier tools that are available in <a href="https://www.dm.uniba.it/members/garrappa/software">Matlab</a>.</p><h3 id="Publications"><a class="docs-heading-anchor" href="#Publications">Publications</a><a id="Publications-1"></a><a class="docs-heading-anchor-permalink" href="#Publications" title="Permalink"></a></h3><p>The package development is linked with the following publications/preprints:</p><ul><li><p>Three-species Lotka-Volterra model with respect to Caputo and Caputo-Fabrizio fractional operators. M Khalighi, L Eftekhari, S Hosseinpour, L Lahti. Symmetry 13 (3):368, 2021. <a href="https://doi.org/10.3390/sym13030368">doi:10.3390/sym13030368</a></p></li><li><p>Quantifying the impact of ecological memory on the dynamics of interacting communities. M Khalighi, D Gonze, K Faust, G Sommeria-Klein, L Lahti. bioRxiv 2021.09.01.458486 <a href="https://doi.org/10.1101/2021.09.01.458486">doi:10.1101/2021.09.01.458486</a></p></li></ul><h3 id="Method"><a class="docs-heading-anchor" href="#Method">Method</a><a id="Method-1"></a><a class="docs-heading-anchor-permalink" href="#Method" title="Permalink"></a></h3><p>We implement the <a href="https://link.springer.com/article/10.1023/A:1016592219341">predictor-corrector</a> algorithms with a sufficient <a href="https://link.springer.com/article/10.1023/B:NUMA.0000027736.85078.be">convergence and accuracy</a>, including fast Fourier transform technique that gives us high computation speed. Interested readers can also find the <a href="https://www.tandfonline.com/doi/full/10.1080/00207160802624331">stability</a> of the methods and see how to implement the methods for solving <a href="https://link.springer.com/article/10.1007/s00607-003-0033-3">multi-term</a> fractional differential equations.</p><p>Let us suppose the following initial value problem with the Caputo fractional derivative</p><p class="math-container">\[{}_{C}\!D_{t_0}^\beta$ when $\beta&gt;0$\]</p><p class="math-container">\[{}_{C}\!D_{t_0}^{\beta}y(t)=f(t,y(t))\]</p><p>with the initial condition</p><p class="math-container">\[y(t_0)=y_0,y^{(1)}(t_0)=y^{(1)}_0,...,y^{(m-1)}(t_0)=y^{(m-1)}_0\]</p><p>where m the smallest integer or equal to the order of derivative.</p><p>We solve the problem by using predictor corrector method (the equation (14) from this <a href="https://www.mdpi.com/2227-7390/6/2/16#">paper</a>).</p><h2 id="Installation"><a class="docs-heading-anchor" href="#Installation">Installation</a><a id="Installation-1"></a><a class="docs-heading-anchor-permalink" href="#Installation" title="Permalink"></a></h2><p>If Julia is installed correctly, you can import FdeSolver.jl as:</p><pre><code class="language-julia hljs">import Pkg; Pkg.add(&quot;FdeSolver&quot;)</code></pre><h2 id="API"><a class="docs-heading-anchor" href="#API">API</a><a id="API-1"></a><a class="docs-heading-anchor-permalink" href="#API" title="Permalink"></a></h2><p>Example 1: <a href=" https:/link.springer.com/article/10.1023/B:NUMA.0000027736.85078.be">Fractional nonlinear equation</a></p><p class="math-container">\[0&lt;\beta\leq1\]</p><p>subject to the initial condition</p><p class="math-container">\[y(0)=0\]</p><p>The exact solution is</p><p class="math-container">\[y(t)=t^8-3t^{4+\beta/2}+9/4t^\beta\]</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; using FdeSolver</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; using Plots, SpecialFunctions</code><code class="nohighlight hljs ansi" style="display:block;">ERROR: ArgumentError: Package Plots not found in current path:
+- Run `import Pkg; Pkg.add(&quot;Plots&quot;)` to install the Plots package.</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; # Inputs
+       tSpan = [0, 1]     # [intial time, final time]</code><code class="nohighlight hljs ansi" style="display:block;">2-element Vector{Int64}:
+ 0
+ 1</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; y0 = 0             # initial value</code><code class="nohighlight hljs ansi" style="display:block;">0</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; β = 0.9            # order of the derivative</code><code class="nohighlight hljs ansi" style="display:block;">0.9</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; # ODE Model
+       par = β</code><code class="nohighlight hljs ansi" style="display:block;">0.9</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; F(t, y, par) = (40320 ./ gamma(9 - par) .* t .^ (8 - par) .- 3 .* gamma(5 + par / 2)
+                  ./ gamma(5 - par / 2) .* t .^ (4 - par / 2) .+ 9/4 * gamma(par + 1) .+
+                  (3 / 2 .* t .^ (par / 2) .- t .^ 4) .^ 3 .- y .^ (3 / 2))</code><code class="nohighlight hljs ansi" style="display:block;">F (generic function with 1 method)</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; ## Numerical solution
+       t, Yapp = FDEsolver(F, tSpan, y0, β, par)</code><code class="nohighlight hljs ansi" style="display:block;">ERROR: UndefVarError: gamma not defined</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; # Plot
+       plot(t, Yapp, linewidth = 5, title = &quot;Solution of a 1D fractional IVP&quot;,
+            xaxis = &quot;Time (t)&quot;, yaxis = &quot;y(t)&quot;, label = &quot;Approximation&quot;)</code><code class="nohighlight hljs ansi" style="display:block;">ERROR: UndefVarError: plot not defined</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; plot!(t, t -&gt; (t.^8 - 3 * t .^ (4 + β / 2) + 9/4 * t.^β),
+             lw = 3, ls = :dash, label = &quot;Exact solution&quot;)</code><code class="nohighlight hljs ansi" style="display:block;">ERROR: UndefVarError: plot! not defined</code><code class="nohighlight hljs ansi" style="display:block;"></code></pre><p><img src="example1.png" alt="example1"/></p><p>Example 2: <a href="https://mc-stan.org/users/documentation/case-studies/lotka-volterra-predator-prey.html">Lotka-volterra-predator-prey</a></p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; using FdeSolver</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; using Plots</code><code class="nohighlight hljs ansi" style="display:block;">ERROR: ArgumentError: Package Plots not found in current path:
+- Run `import Pkg; Pkg.add(&quot;Plots&quot;)` to install the Plots package.</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; # Inputs
+       tSpan = [0, 25]                    # [initial time, final time]</code><code class="nohighlight hljs ansi" style="display:block;">2-element Vector{Int64}:
+  0
+ 25</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; y0 = [34, 6]                       # initial values</code><code class="nohighlight hljs ansi" style="display:block;">2-element Vector{Int64}:
+ 34
+  6</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; β = [0.98, 0.99]                   # order of derivatives</code><code class="nohighlight hljs ansi" style="display:block;">2-element Vector{Float64}:
+ 0.98
+ 0.99</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; par = [0.55, 0.028, 0.84, 0.026]   # model parameters</code><code class="nohighlight hljs ansi" style="display:block;">4-element Vector{Float64}:
+ 0.55
+ 0.028
+ 0.84
+ 0.026</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; # ODE Model
+       function F(t, y, par)
+       
+           α1 = par[1]      # growth rate of the prey population
+           β1 = par[2]      # rate of shrinkage relative to the product of the population sizes
+           γ = par[3]       # shrinkage rate of the predator population
+           δ = par[4]       # growth rate of the predator population as a factor of the product
+                            # of the population sizes
+       
+           u = y[1]         # population size of the prey species at time t[n]
+           v = y[2]         # population size of the predator species at time t[n]
+       
+           F1 = α1 .* u .- β1 .* u .* v
+           F2 = - γ .* v .+ δ .* u .* v
+       
+           [F1, F2]
+       
+       end</code><code class="nohighlight hljs ansi" style="display:block;">F (generic function with 1 method)</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; ## Solution
+       t, Yapp = FDEsolver(F, tSpan, y0, β, par)</code><code class="nohighlight hljs ansi" style="display:block;">([0.0, 0.015625, 0.03125, 0.046875, 0.0625, 0.078125, 0.09375, 0.109375, 0.125, 0.140625  …  24.859375, 24.875, 24.890625, 24.90625, 24.921875, 24.9375, 24.953125, 24.96875, 24.984375, 25.0], [34.0 6.0; 34.2230819988679 6.004605170244161; … ; 19.462837398735253 26.523585821512793; 19.410684421804234 26.384815951114838])</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; # Plot
+       plot(t, Yapp, linewidth = 5, title = &quot;Solution to LV model with 2 FDEs&quot;,
+            xaxis = &quot;Time (t)&quot;, yaxis = &quot;y(t)&quot;, label = [&quot;Prey&quot; &quot;Predator&quot;])</code><code class="nohighlight hljs ansi" style="display:block;">ERROR: UndefVarError: plot not defined</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; plot!(legendtitle = &quot;Population of&quot;)</code><code class="nohighlight hljs ansi" style="display:block;">ERROR: UndefVarError: plot! not defined</code><code class="nohighlight hljs ansi" style="display:block;"></code></pre><p><img src="example2.png" alt="example2"/></p><p>Example3: <a href="https://en.wikipedia.org/wiki/Compartmental_models_in_epidemiology">SIR model</a></p><p>One application of using fractional calculus is taking into account effects of <a href="https://journals.aps.org/pre/abstract/10.1103/PhysRevE.95.022409">memory</a> in modeling including epidemic evolution.</p><p>By defining the Jacobian matrix, the user can achieve a faster convergence based on the modified <a href="https://www.mdpi.com/2227-7390/6/2/16/htm">Newton–Raphson</a> method.</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; using FdeSolver</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; using Plots</code><code class="nohighlight hljs ansi" style="display:block;">ERROR: ArgumentError: Package Plots not found in current path:
+- Run `import Pkg; Pkg.add(&quot;Plots&quot;)` to install the Plots package.</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; # Inputs
+       I0 = 0.001             # intial value of infected</code><code class="nohighlight hljs ansi" style="display:block;">0.001</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; tSpan = [0, 100]       # [intial time, final time]</code><code class="nohighlight hljs ansi" style="display:block;">2-element Vector{Int64}:
+   0
+ 100</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; y0 = [1 - I0, I0, 0]   # initial values [S0,I0,R0]</code><code class="nohighlight hljs ansi" style="display:block;">3-element Vector{Float64}:
+ 0.999
+ 0.001
+ 0.0</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; α = [1, 1, 1]          # order of derivatives</code><code class="nohighlight hljs ansi" style="display:block;">3-element Vector{Int64}:
+ 1
+ 1
+ 1</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; h = 0.1                # step size of computation (default = 0.01)</code><code class="nohighlight hljs ansi" style="display:block;">0.1</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; par = [0.4, 0.04]      # parameters [β, recovery rate]</code><code class="nohighlight hljs ansi" style="display:block;">2-element Vector{Float64}:
+ 0.4
+ 0.04</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; ## ODE model
+       function F(t, y, par)
+       
+           # parameters
+           β = par[1]    # infection rate
+           γ = par[2]    # recovery rate
+       
+           S = y[1]   # Susceptible
+           I = y[2]   # Infectious
+           R = y[3]   # Recovered
+       
+           # System equation
+           dSdt = - β .* S .* I
+           dIdt = β .* S .* I .- γ .* I
+           dRdt = γ .* I
+       
+           return [dSdt, dIdt, dRdt]
+       
+       end</code><code class="nohighlight hljs ansi" style="display:block;">F (generic function with 1 method)</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; ## Jacobian of ODE system
+       function JacobF(t, y, par)
+       
+           # parameters
+           β = par[1]     # infection rate
+           γ = par[2]     # recovery rate
+       
+           S = y[1]    # Susceptible
+           I = y[2]    # Infectious
+           R = y[3]    # Recovered
+       
+           # System equation
+           J11 = - β * I
+           J12 = - β * S
+           J13 =  0
+           J21 =  β * I
+           J22 =  β * S - γ
+           J23 =  0
+           J31 =  0
+           J32 =  γ
+           J33 =  0
+       
+           J = [J11 J12 J13
+                J21 J22 J23
+                J31 J32 J33]
+       
+           return J
+       
+       end</code><code class="nohighlight hljs ansi" style="display:block;">JacobF (generic function with 1 method)</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; ## Solution
+       t, Yapp = FDEsolver(F, tSpan, y0, α, par, JF = JacobF, h = h)</code><code class="nohighlight hljs ansi" style="display:block;">([0.0, 0.1, 0.2, 0.30000000000000004, 0.4, 0.5, 0.6000000000000001, 0.7000000000000001, 0.8, 0.9  …  99.10000000000001, 99.2, 99.30000000000001, 99.4, 99.5, 99.60000000000001, 99.7, 99.80000000000001, 99.9, 100.0], [0.999 0.001 0.0; 0.9989593091947656 0.0010366175700941887 4.073235140188378e-6; … ; 6.824542360178368e-5 0.04081887104069068 0.9591128835357072; 6.813430816299295e-5 0.04065603234934978 0.959275833342487])</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; # Plot
+       plot(t, Yapp, linewidth = 5, title = &quot;Numerical solution of SIR model&quot;,
+            xaxis = &quot;Time (t)&quot;, yaxis = &quot;SIR populations&quot;, label=[&quot;Susceptible&quot; &quot;Infectious&quot; &quot;Recovered&quot;])</code><code class="nohighlight hljs ansi" style="display:block;">ERROR: UndefVarError: plot not defined</code><code class="nohighlight hljs ansi" style="display:block;"></code></pre><p><img src="example3.png" alt="example3"/></p><p>Example4: Dynamics of interaction of N species microbial communities</p><p>The impact of <a href="https://www.biorxiv.org/content/10.1101/2021.09.01.458486v1.abstract">ecological memory</a> on the dynamics of interacting communities can be quantified by solving fractional form ODE systems.</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; using FdeSolver</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; using Plots</code><code class="nohighlight hljs ansi" style="display:block;">ERROR: ArgumentError: Package Plots not found in current path:
+- Run `import Pkg; Pkg.add(&quot;Plots&quot;)` to install the Plots package.</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; ## inputs
+       tSpan = [0, 50]   # time span</code><code class="nohighlight hljs ansi" style="display:block;">2-element Vector{Int64}:
+  0
+ 50</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; h = 0.1           # time step</code><code class="nohighlight hljs ansi" style="display:block;">0.1</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; N = 20            # number of species</code><code class="nohighlight hljs ansi" style="display:block;">20</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; β = ones(N)       # order of derivatives</code><code class="nohighlight hljs ansi" style="display:block;">20-element Vector{Float64}:
+ 1.0
+ 1.0
+ 1.0
+ 1.0
+ 1.0
+ 1.0
+ 1.0
+ 1.0
+ 1.0
+ 1.0
+ 1.0
+ 1.0
+ 1.0
+ 1.0
+ 1.0
+ 1.0
+ 1.0
+ 1.0
+ 1.0
+ 1.0</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; X0 = 2 * rand(N)  # initial abundances</code><code class="nohighlight hljs ansi" style="display:block;">20-element Vector{Float64}:
+ 1.3235433778268204
+ 1.4284488924215362
+ 0.9137189212742656
+ 1.968824316540113
+ 0.03378694519899472
+ 0.8142357877643329
+ 1.925322803931294
+ 1.8035961172663275
+ 1.5130456538156305
+ 0.5785467098281747
+ 0.19011242989253185
+ 1.2729799777271738
+ 1.6868898473771137
+ 1.6778800045512705
+ 0.1443916001537935
+ 1.0065578118956737
+ 1.7793767285707909
+ 0.505442458977928
+ 0.36258541733776584
+ 0.849979908891147</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; # parametrisation
+       par = [2,
+              2 * rand(N),
+              rand(N),
+              4 * rand(N, N),
+              N]</code><code class="nohighlight hljs ansi" style="display:block;">5-element Vector{Any}:
+  2
+   [0.6593883182540816, 1.741053772902628, 0.15771412253251782, 1.2969402431588701, 0.8358064161483116, 0.14486920065898667, 0.6282913422781733, 0.1582222218265228, 1.3454589110013595, 1.120003920502512, 0.3470915026582184, 1.7404288126940326, 1.2207158100532083, 0.49454938839465257, 0.24424673514617856, 0.5739860561487631, 1.8935364207573548, 0.9999297426399165, 0.5638914415094329, 1.4521586851822796]
+   [0.8755309012330166, 0.9213411832154783, 0.9846243445675888, 0.04984365509053701, 0.8964084110160291, 0.07372459487545258, 0.9815834395384524, 0.20521474708803233, 0.25876935830769643, 0.2103597440915017, 0.8144744241281976, 0.3688871764042385, 0.16506758228729912, 0.5564671574697106, 0.4022296205699343, 0.06926040345374829, 0.08632928498430359, 0.3867835178893906, 0.5468598137780023, 0.9866368194649535]
+   [0.2937429457301466 1.9750924756763508 … 2.7358840101676485 1.2407201518319155; 2.1722403178003864 0.8837345254850506 … 1.780052684326341 2.0394306986721062; … ; 2.531311169536788 0.1945778974842547 … 3.527916367592244 1.1099628850312335; 3.414865643353198 1.521176130170586 … 0.8192853685456596 0.8949729409976275]
+ 20</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; # ODE model
+       function F(t, x, par)
+       
+           l = par[1] # Hill coefficient
+           b = par[2] # growth rates
+           k = par[3] # death rates
+           K = par[4] # inhibition matrix
+           N = par[5] # number of species
+       
+           Fun = zeros(N)
+       
+           for i in 1:N
+       
+               # inhibition functions
+               f = prod(K[i, 1:end .!= i] .^ l ./
+                    (K[i, 1:end .!= i] .^ l .+ x[ 1:end .!= i] .^l))
+       
+               # System of equations
+               Fun[i] = x[ i] .* (b[i] .* f .- k[i] .* x[ i])
+       
+           end
+       
+           return Fun
+       
+       end</code><code class="nohighlight hljs ansi" style="display:block;">F (generic function with 1 method)</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; # Solution
+       t, Xapp = FDEsolver(F, tSpan, X0, β, par, h = h, nc = 3, tol = 10e-9)</code><code class="nohighlight hljs ansi" style="display:block;">┌ Warning: The tolerance tol and the maximum number of iterations itmax are relevant only if StopIt is set at &#39;Convergence&#39;.
+└ @ FdeSolver ~/work/FdeSolver.jl/FdeSolver.jl/src/structs.jl:146
+([0.0, 0.1, 0.2, 0.30000000000000004, 0.4, 0.5, 0.6000000000000001, 0.7000000000000001, 0.8, 0.9  …  49.1, 49.2, 49.300000000000004, 49.400000000000006, 49.5, 49.6, 49.7, 49.800000000000004, 49.900000000000006, 50.0], [1.3235433778268204 1.4284488924215362 … 0.36258541733776584 0.849979908891147; 1.1853656426030748 1.2612112493135241 … 0.35553440218072696 0.7840184905686702; … ; 0.022802899534537745 0.19479892978315244 … 0.03461014273912205 0.02263598535738793; 0.02275862496743072 0.19503684025674095 … 0.03455331608998267 0.022597873630060952])</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; # Plot
+       plot(t, Xapp, linewidth = 5,
+            title = &quot;Dynamics of microbial interaction model&quot;,
+            xaxis = &quot;Time (t)&quot;)</code><code class="nohighlight hljs ansi" style="display:block;">ERROR: UndefVarError: plot not defined</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt;      yaxis!(&quot;Log Abundance&quot;, :log10, minorgrid = true)</code><code class="nohighlight hljs ansi" style="display:block;">ERROR: UndefVarError: yaxis! not defined</code><code class="nohighlight hljs ansi" style="display:block;"></code></pre><p><img src="example4.png" alt="example4"/></p></article><nav class="docs-footer"><a class="docs-footer-nextpage" href="../">Manual »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.12 on <span class="colophon-date" title="Thursday 24 February 2022 10:48">Thursday 24 February 2022</span>. Using Julia version 1.6.5.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
