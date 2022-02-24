@@ -21,11 +21,18 @@ The package development is linked with the following publications/preprints:
 
 We implement the [predictor-corrector](https://link.springer.com/article/10.1023/A:1016592219341) algorithms with a sufficient [convergence and accuracy](https://link.springer.com/article/10.1023/B:NUMA.0000027736.85078.be), including fast Fourier transform technique that gives us high computation speed. Interested readers can also find the [stability](https://www.tandfonline.com/doi/full/10.1080/00207160802624331) of the methods and see how to implement the methods for solving [multi-term](https://link.springer.com/article/10.1007/s00607-003-0033-3) fractional differential equations.
 
-Let us suppose the following initial value problem with the Caputo fractional derivative ${}_{C}\!D_{t_0}^\beta$ when $\beta>0$
-
-<img src="https://latex.codecogs.com/svg.image?{}_{C}\!D_{t_0}^{\beta}y(t)=f(t,y(t))" title="{}_{C}\!D_{t_0}^{\beta}y(t)=f(t,y(t))" />
-
-with the initial condition <img src="https://latex.codecogs.com/svg.image?y(t_0)=y_0,y^{(1)}(t_0)=y^{(1)}_0,...,y^{(m-1)}(t_0)=y^{(m-1)}_0" title="y(t_0)=y0" />, where m the smallest integer or equal to the order of derivative.
+Let us suppose the following initial value problem with the Caputo fractional derivative
+```math
+{}_{C}\!D_{t_0}^\beta$ when $\beta>0$
+```
+```math
+{}_{C}\!D_{t_0}^{\beta}y(t)=f(t,y(t))
+```
+with the initial condition
+```math
+y(t_0)=y_0,y^{(1)}(t_0)=y^{(1)}_0,...,y^{(m-1)}(t_0)=y^{(m-1)}_0
+```
+where m the smallest integer or equal to the order of derivative.
 
 We solve the problem by using predictor corrector method (the equation (14) from this [paper](https://www.mdpi.com/2227-7390/6/2/16#)).
 
@@ -39,12 +46,20 @@ import Pkg; Pkg.add("FdeSolver")
 
 ## API
 
-Example1:
+Example 1:
 [Fractional nonlinear equation]( https://link.springer.com/article/10.1023/B:NUMA.0000027736.85078.be)
-<img src="https://latex.codecogs.com/gif.latex?0<\beta\leq1" /> ,
-subject to the initial condition <img src="https://latex.codecogs.com/gif.latex?y(0)=0" />.
+
+```math
+0<\beta\leq1
+```
+subject to the initial condition
+```math
+y(0)=0
+```
 The exact solution is
-<img src="https://latex.codecogs.com/gif.latex?y(t)=t^8-3t^{4+\beta/2}+9/4t^\beta" />.
+```math
+y(t)=t^8-3t^{4+\beta/2}+9/4t^\beta
+```
 
 ```@repl 1
 using FdeSolver
@@ -74,7 +89,7 @@ savefig("example1.png"); nothing # hide
 
 ![example1](example1.png)
 
-Example2:
+Example 2:
 [Lotka-volterra-predator-prey](https://mc-stan.org/users/documentation/case-studies/lotka-volterra-predator-prey.html)
 
 ```@repl 2
