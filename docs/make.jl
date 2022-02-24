@@ -27,6 +27,7 @@ makedocs(format=Documenter.HTML(),
          pages=[
              "Home" => "readme.md",
              "Manual" => "index.md",
+             "Examples" => "examples.md"
                ])
 
 deploydocs(repo="github.com/JuliaTurkuDataScience/FdeSolver.jl", push_preview=true)
