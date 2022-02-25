@@ -3,14 +3,8 @@
 Example 1:
 [Fractional nonlinear equation]( https://link.springer.com/article/10.1023/B:NUMA.0000027736.85078.be)
 
-```math
-0<\beta\leq1
-```
-subject to the initial condition
-```math
-y(0)=0
-```
-The exact solution is
+For `` 0<\beta\leq1 ``  being subject to the initial condition `` y(0)=0 ``, the exact solution is:
+
 ```math
 y(t)=t^8-3t^{4+\beta/2}+9/4t^\beta
 ```
@@ -20,24 +14,24 @@ using FdeSolver
 using Plots, SpecialFunctions
 
 # Inputs
-tSpan = [0, 1]     # [intial time, final time]
-y0 = 0             # initial value
-β = 0.9            # order of the derivative
+tSpan = [0, 1];     # [intial time, final time]
+y0 = 0;             # initial value
+β = 0.9;            # order of the derivative
 
 # ODE Model
-par = β
+par = β;
 F(t, y, par) = (40320 ./ gamma(9 - par) .* t .^ (8 - par) .- 3 .* gamma(5 + par / 2)
            ./ gamma(5 - par / 2) .* t .^ (4 - par / 2) .+ 9/4 * gamma(par + 1) .+
-           (3 / 2 .* t .^ (par / 2) .- t .^ 4) .^ 3 .- y .^ (3 / 2))
+           (3 / 2 .* t .^ (par / 2) .- t .^ 4) .^ 3 .- y .^ (3 / 2));
 
 ## Numerical solution
-t, Yapp = FDEsolver(F, tSpan, y0, β, par)
+t, Yapp = FDEsolver(F, tSpan, y0, β, par);
 
 # Plot
 plot(t, Yapp, linewidth = 5, title = "Solution of a 1D fractional IVP",
-     xaxis = "Time (t)", yaxis = "y(t)", label = "Approximation")
+     xaxis = "Time (t)", yaxis = "y(t)", label = "Approximation");
 plot!(t, t -> (t.^8 - 3 * t .^ (4 + β / 2) + 9/4 * t.^β),
-      lw = 3, ls = :dash, label = "Exact solution")
+      lw = 3, ls = :dash, label = "Exact solution");
 savefig("example1.png"); nothing # hide
 ```
 
@@ -51,16 +45,16 @@ using FdeSolver
 using Plots
 
 # Inputs
-tSpan = [0, 25]                    # [initial time, final time]
-y0 = [34, 6]                       # initial values
-β = [0.98, 0.99]                   # order of derivatives
-par = [0.55, 0.028, 0.84, 0.026]   # model parameters
+tSpan = [0, 25];                    # [initial time, final time]
+y0 = [34, 6];                       # initial values
+beta = [0.98, 0.99];                # order of derivatives
+par = [0.55, 0.028, 0.84, 0.026];   # model parameters
 
 # ODE Model
 function F(t, y, par)
 
-    α1 = par[1]      # growth rate of the prey population
-    β1 = par[2]      # rate of shrinkage relative to the product of the population sizes
+    α = par[1]      # growth rate of the prey population
+    β = par[2]      # rate of shrinkage relative to the product of the population sizes
     γ = par[3]       # shrinkage rate of the predator population
     δ = par[4]       # growth rate of the predator population as a factor of the product
                      # of the population sizes
@@ -68,7 +62,7 @@ function F(t, y, par)
     u = y[1]         # population size of the prey species at time t[n]
     v = y[2]         # population size of the predator species at time t[n]
 
-    F1 = α1 .* u .- β1 .* u .* v
+    F1 = α .* u .- β .* u .* v
     F2 = - γ .* v .+ δ .* u .* v
 
     [F1, F2]
@@ -76,12 +70,12 @@ function F(t, y, par)
 end
 
 ## Solution
-t, Yapp = FDEsolver(F, tSpan, y0, β, par)
+t, Yapp = FDEsolver(F, tSpan, y0, beta, par);
 
 # Plot
 plot(t, Yapp, linewidth = 5, title = "Solution to LV model with 2 FDEs",
-     xaxis = "Time (t)", yaxis = "y(t)", label = ["Prey" "Predator"])
-plot!(legendtitle = "Population of")
+     xaxis = "Time (t)", yaxis = "y(t)", label = ["Prey" "Predator"]);
+plot!(legendtitle = "Population of");
 savefig("example2.png"); nothing # hide
 ```
 
@@ -99,12 +93,12 @@ using FdeSolver
 using Plots
 
 # Inputs
-I0 = 0.001             # intial value of infected
-tSpan = [0, 100]       # [intial time, final time]
-y0 = [1 - I0, I0, 0]   # initial values [S0,I0,R0]
-α = [1, 1, 1]          # order of derivatives
-h = 0.1                # step size of computation (default = 0.01)
-par = [0.4, 0.04]      # parameters [β, recovery rate]
+I0 = 0.001;             # intial value of infected
+tSpan = [0, 100];       # [intial time, final time]
+y0 = [1 - I0, I0, 0];   # initial values [S0,I0,R0]
+α = [1, 1, 1];          # order of derivatives
+h = 0.1;                # step size of computation (default = 0.01)
+par = [0.4, 0.04];      # parameters [β, recovery rate]
 
 ## ODE model
 function F(t, y, par)
@@ -157,11 +151,11 @@ function JacobF(t, y, par)
 end
 
 ## Solution
-t, Yapp = FDEsolver(F, tSpan, y0, α, par, JF = JacobF, h = h)
+t, Yapp = FDEsolver(F, tSpan, y0, α, par, JF = JacobF, h = h);
 
 # Plot
 plot(t, Yapp, linewidth = 5, title = "Numerical solution of SIR model",
-     xaxis = "Time (t)", yaxis = "SIR populations", label=["Susceptible" "Infectious" "Recovered"])
+     xaxis = "Time (t)", yaxis = "SIR populations", label = ["Susceptible" "Infectious" "Recovered"]);
 savefig("example3.png"); nothing # hide
 ```
 
@@ -177,18 +171,18 @@ using FdeSolver
 using Plots
 
 ## inputs
-tSpan = [0, 50]   # time span
-h = 0.1           # time step
-N = 20            # number of species
-β = ones(N)       # order of derivatives
-X0 = 2 * rand(N)  # initial abundances
+tSpan = [0, 50];   # time span
+h = 0.1;           # time step
+N = 20;            # number of species
+β = ones(N);       # order of derivatives
+X0 = 2 * rand(N);  # initial abundances
 
 # parametrisation
 par = [2,
        2 * rand(N),
        rand(N),
        4 * rand(N, N),
-       N]
+       N];
 
 # ODE model
 function F(t, x, par)
@@ -217,13 +211,13 @@ function F(t, x, par)
 end
 
 # Solution
-t, Xapp = FDEsolver(F, tSpan, X0, β, par, h = h, nc = 3, tol = 10e-9)
+t, Xapp = FDEsolver(F, tSpan, X0, β, par, h = h, nc = 3, tol = 10e-9);
 
 # Plot
 plot(t, Xapp, linewidth = 5,
      title = "Dynamics of microbial interaction model",
-     xaxis = "Time (t)")
-     yaxis!("Log Abundance", :log10, minorgrid = true)
+     xaxis = "Time (t)");
+     yaxis!("Log Abundance", :log10, minorgrid = true);
 savefig("example4.png"); nothing # hide
 ```
 
