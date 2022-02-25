@@ -1,4 +1,4 @@
-## API
+# Usage and Applications
 
 Example 1:
 [Fractional nonlinear equation]( https://link.springer.com/article/10.1023/B:NUMA.0000027736.85078.be)

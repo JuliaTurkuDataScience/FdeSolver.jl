@@ -1,4 +1,4 @@
-# FdeSolver.jl
+# API
 
 *Let's solve some differential equations!*
 
