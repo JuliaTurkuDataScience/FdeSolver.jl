@@ -43,4 +43,4 @@ If Julia is installed correctly, you can import FdeSolver.jl as:
 import Pkg; Pkg.add("FdeSolver")
 ```
 
-A few examples on its usage are available in the [documentation]()
+A few methods on its usage are explained in [Examples](https://juliaturkudatascience.github.io/FdeSolver.jl/stable/examples/).
