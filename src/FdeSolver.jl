@@ -1,8 +1,8 @@
 module FdeSolver
 
-using SpecialFunctions
-using LinearAlgebra
-using FFTW
+import SpecialFunctions: gamma
+import LinearAlgebra: Diagonal, norm, I
+import FFTW: fft, ifft
 
 include("main.jl")
 include("main_Jacob.jl")
