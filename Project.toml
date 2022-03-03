@@ -11,7 +11,7 @@ SpecialFunctions = "276daf66-3868-5448-9aa4-cd146d93841b"
 [compat]
 FFTW = "1.2"
 SpecialFunctions = "1, 2"
-julia = "1.4 - 1.7.1"
+julia = "1"
 
 [extras]
 MittagLeffler = "9c257583-4f8f-53fd-abd9-c69d5080dd54"
