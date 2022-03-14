@@ -1,4 +1,5 @@
 using FdeSolver, Documenter
+ENV["GKSwstype"] = "100"
 
 generated_path = joinpath(@__DIR__, "src")
 base_url = "https://github.com/JuliaTurkuDataScience/FdeSolver.jl/blob/main/"
