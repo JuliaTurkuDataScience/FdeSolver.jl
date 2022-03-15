@@ -14,7 +14,7 @@ The package development is linked with the following publications/preprints:
 
 - Three-species Lotka-Volterra model with respect to Caputo and Caputo-Fabrizio fractional operators. M Khalighi, L Eftekhari, S Hosseinpour, L Lahti. Symmetry 13 (3):368, 2021. [doi:10.3390/sym13030368](https://doi.org/10.3390/sym13030368)
 
-- Quantifying the impact of ecological memory on the dynamics of interacting communities. M Khalighi, D Gonze, K Faust, G Sommeria-Klein, L Lahti. bioRxiv 2021.09.01.458486 [doi:10.1101/2021.09.01.458486](https://doi.org/10.1101/2021.09.01.458486)
+- Quantifying the impact of ecological memory on the dynamics of interacting communities. M Khalighi, G Sommeria-Klein, D Gonze, K Faust, L Lahti. bioRxiv 2021.09.01.458486 [doi:10.1101/2021.09.01.458486](https://doi.org/10.1101/2021.09.01.458486)
 
 
 ## Method
