@@ -43,9 +43,6 @@ savefig("example1.png"); nothing # hide
 [Lotka-volterra-predator-prey](https://mc-stan.org/users/documentation/case-studies/lotka-volterra-predator-prey.html)
 
 ```@example fde
-using FdeSolver
-using Plots
-
 # Inputs
 tSpan = [0, 25];                    # [initial time, final time]
 y0 = [34, 6];                       # initial values
@@ -166,10 +163,6 @@ Dynamics of interaction of N species microbial communities
 The impact of [ecological memory](https://www.biorxiv.org/content/10.1101/2021.09.01.458486v1.abstract) on the dynamics of interacting communities can be quantified by solving fractional form ODE systems.
 
 ```@example fde
-using FdeSolver
-using Plots
-
-## inputs
 tSpan = [0, 50];   # time span
 h = 0.1;           # time step
 N = 20;            # number of species
