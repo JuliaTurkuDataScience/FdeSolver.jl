@@ -1,6 +1,6 @@
 # Usage and Applications
 
-```setup fde
+```@setup fde
 using FdeSolver
 using Plots, SpecialFunctions
 ```
