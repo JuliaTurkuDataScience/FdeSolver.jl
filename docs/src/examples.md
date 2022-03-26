@@ -1,6 +1,11 @@
 # Usage and Applications
 
-Example 1:
+```@setup fde
+using FdeSolver
+using Plots, SpecialFunctions
+```
+
+## Example 1:
 [Fractional nonlinear equation]( https://link.springer.com/article/10.1023/B:NUMA.0000027736.85078.be)
 
 For `` 0<\beta\leq1 ``  being subject to the initial condition `` y(0)=0 ``, the exact solution is:
@@ -9,10 +14,7 @@ For `` 0<\beta\leq1 ``  being subject to the initial condition `` y(0)=0 ``, the
 y(t)=t^8-3t^{4+\beta/2}+9/4t^\beta
 ```
 
-```@repl 1
-using FdeSolver
-using Plots, SpecialFunctions
-
+```@example fde 
 # Inputs
 tSpan = [0, 1];     # [intial time, final time]
 y0 = 0;             # initial value
@@ -37,13 +39,10 @@ savefig("example1.png"); nothing # hide
 
 ![example1](example1.png)
 
-Example 2:
+## Example 2:
 [Lotka-volterra-predator-prey](https://mc-stan.org/users/documentation/case-studies/lotka-volterra-predator-prey.html)
 
-```@repl 2
-using FdeSolver
-using Plots
-
+```@example fde
 # Inputs
 tSpan = [0, 25];                    # [initial time, final time]
 y0 = [34, 6];                       # initial values
@@ -81,17 +80,14 @@ savefig("example2.png"); nothing # hide
 
 ![example2](example2.png)
 
-Example 3:
+## Example 3:
 [SIR model](https://en.wikipedia.org/wiki/Compartmental_models_in_epidemiology)
 
 One application of using fractional calculus is taking into account effects of [memory](https://journals.aps.org/pre/abstract/10.1103/PhysRevE.95.022409) in modeling including epidemic evolution.
 
 By defining the Jacobian matrix, the user can achieve a faster convergence based on the modified [Newton–Raphson](https://www.mdpi.com/2227-7390/6/2/16/htm) method.
 
-```@repl 3
-using FdeSolver
-using Plots
-
+```@example fde 
 # Inputs
 I0 = 0.001;             # intial value of infected
 tSpan = [0, 100];       # [intial time, final time]
@@ -161,16 +157,12 @@ savefig("example3.png"); nothing # hide
 
 ![example3](example3.png)
 
-Example 4:
+## Example 4:
 Dynamics of interaction of N species microbial communities
 
 The impact of [ecological memory](https://www.biorxiv.org/content/10.1101/2021.09.01.458486v1.abstract) on the dynamics of interacting communities can be quantified by solving fractional form ODE systems.
 
-```@repl 4
-using FdeSolver
-using Plots
-
-## inputs
+```@example fde
 tSpan = [0, 50];   # time span
 h = 0.1;           # time step
 N = 20;            # number of species
