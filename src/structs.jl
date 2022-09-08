@@ -1,6 +1,9 @@
 
 const default_values = (2^-6, 1, nothing, ("Standard", "Convergence"), 10e-6, 100)
 
+SZ=Base.size # we have to define a new function size() because size is defined as a value!
+    # catch exceptions for tSpan
+
 struct PositionalArguments
 
     F::Function
@@ -10,10 +13,10 @@ struct PositionalArguments
 
     function PositionalArguments(F, tSpan, y0, β)
 
-        # catch exceptions for tSpan
+
         if length(tSpan) != 2
 
-            error("tSpan should contain exactly 2 values: one for the initial time and the other for the final time.")
+            error("tSpan should contain exactly 2 values: first value is for the initial time and the second one for the final time.")
 
         end
 
@@ -28,25 +31,35 @@ struct PositionalArguments
 
             if length(β) != 1
 
-                error("Either β has too many values or y0 has too few.")
+                error("Either the order of derivatives (β) has too many values or the initial values (y0) has too few.")
+
+            end
+            if length(y0) < Int64(ceil(β))
+
+                error("The number of elements in initial values (y0) should equal the smallest integer greater than (or equal to) order of derivative (ceil(β)). For instance, if β = [1.2], its next integer is 2 and y0 should have 2 elements for the initial values.")
 
             end
 
         elseif typeof(y0) <: Vector{<:Real}
 
-            if (size(y0) != size(β) && length(β) != 1)
+            if SZ(y0,2) != Int64(ceil(maximum(β)))
 
-                error("The number of elements in y0 should match that in β.")
+                error("The number of elements in initial values (y0) should equal the smallest integer greater than or equal to order of derivative (ceil(max(β)). For instance, if β = [1.2] or β = [0.5, 1.2], its next integer is 2 and y0 should have 2 elements for the initial values.")
 
-            elseif (size(y0) != size(β) && length(β) == 1)
+            end
+            if (SZ(y0) != SZ(β) && length(β) != 1)
+
+                error("The number of elements in initial values (y0) should match that in order of derivatives (β).")
+
+            elseif (SZ(y0) != SZ(β) && length(β) == 1)
 
                 error("Initial values of higher-order derivatives should not be given as a vector (y0 = [y0', y0'', y0''', ...]). Instead, they should be given as a matrix (y0 = [y0' y0'' y0''' ...]).")
 
-                if length(y0) != Int64(ceil(β))
-
-                    error("The number of elements in y0 should equal the next integer of β. For instance, if β = 1.2, its next integer is 2 and y0 should have 2 elements for the initial values.")
-
-                end
+                # if length(y0) != Int64(ceil(β))
+                #
+                #     error("The number of elements in initial values (y0) should equal the smallest integer greater than or equal to order of derivative (ceil(max(β)). For instance, if β = [1.2] or β = [0.5, 1.2], its next integer is 2 and y0 should have 2 elements for the initial values.")
+                #
+                # end
 
             end
 
@@ -54,21 +67,21 @@ struct PositionalArguments
 
             if length(β) == 1
 
-                if size(y0, 2) != Int64(ceil(β))
+                if SZ(y0, 2) != Int64(ceil(β))
 
-                    error("The number of elements in y0 should equal the next integer of β. For instance, if β = 1.2, its next integer is 2 and y0 should have 2 elements for the initial values.")
+                    error("The number of elements in initial values (y0) should equal the smallest integer greater than or equal to order of derivative (ceil(max(β)). For instance, if β = [1.2] or β = [0.5, 1.2], its next integer is 2 and y0 should have 2 elements for the initial values.")
 
                 end
 
             else # length(β) != 1
 
-                if size(y0, 2) != Int64(ceil(maximum(β)))
+                if SZ(y0, 2) != Int64(ceil(maximum(β)))
 
                     error("The number of columns in y0 should equal the next integer of β. For instance, if β = 1.2, its next integer is 2 and y0 should have 2 columns of initial values.")
 
                 end
 
-                if size(y0, 2) != length(β)
+                if SZ(y0, 2) != length(β)
 
                     error("The number of rows in y0 should match the length of β, that is, the number of equations to solve.")
 
@@ -99,7 +112,7 @@ struct PositionalArguments
 
         if !(typeof(y0) <: Matrix{<:Real})
 
-            Y0 = zeros(size(y0, 1), Int64(ceil(maximum(β))))
+            Y0 = zeros(SZ(y0, 1), Int64(ceil(maximum(β))))
             Y0 .= y0
 
         else
@@ -219,7 +232,7 @@ struct initial_conditions
 
     function initial_conditions(t0, y0, m_β, m_β_factorial)
 
-        if size(y0, 2) < maximum(m_β)
+        if SZ(y0, 2) < maximum(m_β)
 
             error("There are not enough initial conditions to solve a system of order β.")
 
