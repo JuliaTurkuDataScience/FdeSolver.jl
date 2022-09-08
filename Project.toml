@@ -1,7 +1,7 @@
 name = "FdeSolver"
 uuid = "1746e360-1058-44a5-9855-ddd460437d0c"
 authors = ["Moein Khalighi", "Giulio Benedetti", "Leo Lahti"]
-version = "1.0.2"
+version = "1.0.3"
 
 [deps]
 FFTW = "7a1cc6ca-52ef-59f5-83cd-3a7055c09341"
