@@ -24,33 +24,37 @@ Solves fractional differential equations with a predictor-corrector approach.
    without the aid of the Jacobian matrix.
 - `par...`: additional parameters for the function F.
 - `h::Real`: the step size for correction.
-- `nc::Int64`: the desired number of corrections.
-- `StopIt::String`: the method to stop correction. It can take either "Standard"
-   (by default) or "Convergence". In the former case, the function will repeat
-   correction as many times as specified in nc; in the latter case, correction will
-   stop only when tolerance (tol) or the iteration max (itmax) is reached.
-- `tol::Float64`: the tolerance.
+- `nc::Int64`: the desired number of corrections for predictor-corrector method, when there is no Jacobian.
+- `tol::Float64`: the tolerance of errors, the norm inf of each iteration (for NR method) or correction when nc>10 (for PC method).
 - `ìtmax::Int64`: the maximal number of iterations.
 """
-function FDEsolver(F, tSpan, y0, β, par...; h = default_values[1], nc = default_values[2], JF = default_values[3], StopIt = default_values[3], tol = default_values[5], itmax = default_values[6])
+function FDEsolver(F, tSpan, y0, β, par...; h = default_values[1], nc = default_values[2], JF = default_values[3], tol = default_values[4], itmax = default_values[5])
 
+    pos_args = PositionalArguments(F, tSpan, y0, β)
+    opt_args = OptionalArguments(h, nc, tol, itmax)
 
-    if isnothing(StopIt)
+    if JF==default_values[3]
+        if itmax != default_values[5] && nc == default_values[2]
 
-        if isnothing(JF)
+            @warn "Setting the maximum number of iterations (itmax) is relevant
+            only if you use a Jacobian function, otherwise the method is
+                predictor-corrector method that no need itmax but you can set
+                number of corrections (nc)."
 
-            StopIt = default_values[4][1]
+        end
 
-        else
+    else # JF!=default_values[3]
 
-            StopIt = default_values[4][2]
+        if nc != default_values[2] && itmax == default_values[5]
+
+            @warn "Setting the number of corrections (nc) is relevant
+            only if you do NOT use a Jacobian function, otherwise the method is
+                predictor-corrector method that no need nc but you can set
+                the maximum number of iterations (itmax)."
 
         end
 
     end
-
-    pos_args = PositionalArguments(F, tSpan, y0, β)
-    opt_args = OptionalArguments(h, nc, StopIt, tol, itmax)
 
     _FDEsolver(pos_args, opt_args, JF, par...)
 

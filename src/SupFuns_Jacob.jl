@@ -151,21 +151,14 @@ function JTriangolo(nxi, nxf, t, y, fy, zn, N, METH, Probl)
 
             mu_it += 1
 
-            if METH.StopIt == "Convergence"
-
                 stop = (norm(yn1 - yn0, Inf) < METH.μTol || norm(Gn1, Inf) <  METH.μTol)
 
                 if (mu_it > METH.itmax && !stop)
 
+                    @warn "The iterations do not convergence to the determined tolerance. Try a larger tolarence or a bigger number of max iterations."
                     stop = true
 
                 end
-
-            else
-
-                stop = (mu_it == METH.μ)
-
-            end
 
             yn0 = yn1
             Gn0 = Gn1

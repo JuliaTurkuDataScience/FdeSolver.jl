@@ -217,18 +217,12 @@ function Triangolo(nxi, nxf, t, y, fy, zn_pred, zn_corr, N, METH, Probl)
                 yn1 = Φ_n + METH.hα2 .* fn0
                 mu_it += 1
 
-                if METH.StopIt == "Convergence"
-
+                if METH.μ >10
                     stop = norm(yn1 - yn0, Inf) < METH.μTol
-
-                    if (mu_it > METH.itmax && !stop)
-
-                        stop = true
-
+                    if !stop
+                        @warn("The process does not converge to the tolerance.")
                     end
-
                 else
-
                     stop = (mu_it == METH.μ)
 
                 end

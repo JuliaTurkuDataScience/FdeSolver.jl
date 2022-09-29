@@ -79,7 +79,7 @@ function _FDEsolver(pos_args, opt_args, ::Nothing, par...)
 
     end
 
-    METH = Method(bn, an, a0, opt_args.h .^ β ./ Γ(β .+ 1), opt_args.h .^ β ./ Γ(β .+ 2), opt_args.nc, opt_args.tol, r, opt_args.StopIt, opt_args.itmax)
+    METH = Method(bn, an, a0, opt_args.h .^ β ./ Γ(β .+ 1), opt_args.h .^ β ./ Γ(β .+ 2), opt_args.nc, opt_args.tol, r)
 
     # Evaluation of FFT of coefficients of the PECE method
     if Qr >= 0

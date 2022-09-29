@@ -77,7 +77,7 @@ function _FDEsolver(pos_args, opt_args, JF::Function, par...)
 
     end
 
-    METH = JMethod(an, a0, opt_args.h .^ β ./ Γ(β .+ 1), opt_args.h .^ β ./ Γ(β .+ 2), opt_args.nc, opt_args.tol, r, opt_args.StopIt, opt_args.itmax)
+    METH = JMethod(an, a0, opt_args.h .^ β ./ Γ(β .+ 1), opt_args.h .^ β ./ Γ(β .+ 2), opt_args.tol, r, opt_args.itmax)
 
     # Evaluation of FFT of coefficients of the PECE method
     if Qr >= 0

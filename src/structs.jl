@@ -1,5 +1,5 @@
 
-const default_values = (2^-6, 1, nothing, ("Standard", "Convergence"), 10e-6, 100)
+const default_values = (2^-6, 1, nothing, 10e-6, 100)
 
 SZ=Base.size # we have to define a new function size() because size is defined as a value!
     # catch exceptions for tSpan
@@ -131,18 +131,10 @@ struct OptionalArguments
 
     h::Float64
     nc::Int64
-    StopIt::String
     tol::Float64
     itmax::Int64
 
-    function OptionalArguments(h, nc, StopIt, tol, itmax)
-
-        # catch exceptions for StopIt
-        if !(StopIt == "Standard" || StopIt == "Convergence")
-
-            error("StopIt can take on either 'Standard' or 'Convergence'.")
-
-        end
+    function OptionalArguments(h, nc, tol, itmax)
 
         # catch exceptions for h
         if h <= 0
@@ -152,25 +144,13 @@ struct OptionalArguments
         end
 
         # give warnings for tol, itmax and nc
-        if StopIt == default_values[4][1]
+        if nc != default_values[2] && itmax != default_values[5]
 
-            if (tol != default_values[5] || itmax != default_values[6])
-
-                @warn "The tolerance tol and the maximum number of iterations itmax are relevant only if StopIt is set at 'Convergence'."
-
-            end
-
-        else # StopIt == default_values[4][2]
-
-            if nc != default_values[2]
-
-                @warn "The number of corrections nc is relevant only if StopIt is set at 'Standard'."
-
-            end
-
+                @warn "Setting the maximum number of iterations (itmax) makes sense only if you use a Jacobian function
+                    and setting the number of corrections (nc) make sense only if you do NOT use a Jacobian function."
         end
 
-        new(h, nc, StopIt, tol, itmax)
+        new(h, nc, tol, itmax)
 
     end
 
@@ -210,8 +190,6 @@ struct Method
     μ::Int64
     μTol::Float64
     r::Int64
-    StopIt::String
-    itmax::Int64
 
 end
 
@@ -275,10 +253,8 @@ struct JMethod
     a0::Matrix{Float64}
     hα1 # we should think about its type
     hα2 # we should think about its type
-    μ::Int64
     μTol::Float64
     r::Int64
-    StopIt::String
     itmax::Int64
 
 end
