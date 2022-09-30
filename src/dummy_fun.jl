@@ -3,7 +3,7 @@
 # nothing as the second argument when the Jacobian matrix is not provided.
 
 """
-    FDEsolver(F::Function, tSpan::Vector{<:Real}, y0::Union{Real, Vector{<:Real}, Matrix{<:Real}}, β::Union{Real, Vector{<:Real}}, par...; h = 2^-6, nc = 2, JF = nothing, StopIt = "Standard", tol = 10e-6, itmax = 100)
+    FDEsolver(F::Function, tSpan::Vector{<:Real}, y0::Union{Real, Vector{<:Real}, Matrix{<:Real}}, β::Union{Real, Vector{<:Real}}, par...; h = 2^-6, nc = 2, JF = nothing, tol = 10e-6, itmax = 100)
 
 Solves fractional differential equations with a predictor-corrector approach.
 
