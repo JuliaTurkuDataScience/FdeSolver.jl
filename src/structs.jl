@@ -1,5 +1,5 @@
 
-const default_values = (2^-6, 1, nothing, 10e-6, 100)
+const default_values = (2^-6, 1, nothing, 1e-6, 100)
 
 SZ=Base.size # we have to define a new function size() because size is defined as a value!
     # catch exceptions for tSpan
