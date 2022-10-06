@@ -3,7 +3,7 @@
 # nothing as the second argument when the Jacobian matrix is not provided.
 
 """
-    FDEsolver(F::Function, tSpan::Vector{<:Real}, y0::Union{Real, Vector{<:Real}, Matrix{<:Real}}, β::Union{Real, Vector{<:Real}}, par...; h = 2^-6, nc = 2, JF = nothing, tol = 10e-6, itmax = 100)
+    FDEsolver(F::Function, tSpan::Vector{<:Real}, y0::Union{Real, Vector{<:Real}, Matrix{<:Real}}, β::Union{Real, Vector{<:Real}}, par...; h = 2^-6, nc = 2, JF = nothing, tol = 1e-6, itmax = 100)
 
 Solves fractional differential equations with a predictor-corrector approach.
 
@@ -23,7 +23,7 @@ Solves fractional differential equations with a predictor-corrector approach.
 - `JF::Function`: the Jacobian of F. If not provided, the solver will evaluate the solution
    without the aid of the Jacobian matrix.
 - `par...`: additional parameters for the function F.
-- `h::Real`: the step size for correction.
+- `h::Real`: the step size of the computation.
 - `nc::Int64`: the desired number of corrections for predictor-corrector method, when there is no Jacobian.
 - `tol::Float64`: the tolerance of errors, the norm inf of each iteration (for NR method) or correction when nc>10 (for PC method).
 - `ìtmax::Int64`: the maximal number of iterations.
