@@ -155,9 +155,9 @@ function _FDEsolver(pos_args, opt_args, JF::Function, par...)
     # Evaluation solution in T when T is not in the mesh
     if pos_args.tSpan[2] < t[N + 1]
 
-        c = [pos_args.tSpan[2] - t(N)] / opt_args.h
+        c = [pos_args.tSpan[2] - t[N]] / opt_args.h
         t[N + 1] = pos_args.tSpan[2]
-        y[:, N + 1] = (1 - c) * y[:, N] + c * y[:, N + 1]
+        y[:, N + 1] = (1 .- c) .* y[:, N] .+ c .* y[:, N + 1]
 
     end
 
