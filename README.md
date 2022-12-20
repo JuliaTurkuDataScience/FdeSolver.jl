@@ -7,7 +7,7 @@
 
 This is a **Julia** package for fractional differential equations and ODEs. It provides numerical solutions for nonlinear fractional ordinary differential equations (in the sense of Caputo).
 
-Related work includes the independent [FractionalCalculus](https://github.com/ErikQQY/FractionalCalculus.jl.git) Julia Package that covers fractional operators, and earlier tools that are available in [Matlab](https://www.dm.uniba.it/members/garrappa/software).
+Related work includes the independent [FractionalDiffEq](https://github.com/SciFracX/FractionalDiffEq.jl) Julia Package that provides solutions of differential equations with different fractional operators, and earlier tools that are available in [Matlab](https://www.dm.uniba.it/members/garrappa/software).
 
 ## Publications
 
