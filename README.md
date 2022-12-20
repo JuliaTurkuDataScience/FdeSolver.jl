@@ -34,7 +34,7 @@ y(t_0)=y_0,y^{(1)}(t_0)=y^{(1)}_0,...,y^{(m-1)}(t_0)=y^{(m-1)}_0
 ```
 where m is the smallest integer or equal to the order of derivative.
 
-We solve the problem by using predictor corrector method (the equation (14) from this [paper](https://www.mdpi.com/2227-7390/6/2/16#)).
+We solve the problem by using [predictor corrector and Newton Raphson method](https://www.mdpi.com/2227-7390/6/2/16#).
 
 
 ## Installation
