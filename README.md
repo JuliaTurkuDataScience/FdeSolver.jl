@@ -3,7 +3,7 @@
 [![Stable](https://img.shields.io/badge/docs-stable-blue.svg)](https://juliaturkudatascience.github.io/FdeSolver.jl/stable/readme/)
 [![CI](https://github.com/JuliaTurkuDataScience/FdeSolver.jl/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/JuliaTurkuDataScience/FdeSolver.jl/actions/workflows/CI.yml)
 [![codecov](https://codecov.io/gh/JuliaTurkuDataScience/FdeSolver.jl/branch/main/graph/badge.svg?token=SJ5F6RQ31P)](https://codecov.io/gh/JuliaTurkuDataScience/FdeSolver.jl)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7461985.svg)](https://doi.org/10.5281/zenodo.7461985)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7462094.svg)](https://doi.org/10.5281/zenodo.7462094)
 
 This is a **Julia** package for fractional differential equations and ODEs. It provides numerical solutions for nonlinear fractional ordinary differential equations (in the sense of Caputo).
 
