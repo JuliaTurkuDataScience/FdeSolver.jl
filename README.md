@@ -15,7 +15,7 @@ The package development is linked with the following publications/preprints:
 
 - Fdesolver: A Julia package for solving fractional differential equations M Khalighi, G Benedetti, L Lahti arXiv preprint, 2022.  [arXiv:2212.12550](https://arxiv.org/abs/2212.12550)
 
-- Ebola epidemic model with dynamic population and memory, F Ndaïrou, M Khalighi, and L Lahti, Chaos, Solitons & Fractals, 170: 113361, 2023. [doi:10.1016/j.chaos.2023.113361](https://www.sciencedirect.com/science/article/pii/S096007792300262X)
+- Ebola epidemic model with dynamic population and memory, F Ndaïrou, M Khalighi, and L Lahti, Chaos, Solitons \& Fractals, 170: 113361, 2023. [doi:10.1016/j.chaos.2023.113361](https://www.sciencedirect.com/science/article/pii/S096007792300262X)
 
 - Three-species Lotka-Volterra model with respect to Caputo and Caputo-Fabrizio fractional operators. M Khalighi, L Eftekhari, S Hosseinpour, L Lahti. Symmetry 13 (3):368, 2021. [doi:10.3390/sym13030368](https://doi.org/10.3390/sym13030368)
 
