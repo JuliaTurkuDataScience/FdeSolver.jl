@@ -24,7 +24,7 @@ The package development is linked with the following publications/preprints:
 
 ## Method
 
-We implement the [predictor-corrector](https://link.springer.com/article/10.1023/A:1016592219341) algorithms with a sufficient [convergence and accuracy](https://link.springer.com/article/10.1023/B:NUMA.0000027736.85078.be), including fast Fourier transform technique that gives us high computation speed. Interested readers can also find the [stability](https://www.tandfonline.com/doi/full/10.1080/00207160802624331) of the methods and see how to implement the methods for solving [multi-term](https://link.springer.com/article/10.1007/s00607-003-0033-3) fractional differential equations.
+We implement the [predictor-corrector](https://doi.org/10.1023/A:1016592219341) algorithms with a sufficient [convergence and accuracy](https://doi.org/10.1023/B:NUMA.0000027736.85078.be), including fast Fourier transform technique that gives us high computation speed. Interested readers can also find the [stability](https://doi.org/10.1080/00207160802624331) of the methods and see how to implement the methods for solving [multi-term](https://doi.org/10.1007/s00607-003-0033-3) fractional differential equations.
 
 Let us suppose the following initial value problem with the Caputo fractional derivative for  $\beta>0$:
 
