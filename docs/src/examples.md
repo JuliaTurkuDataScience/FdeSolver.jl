@@ -5,7 +5,7 @@ using FdeSolver
 using Plots, SpecialFunctions
 ```
 
-## Example 1: [Fractional nonlinear equation]( https://link.springer.com/article/10.1023/B:NUMA.0000027736.85078.be)
+## Example 1: [Fractional nonlinear equation](https://doi.org/10.1023/B:NUMA.0000027736.85078.be)
 
 For `` 0<\beta\leq1 ``  being subject to the initial condition `` y(0)=0 ``, the exact solution is:
 
@@ -156,7 +156,7 @@ savefig("example3.png"); nothing # hide
 
 ## Example 4: Dynamics of interaction of N species microbial communities
 
-The impact of [ecological memory](https://www.biorxiv.org/content/10.1101/2021.09.01.458486v1.abstract) on the dynamics of interacting communities can be quantified by solving fractional form ODE systems.
+The impact of [ecological memory](https://doi.org/10.1371/journal.pcbi.1009396) on the dynamics of interacting communities can be quantified by solving fractional form ODE systems.
 
 ```@example fde
 tSpan = [0, 50];   # time span
