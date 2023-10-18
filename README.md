@@ -15,7 +15,7 @@ The package development is linked with the following publications/preprints:
 
 - Fdesolver: A Julia package for solving fractional differential equations M Khalighi, G Benedetti, L Lahti arXiv preprint, 2022.  [arXiv:2212.12550](https://arxiv.org/abs/2212.12550)
 
-- Ebola epidemic model with dynamic population and memory, F Ndaïrou, M Khalighi, and L Lahti, Chaos, Solitons \& Fractals, 170: 113361, 2023. [doi:10.1016/j.chaos.2023.113361](https://www.sciencedirect.com/science/article/pii/S096007792300262X)
+- Ebola epidemic model with dynamic population and memory, F Ndaïrou, M Khalighi, and L Lahti, Chaos, Solitons \& Fractals, 170: 113361, 2023. [doi:10.1016/j.chaos.2023.113361](https://doi.org/10.1016/j.chaos.2023.113361)
 
 - Three-species Lotka-Volterra model with respect to Caputo and Caputo-Fabrizio fractional operators. M Khalighi, L Eftekhari, S Hosseinpour, L Lahti. Symmetry 13 (3):368, 2021. [doi:10.3390/sym13030368](https://doi.org/10.3390/sym13030368)
 
@@ -24,7 +24,7 @@ The package development is linked with the following publications/preprints:
 
 ## Method
 
-We implement the [predictor-corrector](https://doi.org/10.1023/A:1016592219341) algorithms with a sufficient [convergence and accuracy](https://doi.org/10.1023/B:NUMA.0000027736.85078.be), including fast Fourier transform technique that gives us high computation speed. Interested readers can also find the [stability](https://doi.org/10.1080/00207160802624331) of the methods and see how to implement the methods for solving [multi-term](https://doi.org/10.1007/s00607-003-0033-3) fractional differential equations.
+We implement the [predictor-corrector](https://doi.org/10.1023/A:1016592219341) algorithms with a sufficient convergence and accuracy (https://doi.org/10.1023/B:NUMA.0000027736.85078.be), including fast Fourier transform technique that gives us high computation speed. Interested readers can also find the [stability](https://doi.org/10.1080/00207160802624331) of the methods and see how to implement the methods for solving [multi-term](https://doi.org/10.1007/s00607-003-0033-3) fractional differential equations.
 
 Let us suppose the following initial value problem with the Caputo fractional derivative for  $\beta>0$:
 
