@@ -56,6 +56,8 @@ This research has received funding from
  * the Horizon 2020 Programme of the European Union within the [FindingPheno project](https://www.findingpheno.eu/) under grant agreement No 952914.
  * Research Council of Finland (grant 330887)
 
+ Package documentation is compiled according to the guidelines provided in [PkgTutorial.jl](https://juliaturkudatascience.github.io/PkgTutorial.jl/dev/).
+
 ## Publications
 
 **Kindly cite this work** as follows:

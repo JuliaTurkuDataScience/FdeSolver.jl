@@ -6,3 +6,4 @@
 *.jl.mem
 docs/build/
 docs/src/readme.md
+.vscode/*
