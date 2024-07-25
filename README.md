@@ -62,16 +62,16 @@ This research has received funding from
 
 **Kindly cite this work** as follows:
 
-- Fdesolver: A Julia package for solving fractional differential equations M Khalighi, G Benedetti, L Lahti arXiv preprint, 2022.  [arXiv:2212.12550](https://arxiv.org/abs/2212.12550)
+- Fdesolver: A Julia package for solving fractional differential equations. M Khalighi, G Benedetti, L Lahti. [ACM Transactions on Mathematical Software](https://doi.org/10.1145/3680280), 2024.
 
 
 The package development is further linked with the following publications/preprints:
 
+- Ebola epidemic model with dynamic population and memory, F Ndaïrou, M Khalighi, and L Lahti, Chaos, Solitons \& Fractals, 170: 113361, 2023. [doi:10.1016/j.chaos.2023.113361](https://doi.org/10.1016/j.chaos.2023.113361)
+
 - Quantifying the impact of ecological memory on the dynamics of interacting communities. M Khalighi, G Sommeria-Klein, D Gonze, K Faust, L Lahti. PLoS Computational Biology 18(6), 2022 [doi:10.1371/journal.pcbi.1009396](https://doi.org/10.1371/journal.pcbi.1009396)
 
 - Three-species Lotka-Volterra model with respect to Caputo and Caputo-Fabrizio fractional operators. M Khalighi, L Eftekhari, S Hosseinpour, L Lahti. Symmetry 13 (3):368, 2021. [doi:10.3390/sym13030368](https://doi.org/10.3390/sym13030368)
-
-- Ebola epidemic model with dynamic population and memory, F Ndaïrou, M Khalighi, and L Lahti, Chaos, Solitons \& Fractals, 170: 113361, 2023. [doi:10.1016/j.chaos.2023.113361](https://doi.org/10.1016/j.chaos.2023.113361)
 
 
 

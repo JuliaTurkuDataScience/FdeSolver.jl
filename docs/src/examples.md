@@ -154,7 +154,7 @@ savefig("example3.png"); nothing # hide
 
 ![example3](example3.png)
 
-## Example 4: Dynamics of interaction of N species microbial communities
+## Example 4: [Dynamics of interaction of N species microbial communities](https://doi.org/10.1371/journal.pcbi.1009396)
 
 The impact of [ecological memory](https://doi.org/10.1371/journal.pcbi.1009396) on the dynamics of interacting communities can be quantified by solving fractional form ODE systems.
 
