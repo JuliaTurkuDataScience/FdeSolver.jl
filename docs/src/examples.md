@@ -7,9 +7,9 @@ using CSV, HTTP, DataFrames, Dates, StatsBase, Optim, StatsPlots, StatsPlots.Plo
 ```
 ## Example 1: [Fractional nonlinear equation](https://doi.org/10.1023/B:NUMA.0000027736.85078.be)
 
-$$
+```math
 D^\beta y(t) = \frac{40320}{\Gamma(9 - \beta)} t^{8 - \beta} - 3 \frac{\Gamma(5 + \beta / 2)}{\Gamma(5 - \beta / 2)} t^{4 - \beta / 2} + \frac{9}{4} \Gamma(\beta + 1) + \left( \frac{3}{2} t^{\beta / 2} - t^4 \right)^3 - \left[ y(t) \right]^{3 / 2}
-$$
+```
 
 
 For `` 0<\beta\leq1 ``  being subject to the initial condition `` y(0)=0 ``, the exact solution is:
@@ -45,12 +45,12 @@ savefig("example1.png"); nothing # hide
 
 ## Example 2: [Lotka-volterra-predator-prey](https://mc-stan.org/users/documentation/case-studies/lotka-volterra-predator-prey.html)
 
-$$
+```math
 \begin{align*}
 D^{μ_1}u &= (\alpha - \beta v) u = \alpha u - \beta u v \\
 D^{μ_2}v &= (-\gamma + \delta u) v = -\gamma v + \delta u v
 \end{align*}
-$$
+```
 
 ```@example fde
 # Inputs
@@ -93,13 +93,13 @@ savefig("example2.png"); nothing # hide
 ## Example 3: [SIR model](https://en.wikipedia.org/wiki/Compartmental_models_in_epidemiology)
 
 One application of using fractional calculus is taking into account effects of [memory](https://journals.aps.org/pre/abstract/10.1103/PhysRevE.95.022409) in modeling including epidemic evolution.
-$$
+```math
 \begin{align*}
 D^{α_1}S &= -\beta IS, \\
 D^{α_2}I &= \beta IS - \gamma I, \\
 D^{α_3}R &= \gamma I.
 \end{align*}
-$$
+```
 By defining the Jacobian matrix, the user can achieve a faster convergence based on the modified [Newton–Raphson](https://www.mdpi.com/2227-7390/6/2/16/htm) method.
 
 ```@example fde 
@@ -175,10 +175,10 @@ savefig("example3.png"); nothing # hide
 ## Example 4: [Dynamics of interaction of N species microbial communities](https://doi.org/10.1371/journal.pcbi.1009396)
 
 The impact of [ecological memory](https://doi.org/10.1371/journal.pcbi.1009396) on the dynamics of interacting communities can be quantified by solving fractional form ODE systems.
-$$
+```math
 D^{β_i}X_i = X_i \left( b_i f_i(\{X_k\}) - k_i X_i \right), \quad
 f_i(\{X_k\}) = \prod_{\substack{k=1 \\ k \neq i}}^N \frac{K_{ik}^n}{K_{ik}^n + X_k^n}.
-$$
+```
 ```@example fde
 tSpan = [0, 50];   # time span
 h = 0.1;           # time step
@@ -238,7 +238,7 @@ savefig("example4.png"); nothing # hide
 Different methods are used to adjust the order of fractional differential equation models, which helps in analyzing systems across various fields. 
 
 We use [Optim.jl](https://github.com/JuliaNLSolvers/Optim.jl) to demonstrate how modifying system parameters and the order of derivatives in FdeSolver can enhance the fitting of COVID-19 data. The model is as follows:
-$$
+```math
 \begin{align*}
 {D}_t^{\alpha_S} S(t) =& -\beta \frac{I}{N} S - l\beta \frac{H}{N} S - \beta' \frac{P}{N} S, \\
 {D}_t^{\alpha_E} E(t) =& \beta \frac{I}{N} S + l\beta \frac{H}{N} S + \beta' \frac{P}{N} S - \kappa E, \\
@@ -249,7 +249,7 @@ $$
 {D}_t^{\alpha_R} R(t) =& \gamma_i (I + P) + \gamma_r H, \\
 {D}_t^{\alpha_F} F(t) =& \delta_i I + \delta_p P + \delta_h H,
 \end{align*}
-$$
+```
 
 - **Model M1**: fits one parameter and uses integer orders.
 - **Model Mf1**: fits one parameter, but adjusts the derivative orders; however, all orders are equal, representing a commensurate fractional order.
