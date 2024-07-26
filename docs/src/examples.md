@@ -40,7 +40,6 @@ plot!(t, t -> (t.^8 - 3 * t .^ (4 + β / 2) + 9/4 * t.^β),
       lw = 3, ls = :dash, label = "Exact solution");
 savefig("example1.png"); nothing # hide
 ```
-
 ![example1](example1.png)
 
 ## Example 2: [Lotka-volterra-predator-prey](https://mc-stan.org/users/documentation/case-studies/lotka-volterra-predator-prey.html)
@@ -87,7 +86,6 @@ plot(t, Yapp, linewidth = 5, title = "Solution to LV model with 2 FDEs",
 plot!(legendtitle = "Population of");
 savefig("example2.png"); nothing # hide
 ```
-
 ![example2](example2.png)
 
 ## Example 3: [SIR model](https://en.wikipedia.org/wiki/Compartmental_models_in_epidemiology)
@@ -169,7 +167,6 @@ plot(t, Yapp, linewidth = 5, title = "Numerical solution of SIR model",
      xaxis = "Time (t)", yaxis = "SIR populations", label = ["Susceptible" "Infectious" "Recovered"]);
 savefig("example3.png"); nothing # hide
 ```
-
 ![example3](example3.png)
 
 ## Example 4: [Dynamics of interaction of N species microbial communities](https://doi.org/10.1371/journal.pcbi.1009396)
@@ -229,7 +226,6 @@ plot(t, Xapp, linewidth = 5,
      yaxis!("Log abundance", :log10, minorgrid = true);
 savefig("example4.png"); nothing # hide
 ```
-
 ![example4](example4.png)
 
 
