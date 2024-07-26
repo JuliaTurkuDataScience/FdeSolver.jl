@@ -30,4 +30,4 @@ StatsPlots = "f3b207a7-027a-5e70-b257-86293d7955fd"
 [targets]
 examples = ["Plots", "MittagLeffler"]
 test = ["Test", "SafeTestsets", "Statistics"]
-docs = ["Plots", "SpecialFunctions", "CSV","HTTP","DataFrames","Dates","StatsBase", "Optim","StatsPlots", "StatsPlots.PlotMeasures"]
+docs = ["Plots", "SpecialFunctions", "CSV","HTTP","DataFrames","Dates","StatsBase", "Optim","StatsPlots"]
